@@ -8,10 +8,24 @@ class CustomUser(AbstractUser):
 
 class owner(CustomUser):
     company_name = models.CharField(max_length=30, null=True, blank=False)
-    company_details = models.CharField(max_length=100, null=True, blank=False)
+    class Meta:
+        verbose_name = "Owner-User"
+        verbose_name_plural = "Owner-Users" 
 
 class manager(CustomUser):
     company_name = models.ForeignKey(owner, on_delete=models.CASCADE, null=True, blank=False)
+    class Meta:
+        verbose_name = "Manager-User"
+        verbose_name_plural = "Manager-Users" 
 
 class employee(CustomUser):
     company_name = models.ForeignKey(owner, on_delete=models.CASCADE, null=True, blank=False)
+    class Meta:
+        verbose_name = "Employee-User"
+        verbose_name_plural = "Employee-Users" 
+
+
+
+
+
+

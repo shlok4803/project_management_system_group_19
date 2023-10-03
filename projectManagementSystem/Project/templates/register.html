@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}register{% endblock title %}
+
+{% block content %}
+
+<a href={% url 'reg_employee' %}>emp</a>
+<a href={% url 'reg_manager' %}>mana</a>
+<a href={% url 'reg_owner' %}>owner</a>
+{% endblock content %}

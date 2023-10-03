@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}register owner{% endblock title %}
+
+{% block content %}
+
+<form class="m-5" method='post'>
+    {% csrf_token %}
+    
+    {{ form }}
+
+    <div class="mb-5 d-flex justify-content-center">
+        <button class="btn btn-primary" type="submit">REGISTER as owner</button>
+    </div>
+
+</form>
+{% endblock content %}
