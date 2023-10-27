@@ -1,49 +1,62 @@
-{% extends 'base.html' %}
-{% block title %}BlogIt • Login{% endblock title %}
-
-{% block content %} 
-<h2 class="my-4 mx-5"><u>Login</u></h2>
-
-{% if messages %}
-  {% for message in messages %}
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>{{message}}</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  {% endfor %}
-{% endif %}
-
-{% if error %}
-<div class="alert alert-danger alert-dismissible fade show m-4" role="alert">
-    <strong>{{error}}</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-{% endif %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to ProPlanning</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/login_form.css'%}">
+</head>
 
 
-<div class="m-5">
-    <form  method='post' action='/login/'>
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="exampleInput" class="form-label">Email address / Student ID</label>
-            <input type="text" class="form-control" id="exampleInput" name="email_user" required>
+<body>
+    
+    <header>
+        <h1>ProPlanning</h1>
+    </header>
+    {% comment %} {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>{{message}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endif %} {% endcomment %}
+    
+    <div class="wrapper">
+        <div class="login-container">
+            <div class="heading">
+                Login
+            </div>
+            
+            <form action="#" method="post">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label for="email"> Email Address : </label>
+                    <input type="email" name="email" id="email" placeholder="Enter your Email Address" required>
+                </div>
+                
+                <div class="field">
+                    <label for="pswd">Password : </label>
+                    <input type="password" name="password" id="pswd" placeholder="Enter Your Password">
+                </div>
+
+                <div class="forgot">
+                    <a class="link" href="{% url 'reset_password' %}">Forgot Password?</a>
+                </div>
+                
+                <div class="register">
+                    <p>Not Registered ?</p>
+                    <a class="link" href="{% url 'register' %}">Register Now</a>
+                </div>
+
+                <div class="field" id="submit-button">
+                    <input class="button-hover" type="submit" value="Submit">
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
-        </div>
-
-        <small><a class="text-muted" href={% url 'reset_password' %}>Forgotten Password !?</a></small>
-        <div class="mb-5 d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary">LOGIN</button>
-        </div>
-        <a href={% url 'register' %}>don't have account, Register here</a>
-    </form>
-</div>
-
-
-
-
-
-{% endblock content %}
-
+    </div>
+    
+</body>
+</html>
