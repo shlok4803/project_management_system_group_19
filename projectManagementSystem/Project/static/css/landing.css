@@ -157,12 +157,12 @@ header{
     }
 
     #hero_image_sub{
-        background: url('sources/hero-img.png') center no-repeat;
+        background: url('../img/hero-img.png') center no-repeat;
         background-size: 80% 60%;
     }
 
     #why_sub1{
-        background: url('sources/why_proplanning.png') center no-repeat;
+        background: url('../img/why_proplanning.png') center no-repeat;
         background-size: 80% 60%;
     }
     
