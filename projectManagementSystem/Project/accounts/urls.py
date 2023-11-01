@@ -4,6 +4,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from .views import landing_view, login_view, register_view, register_view_owner, register_view_manager, register_view_employee, home_view
 from .forms import PasswordResetConfirmForm
+from dashboard.views import dashboard
 
 urlpatterns = [
     path('', landing_view, name="landing"),
@@ -13,7 +14,7 @@ urlpatterns = [
     path('register/as_manager', register_view_manager, name="reg_manager"),
     path('register/as_employee', register_view_employee, name="reg_employee"),
     path('verification/', include('verify_email.urls')),	
-    path('home/', home_view, name="home"),
+    path('dashboard/',dashboard, name="dashboard"),
 
     # reset password with email auth
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name='forgot_password.html'), name='reset_password'),
