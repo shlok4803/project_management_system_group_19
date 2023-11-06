@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, 
+				initial-scale=1.0">
+    <title>dashboard</title>
+    <link rel="stylesheet" href="./css/dashboard_main.css">
+    <link rel="stylesheet" href="./css/dashboard_res.css">
+    <link rel="stylesheet" href="./css/create_project.css">
+</head>
+
+<body>
+
+    <!-- for header part -->
+    <header>
+
+        <div class="logosec">
+            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+                class="icn menuicn" id="menuicn" alt="menu-icon">
+            <div class="logo">ProPlanning</div>
+        </div>
+
+        <div class="message">
+            <div class="circle"></div>
+            <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+                <img src="./image/icons8-notification-50.png" class="icn" alt="">
+            </a>
+            <div class="dp">
+                <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+                    <img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
+                </a>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="main-container">
+        <div class="navcontainer">
+            <nav class="nav">
+                <div class="nav-upper-options">
+                    <a href="./dashboard.html">
+                        <div class="nav-option option1">
+                            <img src="./image/dashboard.svg" class="nav-img" alt="dashboard">
+                            <h3> Dashboard</h3>
+                        </div>
+                    </a>
+                    <a href="./profile.html">
+                        <div class="option2 nav-option">
+                            <img src="./image/my_profile.svg" class="nav-img" alt="articles">
+                            <h3> My Profile</h3>
+                        </div>
+                    </a>
+
+                    <a href="./MyProject.html">
+                        <div class="nav-option option3">
+                            <img src="./image/my_project.svg" class="nav-img" alt="report">
+                            <h3> My Project </h3>
+                        </div>
+                    </a>
+
+                    <a href="">
+                        <div class="nav-option option4">
+                            <img src="./image/progress.png" class="nav-img" alt="institution">
+                            <h3> Progress </h3>
+                        </div>
+                    </a>
+
+                    <a href="">
+                        <div class="nav-option option5">
+                            <img src="./image/chat.svg" class="nav-img" alt="blog">
+                            <h3> Chat </h3>
+                        </div>
+                    </a>
+
+                    <a href="">
+                        <div class="nav-option logout">
+                            <img src="./image/logout.svg" class="nav-img" alt="logout">
+                            <h3>Logout</h3>
+                        </div>
+                    </a>
+
+                </div>
+            </nav>
+        </div>
+        <div class="main">
+            <div class="project-container"> 
+                <div class="project-header">
+                    <h1 class="recent-Articles">Create New Task</h1>
+                </div>
+                <div class="project-body">
+                    <form action="" method="post">
+                        <div class="field">
+                            <label for="title"> Task Name : </label>
+                            <input type="text" name="title" id="title" placeholder="Enter Project Title" required>
+                        </div>
+
+
+                        <div class="field">
+                            <label for="employee"> Select Employee :</label>
+                            <select name="employee" id="employee">
+                                <option value="">Select Employee</option>
+                                {% for employee in employees %}
+                                    <option value="{{ employee.first_name }} - {{ employee.email }}">{{ employee.first_name }} ({{ employee.email }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+
+
+                        <div class="field">
+                            <label for="deadline"> Select Deadline :</label>
+                            <input type="datetime-local" name="deadline" id="deadline">
+                        </div>
+
+                        <div class="field">
+                            <label for="description"> Description :</label>
+                            <input type="text" name="description" id="description">
+                        </div>
+
+                        <div class="field">
+                            <input id="submit" type="submit" value="Create Task">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./dashboard.js"></script>
+</body>
+
+</html>

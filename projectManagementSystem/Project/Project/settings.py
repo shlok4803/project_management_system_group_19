@@ -151,3 +151,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') 
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Use the database-backed session engine
+SESSION_COOKIE_AGE = 3600  # Session timeout (1 hour)
+SESSION_SAVE_EVERY_REQUEST = True  # Save session data on every request

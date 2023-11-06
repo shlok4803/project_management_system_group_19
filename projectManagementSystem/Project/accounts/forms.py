@@ -15,11 +15,21 @@ class SignupForm_owner(UserCreationForm):
     class Meta:
         model = owner
         fields = ('first_name', 'email', 'password1', 'password2', 'company_name', 'contact')
+        
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.user_type = 'owner'  # Set the user type to 'owner'
+        
+        if commit:
+            user.save()
+
+        return user
+        
+        
 
 
 
 class SignupForm_manager(UserCreationForm):
-
     first_name = forms.CharField(label='First name', max_length=30, widget=forms.TextInput)
     email = forms.EmailField(label='Email address', widget=forms.EmailInput)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -30,7 +40,15 @@ class SignupForm_manager(UserCreationForm):
     class Meta:
         model = manager
         fields = ('first_name', 'email', 'password1', 'password2', 'company_name', 'contact')
+        
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.user_type = 'manager'  # Set the user type to 'owner'
+        
+        if commit:
+            user.save()
 
+        return user
 
 
 class SignupForm_employee(UserCreationForm):
@@ -44,8 +62,17 @@ class SignupForm_employee(UserCreationForm):
 
     class Meta:
         model = employee
+        CustomUser.is_employee=True
         fields = ('first_name', 'email', 'password1', 'password2', 'company_name', 'contact')
+        
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.user_type = 'employee'  # Set the user type to 'owner'
+        
+        if commit:
+            user.save()
 
+        return user
 
 
 
