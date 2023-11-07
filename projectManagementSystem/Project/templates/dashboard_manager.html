@@ -1,3 +1,4 @@
+<-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,9 +11,9 @@
 				initial-scale=1.0">
 	<title>dashboard</title>
 	<link rel="stylesheet"
-		href="./css/dashboard_main.css">
+		href="{% static 'css/dashboard_main.css' %}">
 	<link rel="stylesheet"
-		href="./css/dashboard_res.css">
+		href="{%static 'css/dashboard_res.css' %}">
 </head>
 
 <body>
@@ -32,7 +33,7 @@
 		<div class="message">
 			<div class="circle"></div>
 			<a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-				<img src="./image/icons8-notification-50.png" class="icn" alt="">
+				<img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
 			</a>
 			<div class="dp">
 				<a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
@@ -47,26 +48,26 @@
 		<div class="navcontainer">
 			<nav class="nav">
 				<div class="nav-upper-options">
-					<a href="./dashboard.html">
+					<a href="/dashboard">
 						<div class="nav-option option1">
-							<img src="./image/dashboard.svg"
+							<img src="{% static '/img/dashboard.svg' %}"
 								class="nav-img"
 								alt="dashboard">
 							<h3> Dashboard</h3>
 						</div>
 					</a>
-					<a href="./profile.html">
+					<a href="/dashboard/myprofile">
 						<div class="option2 nav-option">
-							<img src="./image/my_profile.svg"
+							<img src="{%static '/img/my_profile.svg' %}"
 								class="nav-img"
 								alt="articles">
 							<h3> My Profile</h3>
 						</div>
 					</a>
 
-					<a href="./view_project.html">
+					<a href="/dashboard/project">
 						<div class="nav-option option3">
-							<img src="./image/my_project.svg"
+							<img src="{%static '/img/my_project.svg' %}"
 								class="nav-img"
 								alt="report">
 							<h3> My Project </h3>
@@ -75,7 +76,7 @@
 
 					<a href="">
 						<div class="nav-option option4">
-							<img src="./image/progress.png"
+							<img src="{%static '/img/progress.png' %}"
 								class="nav-img"
 								alt="institution">
 							<h3> Progress </h3>
@@ -84,16 +85,16 @@
 
 					<a href="">
 						<div class="nav-option option5">
-							<img src="./image/chat.svg"
+							<img src="{%static '/img/chat.svg' %}"
 								class="nav-img"
 								alt="blog">
 							<h3> Chat </h3>
 						</div>
 					</a>
 					
-					<a href="">
+					<a href="{% url 'logout' %}">
 						<div class="nav-option logout">
-							<img src="./image/logout.svg"
+							<img src="{%static '/img/logout.svg' %}"
 								class="nav-img"
 								alt="logout">
 							<h3>Logout</h3>
@@ -121,7 +122,7 @@
 
 				<div class="box box1">
 					<div class="text">
-						<h2 class="topic-heading" style="text-align: center;">3</h2>
+						<h2 class="topic-heading" style="text-align: center;">{{ ongoing_count }}</h2>
 						<h2 class="topic">Assigned</h2>
 					</div>
 
@@ -131,7 +132,7 @@
 
 				<div class="box box2">
 					<div class="text">
-						<h2 class="topic-heading" style="text-align: center;">7</h2>
+						<h2 class="topic-heading" style="text-align: center;">{{ completed_count }}</h2>
 						<h2 class="topic">Completed</h2>
 					</div>
 
@@ -156,32 +157,25 @@
 					</div>
 
 					<div class="items">
-
-						<div class="items">
+						{% for project in projects %}
 							<div class="item1">
-								<h3 class="t-op-nextlvl">Project 1</h3>
-								
-								<h3 class="t-op-nextlvl">8/11/2023</h3>
+								<h3 class="t-op-nextlvl">{{ project.projectTitle }}</h3>
+								<h3 class="t-op-nextlvl">{{ project.deadline|date:'d/m/Y' }}</h3>
 								<div class="t-op-nextlvl">
-									<h3 class="label-tag">Pending</h3>
+									{% if project.status == 'O' %}
+										<h3 class="label-tag">Pending</h3>
+									{% elif project.status == 'C' %}
+										<h3 class="label-tag">Completed</h3>
+									{% endif %}
 								</div>
 							</div>
-	
-							<div class="item1">
-								<h3 class="t-op-nextlvl">Project 2</h3>
-								
-								<h3 class="t-op-nextlvl">20/11/2023</h3>
-								<div class="t-op-nextlvl">
-									<h3 class="label-tag">Completed</h3>
-								</div>
-							</div>
-
+						{% endfor %}
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<script src="/static/js/dashboard.js"></script>
+	<script src="{%static 'js/dashboard.js' %}"></script>
 </body>
 </html>

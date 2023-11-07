@@ -48,55 +48,55 @@
   <div class="navcontainer">
     <nav class="nav">
       <div class="nav-upper-options">
-        <a href="./dashboard.html">
+        <a href="/dashboard">
           <div class="nav-option option1">
-            <img src="./image/dashboard.svg"
-                 class="nav-img"
-                 alt="dashboard">
+            <img src="{% static '/img/dashboard.svg' %}"
+              class="nav-img"
+              alt="dashboard">
             <h3> Dashboard</h3>
           </div>
         </a>
-        <a href="./profile.html">
+        <a href="/dashboard/myprofile">
           <div class="option2 nav-option">
-            <img src="./image/my_profile.svg"
-                 class="nav-img"
-                 alt="articles">
+            <img src="{%static '/img/my_profile.svg' %}"
+              class="nav-img"
+              alt="articles">
             <h3> My Profile</h3>
           </div>
         </a>
 
-        <a href="./MyProject.html">
+        <a href="/dashboard/project">
           <div class="nav-option option3">
-            <img src="./image/my_project.svg"
-                 class="nav-img"
-                 alt="report">
+            <img src="{%static '/img/my_project.svg' %}"
+              class="nav-img"
+              alt="report">
             <h3> My Project </h3>
           </div>
         </a>
 
         <a href="">
           <div class="nav-option option4">
-            <img src="./image/progress.png"
-                 class="nav-img"
-                 alt="institution">
+            <img src="{%static '/img/progress.png' %}"
+              class="nav-img"
+              alt="institution">
             <h3> Progress </h3>
           </div>
         </a>
 
         <a href="">
           <div class="nav-option option5">
-            <img src="./image/chat.svg"
-                 class="nav-img"
-                 alt="blog">
+            <img src="{%static '/img/chat.svg' %}"
+              class="nav-img"
+              alt="blog">
             <h3> Chat </h3>
           </div>
         </a>
-
-        <a href="">
+        
+        <a href="{% url 'logout' %}">
           <div class="nav-option logout">
-            <img src="./image/logout.svg"
-                 class="nav-img"
-                 alt="logout">
+            <img src="{%static '/img/logout.svg' %}"
+              class="nav-img"
+              alt="logout">
             <h3>Logout</h3>
           </div>
         </a>

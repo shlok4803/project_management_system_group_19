@@ -21,14 +21,24 @@ from django.utils import timezone
 def dashboard(request):
   
     user=request.user
-
+    projects=None
+    
+    
     if user.user_type == 'owner':
         # Redirect the owner to the owner dashboard
-        return render(request,'dashboard_owner.html')
+        projects = project.objects.all()
+        recent_projects = projects.order_by('-created')[:3]
+        ongoing_count = project.objects.filter(status='O').count()
+        completed_count = project.objects.filter(status='C').count()
+        return render(request, 'dashboard_owner.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
     
     elif user.user_type == 'manager':
         # Redirect the manager to the manager dashboard
-        return render(request,'dashboard_manager.html')
+        projects = project.objects.filter(managerEmail=user.email)
+        recent_projects = projects.order_by('-created')[:3]
+        ongoing_count = projects.filter(status='O').count()
+        completed_count = projects.filter(status='C').count()
+        return render(request, 'dashboard_manager.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
     
     elif user.user_type == 'employee':
         # Redirect the employee to the employee dashboard
@@ -71,6 +81,8 @@ def CreateProject(request):
             managerName=assignee[0],
             managerEmail=assignee[1],
             status='O',
+            ownerName = user.first_name,
+            ownerEmail = user.email
         )
         messages.success(request, 'Project Created Successfully.')
         Project.save()
@@ -84,7 +96,7 @@ def CreateProject(request):
 def view_project(request):
     user = request.user
     projects = None
-
+    
     if user.user_type == 'owner':
         
         # Owners can view all projects.
@@ -94,7 +106,7 @@ def view_project(request):
         
     elif user.user_type == 'manager': 
         # Managers and employees can view projects they are assigned to.
-        projects = project.objects.filter(ManagerEmail=user.email)
+        projects = project.objects.filter(managerEmail=user.email)
         return render(request,'manager_view_project.html',{'project': projects})
         
     elif user.user_type == 'employee':
@@ -107,7 +119,7 @@ def edit_project(request,project_id):
     
     owner_instance = owner.objects.get(email=request.user.email)
     managers = manager.objects.filter(company_name=owner_instance)
-    projects = project.objects.get(projectID=project_id)
+    project_instance = project.objects.get(projectID=project_id)
     user=request.user
     
     if not user.user_type != owner:
@@ -119,17 +131,29 @@ def edit_project(request,project_id):
         description = request.POST.get('description')
         deadline = request.POST.get('deadline')
         assignee = request.POST['manager'].split('-')
+        status = request.POST.get('projectstatus')
+        print(status)
         
-        project.projectTitle = project_title
-        project.description = description
-        project.deadline = deadline
-        project.managerName=assignee[0]
-        project.managerEmail=assignee[1]
-        project.save()
+        
+        project_instance.projectTitle = project_title
+        project_instance.description = description
+        project_instance.deadline = deadline
+        project_instance.managerName=assignee[0]
+        project_instance.managerEmail=assignee[1]
+
+        if status == 'completed':
+            project_instance.status='C'
+            project_instance.completed=datetime.now()
+        
+        else:
+            project_instance.status='O'
+            project_instance.completed=None
+        
+        project_instance.save()
 
         return redirect('/dashboard/project')  # Redirect to the project details page
 
-    return render(request, 'edit_project.html', {'managers':managers},{'project': project})    
+    return render(request, 'edit_project.html', {'managers':managers,'project': project_instance})    
 
 
 

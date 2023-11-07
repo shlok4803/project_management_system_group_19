@@ -9,10 +9,12 @@ class project(models.Model):
     projectTitle = models.CharField(max_length=64)
     description = models.TextField()
     deadline = models.DateTimeField()
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField()
     completed = models.DateTimeField(blank=True, null=True)
     managerName = models.CharField(max_length=50,blank=True)
     managerEmail = models.EmailField(unique=False)
+    ownerName = models.CharField(max_length=50,blank=True)
+    ownerEmail = models.EmailField(unique=False)
     status = models.CharField(
         max_length=1,
         default='O',

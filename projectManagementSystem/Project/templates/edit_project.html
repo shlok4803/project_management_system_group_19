@@ -1,4 +1,4 @@
-<-- {% load static %} -->
+<!-- <-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,10 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, 
 				initial-scale=1.0">
-    <title>dashboard</title>
+    <title>Edit Project</title>
     <link rel="stylesheet" href="{%static 'css/dashboard_main.css' %}">
     <link rel="stylesheet" href="{%static 'css/dashboard_res.css' %}">
     <link rel="stylesheet" href="{%static 'css/create_project.css' %}">
+    
 </head>
 
 <body>
@@ -27,7 +28,8 @@
         <div class="message">
             <div class="circle"></div>
             <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-                <img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
+                <img src="{%static '/img/icons8-notification-50.png' %}" > 
+                <!-- <img src="image/icons8-notification-50.png" class="icn" alt=""> -->
             </a>
             <div class="dp">
                 <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
@@ -98,6 +100,7 @@
 				</div>
 			</nav>
 		</div>
+
         <div class="main">
             <div class="project-container"> 
                 <div class="project-header">
@@ -105,9 +108,10 @@
                 </div>
                 <div class="project-body">
                     <form action="" method="post">
+                        {% csrf_token %}
                         <div class="field">
                             <label for="project_title"> Project Title : </label>
-                            <input type="text" name="project_title" value="{{ project.projectTitle }}" required>
+                            <input type="text" id="title" name="project_title" value="{{ project.projectTitle }}" required>
                         </div>
                     
                         <div class="field">
@@ -124,16 +128,22 @@
                     
                         <div class="field">
                             <label for="deadline"> Select Deadline :</label>
-                            <input type="datetime-local" name="deadline" value="{{ project.deadline|date:'Y-m-d\TH:i' }}">
+                            <input type="datetime-local" id="deadline" name="deadline" min="{{ project.deadline|date:'Y-m-d\TH:i' }}" value="{{ project.deadline|date:'Y-m-d\TH:i' }}" required>
                         </div>
                     
                         <div class="field">
                             <label for="description"> Description :</label>
-                            <input type="text" name="description" value="{{ project.description }}">
+                            <input type="text" id="description" name="description" value="{{ project.description }}">
                         </div>
-
                         <div class="field">
-                            <input id="submit" type="submit" value="Save Changes">
+                            <label for="projectstatus">Project Status :</label>
+                            <select name="projectstatus" id="projectstatus" required>
+                                <option value="ongoing" {% if project.status == 'O' %}selected{% endif %}>Ongoing</option>
+                                <option value="completed" {% if project.status == 'C' %}selected{% endif %}>Completed</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <button type="submit" id="submit">Update Project</button>
                         </div>
                     </form>
                 </div>
@@ -142,6 +152,7 @@
     </div>
 
     <script src="{%static 'js/dashboard.js' %}"></script>
+    <script src="edit_project.js"></script>
 </body>
 
 </html>
