@@ -97,17 +97,19 @@ def view_project(request):
     user = request.user
     projects = None
     
-    if user.user_type == 'owner':
-        
+    if user.user_type == 'owner': 
         # Owners can view all projects.
-        projects = project.objects.all()
         
+        projects = project.objects.all() 
         return render(request,'owner_view_project.html',{'projects': projects})
         
     elif user.user_type == 'manager': 
-        # Managers and employees can view projects they are assigned to.
+        # Managers can view projects they are assigned to.
+        
         projects = project.objects.filter(managerEmail=user.email)
-        return render(request,'manager_view_project.html',{'project': projects})
+        ongoing_count = projects.filter(status='O').count()
+        completed_count = projects.filter(status='C').count()
+        return render(request,'manager_my_project.html',{'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count})
         
     elif user.user_type == 'employee':
         projects = project.objects.filter(employeeEmail=user.email)
@@ -204,6 +206,10 @@ def CreateTask(request, projectID):
             return redirect('your_task_dashboard_name', taskID=task.taskID)
 
     return redirect(reverse("ProjectDashboard", kwargs={"projectID": projectID}))
+
+@login_required
+def view_task(request):
+    return render(request,'manager_view_tasks.html')
 
 
 @login_required

@@ -9,11 +9,11 @@
   <meta name="viewport"
         content="width=device-width,
 				initial-scale=1.0">
-  <title>View Project</title>
+  <title>My Projects</title>
   <link rel="stylesheet"
-        href="{%static '/css/manager_view_project.css' %}">
+        href="{% static '/css/my_project_main.css' %}">
   <link rel="stylesheet"
-  href="{%static '/css/manager_view_project_res.css' %}">
+        href="{%static '/css/my_project_res.css' %}">
 </head>
 
 <body>
@@ -21,26 +21,26 @@
 <!-- for header part -->
 <header>
 
-    <div class="logosec">
-        <img src=
-                    "https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
-            class="icn menuicn"
-            id="menuicn"
-            alt="menu-icon">
-        <div class="logo">ProPlanning</div>
-    </div>
+  <div class="logosec">
+    <img src=
+                 "https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+         class="icn menuicn"
+         id="menuicn"
+         alt="menu-icon">
+    <div class="logo">ProPlanning</div>
+  </div>
 
-    <div class="message">
-        <div class="circle"></div>
-        <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-            <img src="./image/icons8-notification-50.png" class="icn" alt="">
-        </a>
-        <div class="dp">
-            <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-                <img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
-            </a>
-        </div>
+  <div class="message">
+    <div class="circle"></div>
+    <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+      <img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
+    </a>
+    <div class="dp">
+      <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+        <img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
+      </a>
     </div>
+  </div>
 
 </header>
 
@@ -117,52 +117,56 @@
                 alt="search-button">
         </div>
     </div> -->
-    <!-- <div class="desc-box">
-      <div class="description-box">
-        <div class="taskdata">
-          <span class="tasktitle">Task Name: </span><span class="tasktitle1">Task 1</span>
-         </div>
-         <div class="taskdata">
-           <span class="tasktitle">Deadline: </span><span>08/11/2023</span>
-         </div>
-         <div class="taskdata">
-           <span class="tasktitle">Description: </span><span class="desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, accusantium!</span>
-         </div>
-       </div>
-     </div> -->
+
+
 
     <div class="project-container">
       <div class="project-header">
-        <h1 class="project-header-text">Project name</h1>
-        <div class="progress-create-btn">
-            <a href="./progress.html"><button class="project-header-btn btns">View Progresss</button></a>
-            <a href="./create_task.html"><button class="project-header-btn btns">Create Task</button></a>
-        </div>
+        <h1 class="project-header-text">My Project</h1>
+        <!-- <a href=""><button class="project-header-btn">View Progress</button></a> -->
       </div>
 
       <div class="project-body">
-        <table class="main-table" id="maintable">
+        <table class="main-table">
           <thead>
-            <th>Tasks</th>
+            <th>Projects</th>
             <th>Status</th>
-            <th>Edit task</th>
+            <th>View Project</th>
           </thead>
           <tbody>
+            {% for project in projects %}
+            <tr class="table-row">
+                <td class="table-data">{{ project.projectTitle }}</td>
+                <td class="table-data">
+                    <h3 class="label-tag">
+                        {% if project.status == 'O' %}
+                            Pending
+                        {% elif project.status == 'C' %}
+                            Completed
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </h3>
+                </td>
+                <td class="table-data">
+                    <a href="/dashboard/project/task-view">
+                        <button class="button-tag btns">View</button>
+                    </a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr class="table-row">
+                <td class="table-data" colspan="4">No projects to show</td>
+            </tr>
+        {% endfor %}
 
-            <tr class="table-row" id="tablerow1">
-                <td class="table-data">Task 1</td>
-                <td class="table-data"><h3 class="label-tag">Pending</h3></td>
-                <td class="table-data"><a href="edit_task.html"><button class="button-tag btns">Edit</button></a></td>
-            </tr>
-            <tr class="table-row" id="tablerow2">
-              <td class="table-data">Task 2 </td>
-              <td class="table-data"><h3 class="label-tag">Pending</h3></td>
-              <td class="table-data"><a href="edit_task.html"><button class="button-tag btns">Edit</button></a></td>
-            </tr>
           </tbody>
         </table>
       </div>
-      
+
+    </div>
   </div>
+
+  <script src="{%static 'js/MyProject.js' %}"></script>
 </body>
 </html>

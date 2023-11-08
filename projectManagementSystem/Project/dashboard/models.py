@@ -23,6 +23,7 @@ class project(models.Model):
             ('C', 'Completed'),
         ]
     )
+    taskIDs = models.ManyToManyField('Task', related_name='projects', blank=True)
     def __str__(self):
         return self.projectTitle
     
@@ -40,8 +41,8 @@ class Task(models.Model):
     EmployeeName = models.CharField(max_length=30, blank=True)
     EmployeeEmail = models.EmailField(unique=True)
     projectID = models.ForeignKey(project, on_delete=models.CASCADE)
-    #ManagerName = models.CharField(max_length=30, blank=True)
-    ManagerEmail = models.EmailField(unique=True)
+    managerName = models.CharField(max_length=30, blank=True)
+    managerEmail = models.EmailField(unique=True)
     status = models.CharField(max_length=1, default='I',
         choices=[
             ('I', 'In Progress'),
@@ -51,6 +52,7 @@ class Task(models.Model):
  
     def __str__(self):
         return self.taskID
+    
 
 
 
