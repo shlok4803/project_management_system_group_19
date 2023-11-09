@@ -2,6 +2,7 @@ from django import forms
 from .models import owner,employee,manager,CustomUser
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models.fields import BLANK_CHOICE_DASH
 
 
 class MyModelChoiceField(forms.ModelChoiceField):
