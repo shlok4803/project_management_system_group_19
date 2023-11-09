@@ -22,7 +22,7 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=30, blank=True)
     email = models.EmailField(unique=True)
-    contact = models.CharField(max_length=12)
+    contact = models.CharField(max_length=15)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -37,7 +37,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 class owner(CustomUser):
-    company_name = models.CharField(max_length=30, null=True, blank=False)
+    company_name = models.CharField(max_length=30, null=True, blank=False, unique=True)
     class Meta:
         verbose_name = "Owner-User"
         verbose_name_plural = "Owner-Users" 
