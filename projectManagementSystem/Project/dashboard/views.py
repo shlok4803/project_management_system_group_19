@@ -92,6 +92,7 @@ def CreateProject(request):
     #managers = manager.objects.get(company_name=user.company_name)
     return render(request, 'create_project.html',{'managers':managers})
 
+
 @login_required
 def view_project(request):
     user = request.user
@@ -162,54 +163,55 @@ def edit_project(request,project_id):
 
 #Project Manager
 @login_required
-def CreateTask(request, projectID):
-    try: 
-        project = project.objects.get(projectID=projectID)
-    except:
-        raise ObjectDoesNotExist
-    
+def CreateTask(request,project_id):
     user = request.user
     
-    if not user.user_type == 'manager':
-        raise PermissionDenied
+    project_instance = project.objects.get(projectID=project_id)
+    owner_instance = owner.objects.get(email=project_instance.ownerEmail)
+    employees = employee.objects.filter(company_name=owner_instance)
 
-    if request.method == "POST":
-        assignee = request.POST['employee'].split('-')
-        if request.POST.get('taskID', ''):
-            task = Task.objects.get(taskID=request.POST['taskID'])
-            task.taskTitle = request.POST['title']
-            task.description = request.POST['description']
-            task.deadline = request.POST['deadline']
-            task.EmployeeName = assignee[0]
-            task.EmployeeEmail=assignee[1]
-            task.save()
-            messages.success(request, 'Task updated successfully.')
-            return redirect(reverse("TaskDashboard", kwargs={"taskID": task.taskID}))
-        timestamp = datetime.now()  
-        if not task.taskTitle or not task.description or not task.Employee or not task.deadline:
-            messages.error(request, "Please fill out all required fields.")  
-             
-        else:  
-            task = Task(
+    
+    if not user.user_type != manager:
+        messages.error(request, "Only owners can edit projects.")
+        return redirect('Logout')
+    
+
+    if request.method == 'POST':
+        csrf_token = request.POST.get('csrfmiddlewaretoken')
+        tasktitle = request.POST.get('task_title')
+        description = request.POST.get('description')
+        assignee = request.POST['employee'].split(' - ')
+        deadline = request.POST.get('deadline')
+        timestamp = datetime.now()
+        
+        task_instance = Task(
                 taskID="TSK"+timestamp.strftime("%d%m%y%H%M%S"),
-                taskTitle=request.POST['title'],
-                description=request.POST['description'],
-                EmployeeName=assignee[0],
-                deadline=request.POST['deadline'],
-                assigned=timestamp,
-                projectID=projectID,
-                ManagerEmail= project.managerEmail,
-                status='I'
+                taskTitle=tasktitle,
+                description=description,
+                deadline=deadline,
+                assignedDate=timestamp,
+                managerName=user.first_name,
+                managerEmail=user.email,
+                projectID=project_instance,
+                employeeName = assignee[0],
+                employeeEmail = assignee[1]
             )
-            task.save()
-            messages.success(request, 'Task '+ task.taskID + ' created successfully.')
-            return redirect('your_task_dashboard_name', taskID=task.taskID)
+        messages.success(request, 'Task Created Successfully.')
+        task_instance.save()
+        view_task_url = reverse('view-tasks', kwargs={'project_id': project_id})
 
-    return redirect(reverse("ProjectDashboard", kwargs={"projectID": projectID}))
+        return redirect(view_task_url) 
+    
+    context = {'project_instance': project_instance,'employees' : employees}
+    return render(request,'create_task.html',context)
 
 @login_required
-def view_task(request):
-    return render(request,'manager_view_tasks.html')
+def view_task(request,project_id):
+    
+    project_instance = project.objects.get(projectID=project_id)  # Replace with your actual project retrieval logic
+    task_instance=Task.objects.filter(projectID=project_instance)
+    context = {'project_instance': project_instance,'tasks':task_instance}
+    return render(request, 'manager_view_tasks.html', context)
 
 
 @login_required

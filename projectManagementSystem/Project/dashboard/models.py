@@ -34,15 +34,15 @@ class Task(models.Model):
     taskID = models.SlugField(primary_key=True, max_length=32, editable=False)
     taskTitle = models.CharField(max_length=64)
     description = models.TextField()
-    deadline = models.DateTimeField(blank=False)
-    submitted = models.DateTimeField(blank=True)
-    completed = models.DateTimeField(blank=True)
+    deadline = models.DateTimeField()
+    submitted = models.DateTimeField(blank=True, null=True)
+    completed = models.DateTimeField(blank=True, null=True)
     assignedDate = models.DateTimeField()
-    EmployeeName = models.CharField(max_length=30, blank=True)
-    EmployeeEmail = models.EmailField(unique=True)
+    employeeName = models.CharField(max_length=30, blank=True)
+    employeeEmail = models.EmailField()
     projectID = models.ForeignKey(project, on_delete=models.CASCADE)
     managerName = models.CharField(max_length=30, blank=True)
-    managerEmail = models.EmailField(unique=True)
+    managerEmail = models.EmailField()
     status = models.CharField(max_length=1, default='I',
         choices=[
             ('I', 'In Progress'),
