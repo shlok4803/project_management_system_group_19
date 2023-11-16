@@ -155,7 +155,7 @@
                                 <td class="table-data">
                                     <h3 class="label-tag">
                                         {% if task.status == 'I' %}
-                                            Pending
+                                            In Progress
                                         {% elif task.status == 'C' %}
                                             Completed
                                         {% elif task.status == 'R' %}
@@ -164,7 +164,7 @@
                                     </h3>
                                 </td>
                                 <td class="table-data">
-                                    <a href="">
+                                    <a href="{% url 'edit-tasks' project_id=project_instance.projectID task_id=task.taskID %}">
                                         <button class="button-tag btns">Edit</button>
                                     </a>
                                 </td>

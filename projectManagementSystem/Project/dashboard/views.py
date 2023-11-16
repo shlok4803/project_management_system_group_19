@@ -30,7 +30,7 @@ def dashboard(request):
         recent_projects = projects.order_by('-created')[:3]
         ongoing_count = project.objects.filter(status='O').count()
         completed_count = project.objects.filter(status='C').count()
-        return render(request, 'dashboard_owner.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
+        return render(request, 'owner/dashboard_owner.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
     
     elif user.user_type == 'manager':
         # Redirect the manager to the manager dashboard
@@ -38,11 +38,11 @@ def dashboard(request):
         recent_projects = projects.order_by('-created')[:3]
         ongoing_count = projects.filter(status='O').count()
         completed_count = projects.filter(status='C').count()
-        return render(request, 'dashboard_manager.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
+        return render(request, 'manager/dashboard_manager.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
     
     elif user.user_type == 'employee':
         # Redirect the employee to the employee dashboard
-        return render(request,'dashboard_employee.html')
+        return render(request,'employee/dashboard_employee.html')
     
     else:
        return render(request, 'access_denied.html')
@@ -90,7 +90,7 @@ def CreateProject(request):
         return redirect('/dashboard/project')  # Redirect to a project list view
     
     #managers = manager.objects.get(company_name=user.company_name)
-    return render(request, 'create_project.html',{'managers':managers})
+    return render(request, 'owner/create_project.html',{'managers':managers})
 
 
 @login_required
@@ -102,7 +102,7 @@ def view_project(request):
         # Owners can view all projects.
         
         projects = project.objects.all() 
-        return render(request,'owner_view_project.html',{'projects': projects})
+        return render(request,'owner/owner_view_project.html',{'projects': projects})
         
     elif user.user_type == 'manager': 
         # Managers can view projects they are assigned to.
@@ -110,11 +110,11 @@ def view_project(request):
         projects = project.objects.filter(managerEmail=user.email)
         ongoing_count = projects.filter(status='O').count()
         completed_count = projects.filter(status='C').count()
-        return render(request,'manager_my_project.html',{'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count})
+        return render(request,'manager/manager_my_project.html',{'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count})
         
     elif user.user_type == 'employee':
-        projects = project.objects.filter(employeeEmail=user.email)
-        return render(request,'employee_view_project.html',{'project': projects})
+        projects = project.objects.filter(projectID__in=Task.objects.filter(employeeEmail=user.email).values_list('projectID', flat=True))
+        return render(request,'employee/employee_view_project.html',{'project': projects})
 
 #owner    
 @login_required    
@@ -135,7 +135,6 @@ def edit_project(request,project_id):
         deadline = request.POST.get('deadline')
         assignee = request.POST['manager'].split('-')
         status = request.POST.get('projectstatus')
-        print(status)
         
         
         project_instance.projectTitle = project_title
@@ -156,7 +155,7 @@ def edit_project(request,project_id):
 
         return redirect('/dashboard/project')  # Redirect to the project details page
 
-    return render(request, 'edit_project.html', {'managers':managers,'project': project_instance})    
+    return render(request, 'owner/edit_project.html', {'managers':managers,'project': project_instance})    
 
 
 
@@ -203,7 +202,9 @@ def CreateTask(request,project_id):
         return redirect(view_task_url) 
     
     context = {'project_instance': project_instance,'employees' : employees}
-    return render(request,'create_task.html',context)
+    return render(request,'manager/create_task.html',context)
+
+
 
 @login_required
 def view_task(request,project_id):
@@ -211,8 +212,53 @@ def view_task(request,project_id):
     project_instance = project.objects.get(projectID=project_id)  # Replace with your actual project retrieval logic
     task_instance=Task.objects.filter(projectID=project_instance)
     context = {'project_instance': project_instance,'tasks':task_instance}
-    return render(request, 'manager_view_tasks.html', context)
+    return render(request, 'manager/manager_view_tasks.html', context)
 
+
+def edit_task(request, project_id, task_id):
+    task_instance=Task.objects.get(taskID=task_id)
+    user=request.user
+    
+    project_instance = project.objects.get(projectID=project_id)
+    owner_instance = owner.objects.get(email=project_instance.ownerEmail)
+    employees = employee.objects.filter(company_name=owner_instance)
+    
+    if user.user_type == employee:
+        messages.error(request, "Only manager and owner can edit task")
+        return redirect('Logout')
+    
+    if request.method == 'POST':
+        
+        task_instance.taskTitle = request.POST.get('task-title')
+        task_instance.description = request.POST.get('description')
+        task_instance.deadline = request.POST.get('deadline')
+        assignee = request.POST['employee'].split('-')
+        task_instance.employeeEmail=assignee[0]
+        task_instance.employeeName=assignee[1]
+        status=request.POST.get('taskstatus')
+        
+        if status == 'completed':
+            task_instance.status='C'
+            task_instance.completed=datetime.now()
+        
+        else:
+            task_instance.status='I'
+            task_instance.completed=None   
+        
+        task_instance.save()
+        view_task_url = reverse('view-tasks', kwargs={'project_id': project_id}) 
+        
+        return redirect(view_task_url)
+        
+    return render(request, 'manager/edit_task.html', {'employees':employees,'project': project_instance,'task':task_instance})    
+        
+        
+        
+        
+    
+
+        
+        
 
 @login_required
 def view_profile(request):
