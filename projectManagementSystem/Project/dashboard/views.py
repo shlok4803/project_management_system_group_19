@@ -212,7 +212,7 @@ def view_task(request,project_id):
     project_instance = project.objects.get(projectID=project_id)  # Replace with your actual project retrieval logic
     task_instance=Task.objects.filter(projectID=project_instance)
     context = {'project_instance': project_instance,'tasks':task_instance}
-    return render(request, 'manager/manager_view_tasks.html', context)
+    return render(request, 'manager/manager_view_project.html', context)
 
 
 def edit_task(request, project_id, task_id):
@@ -235,7 +235,7 @@ def edit_task(request, project_id, task_id):
         assignee = request.POST['employee'].split('-')
         task_instance.employeeEmail=assignee[0]
         task_instance.employeeName=assignee[1]
-        status=request.POST.get('taskstatus')
+        status=request.POST.get('status')
         
         if status == 'completed':
             task_instance.status='C'
