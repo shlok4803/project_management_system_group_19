@@ -42,7 +42,11 @@ def dashboard(request):
     
     elif user.user_type == 'employee':
         # Redirect the employee to the employee dashboard
-        return render(request,'employee/dashboard_employee.html')
+        task_instance = Task.objects.filter(employeeEmail=user.email)
+        recent_task = task_instance.order_by('-assignedDate')[:3]
+        ongoing_count = task_instance.filter(status='I').count()
+        completed_count = task_instance.filter(status='C').count()
+        return render(request,'employee/dashboard_employee.html',{'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_tasks':recent_task})
     
     else:
        return render(request, 'access_denied.html')

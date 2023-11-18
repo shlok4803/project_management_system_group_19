@@ -122,7 +122,7 @@
 
 				<div class="box box1">
 					<div class="text">
-						<h2 class="topic-heading" style="text-align: center;">3</h2>
+						<h2 class="topic-heading" style="text-align: center;">{{ ongoing_count }}</h2>
 						<h2 class="topic">Assigned</h2>
 					</div>
 
@@ -132,7 +132,7 @@
 
 				<div class="box box2">
 					<div class="text">
-						<h2 class="topic-heading" style="text-align: center;">7</h2>
+						<h2 class="topic-heading" style="text-align: center;">{{ completed_count }}</h2>
 						<h2 class="topic">Completed</h2>
 					</div>
 
@@ -151,38 +151,33 @@
 
 				<div class="report-body">
 					<div class="report-topic-heading">
-						<h3 class="t-op">Projects</h3>
+						<h3 class="t-op">Tasks</h3>
                         <h3 class="t-op">Due date</h3>
 						<h3 class="t-op">Status</h3>
 					</div>
 
 					<div class="items">
-
-						<div class="items">
+						{% for task in recent_tasks %}
 							<div class="item1">
-								<h3 class="t-op-nextlvl">Project 1</h3>
-								
-								<h3 class="t-op-nextlvl">8/11/2023</h3>
+								<h3 class="t-op-nextlvl">{{ task.taskTitle }}</h3>
+								<h3 class="t-op-nextlvl">{{ task.deadline|date:'d/m/Y' }}</h3>
 								<div class="t-op-nextlvl">
-									<h3 class="label-tag">Pending</h3>
+									{% if task.status == 'I' %}
+										<h3 class="label-tag">Pending</h3>
+									{% elif task.status == 'C' %}
+										<h3 class="label-tag">Completed</h3>
+									{% elif task.status == 'R' %}
+										<h3 class="label-tag">Submitted for Review</h3>
+									{% endif %}
 								</div>
 							</div>
-	
-							<div class="item1">
-								<h3 class="t-op-nextlvl">Project 2</h3>
-								
-								<h3 class="t-op-nextlvl">20/11/2023</h3>
-								<div class="t-op-nextlvl">
-									<h3 class="label-tag">Completed</h3>
-								</div>
-							</div>
-
+						{% endfor %}
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<script src="/static/js/dashboard.js"></script>
+	<script src="{%static 'js/dashboard.js' %}"></script>
 </body>
 </html>

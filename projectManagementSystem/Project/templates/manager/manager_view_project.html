@@ -33,7 +33,7 @@
     <div class="message">
         <div class="circle"></div>
         <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-            <img src="./image/icons8-notification-50.png" class="icn" alt="">
+            <img src="{%static 'img/icons8-notification-50.png' %}" class="icn" alt="">
         </a>
         <div class="dp">
             <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
@@ -130,31 +130,15 @@
          </div>
        </div>
      </div> -->
-     <div class="desc-box">
-       <div class="description-box">
-         <div class="taskdata">
-           <span class="tasktitle">Task Name: </span><span class="tasktitle1">Task 1</span>
-          </div>
-          <div class="taskdata">
-            <span class="tasktitle">Deadline: </span><span>08/11/2023</span>
-          </div>
-          <div class="taskdata">
-            <span class="tasktitle">Description: </span><span class="desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, accusantium!</span>
-          </div>
-       </div>
-       <div class="details-container">
-         <button class="details-btn btns" id="taskdetails">Task Details</button>
-         <a href="edit_task.html"> <button class="details-btn btns">Edit Task</button></a>
-         <button class="details-btn btns" id="deletebtn">Delete Task</button>
-        </div>
-       </div>
-
+ 
     <div class="project-container">
       <div class="project-header">
-        <h1 class="project-header-text">{{ project_instance.projectTitle }}</h1>
+        <h1 class="project-header-text">Project name</h1>
         <div class="progress-create-btn">
+            <a href="./project_details.html"><button class="project-header-btn btns">View Project Details</button></a>
             <a href="./progress.html"><button class="project-header-btn btns">View Progress</button></a>
-            <a href="{% url 'create-task' project_id=project_instance.projectID %}"><button class="project-header-btn btns">Create Task</button></a>
+            <a href="./create_task.html"><button class="project-header-btn btns">Create Task</button></a>
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name">
         </div>
       </div>
 
@@ -193,7 +177,8 @@
         {% else %}
             <p>No tasks to show.</p>
         {% endif %}
-    </div>    
+    </div>        
+  </div>
   </div>
   <script src="manager_view_project.js"></script>
 </body>
