@@ -213,8 +213,9 @@ def CreateTask(request,project_id):
 @login_required
 def view_task(request,project_id):
     
-    project_instance = project.objects.get(projectID=project_id)  # Replace with your actual project retrieval logic
+    project_instance = project.objects.get(projectID=project_id) 
     task_instance=Task.objects.filter(projectID=project_instance)
+    
     context = {'project_instance': project_instance,'task_instance':task_instance}
     return render(request, 'manager/manager_view_project.html', context)
 
