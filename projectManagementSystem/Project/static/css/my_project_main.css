@@ -357,7 +357,7 @@ header {
 
 .table-data{
     text-align: center;
-    width: 33%;
+    width: 25%;
     font-size: 14px;
     letter-spacing: 0px;
     font-weight: 600;
@@ -416,3 +416,31 @@ header {
 .table-data a{
     color: inherit;
 }
+
+.project-header input{
+    width: auto;
+    height: 30px;
+    border-style: none;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 2px;
+    color: white;
+    background-color:#0e5469;
+}
+.project-header input::placeholder{
+    color: white;
+}
+
+.status-container{
+    display: flex;
+    justify-content: space-evenly;
+    width: 400px;
+ }
+ #select1{
+    background-color: #5500cb;
+    color: white;
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+ }
+ 

@@ -162,6 +162,13 @@ def edit_project(request,project_id):
     return render(request, 'owner/edit_project.html', {'managers':managers,'project': project_instance})    
 
 
+@login_required
+def view_project_details(request,project_id):
+
+    project_instance=project.objects.get(projectID=project_id)
+    
+    return render(request,'manager/manager_project_details.html',{'project_instance':project_instance})
+
 
 
 #Project Manager

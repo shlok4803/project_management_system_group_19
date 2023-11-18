@@ -11,9 +11,9 @@
 				initial-scale=1.0">
   <title>My Projects</title>
   <link rel="stylesheet"
-        href="{% static '/css/my_project_main.css' %}">
+        href="{% static 'css/my_project_main.css' %}">
   <link rel="stylesheet"
-        href="{%static '/css/my_project_res.css' %}">
+        href="{%static 'css/my_project_res.css' %}">
 </head>
 
 <body>
@@ -123,6 +123,11 @@
     <div class="project-container">
       <div class="project-header">
         <h1 class="project-header-text">My Project</h1>
+        <select id="select1" onchange="getOption()">
+          <option value="Show all" selected>Show all</option>
+          <option value="P">Pending</option>
+          <option value="C">Completed</option>
+        </select>
         <!-- <a href=""><button class="project-header-btn">View Progress</button></a> -->
       </div>
 
