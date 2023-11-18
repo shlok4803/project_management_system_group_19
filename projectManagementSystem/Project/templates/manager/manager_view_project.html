@@ -175,7 +175,7 @@
                     </h3>
                 </td>
                 <td class="table-data">
-                    <a href="{% url 'view-tasks' project_id=project_instance.projectID %}">
+                  <a href="{% url 'view-taskdetail' project_id=project_instance.projectID task_id=task.taskID %}">
                         <button class="button-tag btns">View</button>
                     </a>
                 </td>

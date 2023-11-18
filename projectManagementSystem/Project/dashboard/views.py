@@ -218,7 +218,7 @@ def CreateTask(request,project_id):
 
 
 @login_required
-def view_task(request,project_id):
+def view_task_list(request,project_id):
     
     project_instance = project.objects.get(projectID=project_id) 
     task_instance=Task.objects.filter(projectID=project_instance)
@@ -226,6 +226,18 @@ def view_task(request,project_id):
     context = {'project_instance': project_instance,'task_instance':task_instance}
     return render(request, 'manager/manager_view_project.html', context)
 
+
+@login_required
+def view_task_details(request,project_id,task_id):
+    
+    user=request.user
+    
+    task_instance=Task.objects.get(taskID=task_id)
+    project_instance = project.objects.get(projectID=project_id)
+    
+    context = {'project_instance': project_instance,'task_instance':task_instance}
+    return render(request, 'manager/manager_view_task_details.html', context)
+    
 
 def edit_task(request, project_id, task_id):
     task_instance=Task.objects.get(taskID=task_id)
