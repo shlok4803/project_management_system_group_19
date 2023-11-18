@@ -138,33 +138,42 @@
       </div>
 
       <div class="project-body">
-        <table class="main-table" id="maintable">
+        <table class="main-table">
           <thead>
-            <th>Tasks</th>
+            <th>Projects</th>
             <th>Status</th>
-            <th>View task</th>
+            <th>View Project</th>
           </thead>
           <tbody>
+            {% for project in projects %}
+            <tr class="table-row">
+                <td class="table-data">{{ project.projectTitle }}</td>
+                <td class="table-data">
+                    <h3 class="label-tag">
+                        {% if project.status == 'O' %}
+                            Pending
+                        {% elif project.status == 'C' %}
+                            Completed
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </h3>
+                </td>
+                <td class="table-data">
+                    <a href="{% url 'view-tasks' project_id=project.projectID %}">
+                        <button class="button-tag btns">View</button>
+                    </a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr class="table-row">
+                <td class="table-data" colspan="4">No projects to show</td>
+            </tr>
+        {% endfor %}
 
-            <tr class="table-row" id="tablerow1">
-                <td class="table-data">Task 1</td>
-                <td class="table-data"><h3 class="label-tag">Pending</h3></td>
-                <td class="table-data"><button class="button-tag btns">View</button></td>
-            </tr>
-            <tr class="table-row" id="tablerow2">
-                <td class="table-data">Task 2</td>
-                <td class="table-data"><h3 class="label-tag">Pending</h3></td>
-                <td class="table-data"><button class="button-tag btns">View</button></td>
-            </tr>
-            <tr class="table-row" id="tablerow3">
-              <td class="table-data">Task 3</td>
-              <td class="table-data"><h3 class="label-tag">Pending</h3></td>
-              <td class="table-data"><button class="button-tag btns">View</button></td>
-            </tr>
           </tbody>
         </table>
       </div>
-    
   </div>
   <script src="./view_project.js"></script>
 </body>

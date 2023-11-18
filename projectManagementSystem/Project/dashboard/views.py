@@ -118,7 +118,7 @@ def view_project(request):
         
     elif user.user_type == 'employee':
         projects = project.objects.filter(projectID__in=Task.objects.filter(employeeEmail=user.email).values_list('projectID', flat=True))
-        return render(request,'employee/employee_view_project.html',{'project': projects})
+        return render(request,'employee/employee_view_project.html',{'projects': projects})
 
 #owner    
 @login_required    
@@ -215,7 +215,7 @@ def view_task(request,project_id):
     
     project_instance = project.objects.get(projectID=project_id)  # Replace with your actual project retrieval logic
     task_instance=Task.objects.filter(projectID=project_instance)
-    context = {'project_instance': project_instance,'tasks':task_instance}
+    context = {'project_instance': project_instance,'task_instance':task_instance}
     return render(request, 'manager/manager_view_project.html', context)
 
 
