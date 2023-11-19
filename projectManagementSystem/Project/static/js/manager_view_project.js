@@ -1,11 +1,43 @@
 function deleteRow(r) {
-     i=r.parentNode.parentNode.rowIndex;
-    let text = "Press a OK for Delete Task!";
-    if (confirm(text) == true) {
-        // document.getElementById("maintable").deleteRow(i);
-    } else {
-        text = "You canceled!";
-    }
+  let taskId = r.getAttribute('data-task-id');
+  let projectId = r.getAttribute('data-project-id');
+  let text = "Press OK to delete the task!";
+  if (confirm(text)) {
+      // AJAX request
+      fetch(`/dashboard/project/task-view/${projectId}/${taskId}/delete`, {
+          method: 'DELETE',
+          headers: {
+              'X-CSRFToken': getCSRFToken()  // Ensure you have a function to retrieve the CSRF token
+          },
+      })
+      .then(response => {
+          if (response.ok) {
+              // Handle success: remove row from the table
+              let row = r.parentNode.parentNode;
+              row.parentNode.removeChild(row);
+              window.location.href = `/dashboard/project/task-view/${projectId}`;
+          } else {
+              // Handle error
+              console.error('Error deleting task');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+  } else {
+      text = "You canceled!";
+  }
+}
+
+function getCSRFToken() {
+  const cookies = document.cookie.split(';');
+  for (let cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === 'csrftoken') {
+          return value;
+      }
+  }
+  return null;
 }
 // const descbox2=document.querySelector(".description-box");
 

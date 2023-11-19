@@ -164,7 +164,7 @@
     </div>
     <div class="editdeletebtn">
       <a href="{% url 'edit-tasks' project_id=project_instance.projectID task_id=task_instance.taskID %}"> <button class="details-btn btns">Edit Task</button></a>
-      <button class="details-btn btns" id="deletebtn" onclick="deleteRow(this)">Delete Task</button>
+      <button class="details-btn btns" id="deletebtn" onclick="deleteRow(this)" data-task-id="{{ task_instance.taskID }}" data-project-id="{{ project_instance.projectID }}">Delete Task</button>
     </div>
     
       <script src="{%static 'js/manager_view_project.js' %}"></script>

@@ -136,9 +136,9 @@
                         <div class="field">
                             <label for="taskstatus">Task Status :</label>
                             <select name="taskstatus" id="taskstatus" required>
-                                <option value="In Progress" {% if task_instance.status == 'I' %}selected{% endif %}>In Progress</option>
-                                <option value="Completed" {% if task_instance.status == 'C' %}selected{% endif %}>Completed</option>
-                                <option value="Submitted for Review" {% if task_instance.status == 'R' %}selected{% endif %}>Submitted for Review</option>
+                                <option value="I" {% if task_instance.status == 'I' %}selected{% endif %}>In Progress</option>
+                                <option value="C" {% if task_instance.status == 'C' %}selected{% endif %}>Completed</option>
+                                <option value="R" {% if task_instance.status == 'R' %}selected{% endif %}>Submitted for Review</option>
                             </select>
                         </div>
                 

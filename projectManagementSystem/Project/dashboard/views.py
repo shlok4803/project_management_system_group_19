@@ -13,6 +13,7 @@ from accounts.models import manager
 from django.db import models
 from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
+from django.http import JsonResponse
 
 
 
@@ -261,22 +262,40 @@ def edit_task(request, project_id, task_id):
         task_instance.employeeEmail=assignee[1]
         status=request.POST.get('taskstatus')
         
-        if status == 'Completed':
+        if status == 'C':
             task_instance.status='C'
             task_instance.completed=datetime.now()
         
-        elif status == 'In Progress':
+        elif status == 'I':
             task_instance.status='I'
             task_instance.completed=None
                
         
         task_instance.save()
-        view_task_url = reverse('view-taskdetail', kwargs={'project_id': project_id,'task_id':task_id}) 
+        view_task_detail = reverse('view-taskdetail', kwargs={'project_id': project_id,'task_id':task_id}) 
         
-        return redirect(view_task_url)
+        return redirect(view_task_detail)
         
     return render(request, 'manager/edit_task.html', {'employees':employees,'project_instance': project_instance,'task_instance':task_instance})    
+
+    
+@login_required        
+def delete_task(request,task_id,project_id):
+    #project_instance=project.objects.get(projectID=project_id)
+    try:
+        task = Task.objects.get(taskID=task_id)
+        task.delete()
+        view_tasks_url = reverse('view-tasks', kwargs={'project_id': project_id})
+        return redirect(view_tasks_url)
         
+    except Task.DoesNotExist:
+        return JsonResponse({'error': 'Task does not exist'}, status=404)
+     
+    
+    
+    
+    
+            
         
         
         
