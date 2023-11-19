@@ -271,7 +271,7 @@ def edit_task(request, project_id, task_id):
                
         
         task_instance.save()
-        view_task_url = reverse('view-tasks', kwargs={'project_id': project_id}) 
+        view_task_url = reverse('view-taskdetail', kwargs={'project_id': project_id,'task_id':task_id}) 
         
         return redirect(view_task_url)
         
