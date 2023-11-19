@@ -163,7 +163,7 @@
           </div>
     </div>
     <div class="editdeletebtn">
-      <a href="edit_task.html"> <button class="details-btn btns">Edit Task</button></a>
+      <a href="{% url 'edit-tasks' project_id=project_instance.projectID task_id=task_instance.taskID %}"> <button class="details-btn btns">Edit Task</button></a>
       <button class="details-btn btns" id="deletebtn" onclick="deleteRow(this)">Delete Task</button>
     </div>
     

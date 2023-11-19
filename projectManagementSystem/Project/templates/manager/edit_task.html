@@ -108,7 +108,7 @@
                         {% csrf_token %}
                         <div class="field">
                             <label for="title"> Task Name : </label>
-                            <input type="text" name="task-title" id="title" value="{{ task.taskTitle }}" placeholder="Enter Task Title" required>
+                            <input type="text" name="task-title" id="title" value="{{ task_instance.taskTitle }}" placeholder="Enter Task Title" required>
                         </div>
                 
                         <div class="field">
@@ -125,20 +125,20 @@
                 
                         <div class="field">
                             <label for="deadline"> Select Deadline :</label>
-                            <input type="datetime-local" id="deadline" name="deadline" min="{{ task.deadline|date:'Y-m-d\TH:i' }}" value="{{ task.deadline|date:'Y-m-d\TH:i' }}" required>
+                            <input type="datetime-local" id="deadline" name="deadline" min="{{ task_instance.deadline|date:'Y-m-d\TH:i' }}" value="{{ task_instance.deadline|date:'Y-m-d\TH:i' }}" required>
                         </div>
                 
                         <div class="field">
                             <label for="description"> Description :</label>
-                            <input type="text" name="description" id="description" value="{{ task.description }}">
+                            <input type="text" name="description" id="description" value="{{ task_instance.description }}">
                         </div>
                 
                         <div class="field">
                             <label for="taskstatus">Task Status :</label>
                             <select name="taskstatus" id="taskstatus" required>
-                                <option value="In Progress" {% if task.status == 'I' %}selected{% endif %}>In Progress</option>
-                                <option value="completed" {% if task.status == 'C' %}selected{% endif %}>Completed</option>
-                                <option value="Submitted For Review" {% if task.status == 'R' %}selected{% endif %}>Submitted for Review</option>
+                                <option value="In Progress" {% if task_instance.status == 'I' %}selected{% endif %}>In Progress</option>
+                                <option value="Completed" {% if task_instance.status == 'C' %}selected{% endif %}>Completed</option>
+                                <option value="Submitted for Review" {% if task_instance.status == 'R' %}selected{% endif %}>Submitted for Review</option>
                             </select>
                         </div>
                 

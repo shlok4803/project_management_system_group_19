@@ -224,7 +224,7 @@ def view_task_list(request,project_id):
     task_instance=Task.objects.filter(projectID=project_instance)
     
     context = {'project_instance': project_instance,'task_instance':task_instance}
-    return render(request, 'manager/manager_view_project.html', context)
+    return render(request, 'manager/manager_view_task_list.html', context)
 
 
 @login_required
@@ -257,24 +257,25 @@ def edit_task(request, project_id, task_id):
         task_instance.description = request.POST.get('description')
         task_instance.deadline = request.POST.get('deadline')
         assignee = request.POST['employee'].split('-')
-        task_instance.employeeEmail=assignee[0]
-        task_instance.employeeName=assignee[1]
-        status=request.POST.get('status')
+        task_instance.employeeName=assignee[0]
+        task_instance.employeeEmail=assignee[1]
+        status=request.POST.get('taskstatus')
         
-        if status == 'completed':
+        if status == 'Completed':
             task_instance.status='C'
             task_instance.completed=datetime.now()
         
-        else:
+        elif status == 'In Progress':
             task_instance.status='I'
-            task_instance.completed=None   
+            task_instance.completed=None
+               
         
         task_instance.save()
         view_task_url = reverse('view-tasks', kwargs={'project_id': project_id}) 
         
         return redirect(view_task_url)
         
-    return render(request, 'manager/edit_task.html', {'employees':employees,'project': project_instance,'task':task_instance})    
+    return render(request, 'manager/edit_task.html', {'employees':employees,'project_instance': project_instance,'task_instance':task_instance})    
         
         
         
