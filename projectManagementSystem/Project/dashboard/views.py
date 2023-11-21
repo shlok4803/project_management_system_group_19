@@ -87,7 +87,8 @@ def CreateProject(request):
             managerEmail=assignee[1],
             status='O',
             ownerName = user.first_name,
-            ownerEmail = user.email
+            ownerEmail = user.email,
+            chatID='NULL'
         )
         messages.success(request, 'Project Created Successfully.')
         Project.save()
@@ -120,6 +121,7 @@ def view_project(request):
     elif user.user_type == 'employee':
         projects = project.objects.filter(projectID__in=Task.objects.filter(employeeEmail=user.email).values_list('projectID', flat=True))
         return render(request,'employee/employee_view_project.html',{'projects': projects})
+
 
 #owner    
 @login_required    
@@ -169,6 +171,60 @@ def view_project_details(request,project_id):
     project_instance=project.objects.get(projectID=project_id)
     
     return render(request,'manager/manager_project_details.html',{'project_instance':project_instance})
+
+#Project Chat
+@login_required    
+def viewChat(request,project_id):
+    curProject=project.objects.get(projectID=project_id)
+    curManager = manager.objects.get(email=curProject.managerEmail)
+    curOwner = owner.objects.get(email=curProject.ownerEmail)
+    curTasks = Task.objects.filter(projectID=project_id)
+    curEmployees = employee.objects.filter(taskID__in=curTasks)
+    user=request.user
+    curRole='N'
+
+
+    if user==curOwner:
+        curRole='O'
+    if user==curManager:
+        curRole='M'
+    if user in curEmployees:
+        curRole='E'
+
+
+    if curRole=='N':
+        messages.error(request, "You don't have access to this page")
+        return redirect('Logout')
+    
+    if request.method == 'POST':
+        csrf_token = request.POST.get('csrfmiddlewaretoken')
+        newText = request.POST.get('Text')
+        timestamp = datetime.now()
+        newChatID="CHT"+timestamp.strftime("%d%m%y%H%M%S")
+        
+        newMessage = project(
+            chatID=newChatID,
+            prevMessage=curProject.chatID,
+            text=newText,
+            senderName=user.first_name,
+            senderEmail=user.email,
+            role=curRole
+        )
+        curProject.chatID=newChatID
+        newMessage.save()
+        
+        return redirect('/dashboard/project/chat')
+
+    allMessage=[]
+    curChatID=curProject.chatID
+    while curChatID!='NULL':
+        allMessage.append(message.objects.get(chatID=curChatID))
+        curChatID=curChatID.prevMessage
+    allMessage.reverse()
+
+    return render(request, 'view_chats.html', {'project':curProject,'messages': allMessage})
+
+
 
 
 

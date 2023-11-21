@@ -24,10 +24,27 @@ class project(models.Model):
         ]
     )
     taskIDs = models.ManyToManyField('Task', related_name='projects', blank=True)
+    chat=models.CharField(max_length=15,blank=True)
     def __str__(self):
         return self.projectTitle
     
-
+class message(models.Model):
+    chatID = models.SlugField(primary_key=True, max_length=15)
+    prevMessage = models.SlugField(max_length=15, blank=True)
+    text = models.TextField()
+    senderName = models.CharField(max_length=30, blank=True)
+    senderEmail = models.EmailField()
+    role = models.CharField(
+        max_length=1,
+        default='E',
+        choices=[
+            ('E', 'Employee'),
+            ('M', 'Manager'),
+            ('O', 'Owner'),
+        ]
+    )
+    def __str__(self):
+        return self.chatID
 
 
 class Task(models.Model):
