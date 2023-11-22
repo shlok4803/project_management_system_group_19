@@ -11,9 +11,9 @@
 				initial-scale=1.0">
   <title>View Project</title>
   <link rel="stylesheet"
-        href="{%static 'css/employee_view_project.css' %}">
+  href="{%static '/css/manager_view_project.css' %}">
   <link rel="stylesheet"
-  href="{%static 'css/employee_view_project_res.css' %}">
+  href="{%static '/css/manager_view_project_res.css' %}">
 </head>
 
 <body>
@@ -32,11 +32,11 @@
 
     <div class="message">
         <div class="circle"></div>
-        <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-            <img src="./image/icons8-notification-50.png" class="icn" alt="">
+        <a href="dashboard/myprofile/" style="display: flex;justify-content: center;align-items: center;">
+            <img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
         </a>
         <div class="dp">
-            <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+            <a href="dashboard/myprofile/" style="display: flex;justify-content: center;align-items: center;">
                 <img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
             </a>
         </div>
@@ -117,7 +117,7 @@
                 alt="search-button">
         </div>
     </div> -->
-    <div class="desc-box">
+    <!-- <div class="desc-box">
       <div class="description-box">
         <div class="taskdata">
           <span class="tasktitle">Task Name: </span><span class="tasktitle1">Task 1</span>
@@ -129,43 +129,54 @@
            <span class="tasktitle">Description: </span><span class="desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, accusantium!</span>
          </div>
        </div>
-     </div>
+     </div> -->
 
-    <div class="project-container">
+     <div class="project-container">
       <div class="project-header">
-        <h1 class="project-header-text">Project name</h1>
-        <a href="./progress.html"><button class="project-header-btn btns">View Progress</button></a>
+        <h1 class="project-header-text">{{ project_instance.projectTitle }}</h1>
+        <div class="progress-create-btn">
+            <a href="./progress.html"><button class="project-header-btn btns">View Progress</button></a>
+            <a href="{% url 'create-task' project_id=project_instance.projectID %}"><button class="project-header-btn btns">Create Task</button></a>
+        </div>
       </div>
-
-      <div class="project-body">
-        <table class="main-table" id="maintable">
-          <thead>
-            <th>Tasks</th>
-            <th>Status</th>
-            <th>View task</th>
-          </thead>
-          <tbody>
-
-            <tr class="table-row" id="tablerow1">
-                <td class="table-data">Task 1</td>
-                <td class="table-data"><h3 class="label-tag">Pending</h3></td>
-                <td class="table-data"><button class="button-tag btns">View</button></td>
-            </tr>
-            <tr class="table-row" id="tablerow2">
-                <td class="table-data">Task 2</td>
-                <td class="table-data"><h3 class="label-tag">Pending</h3></td>
-                <td class="table-data"><button class="button-tag btns">View</button></td>
-            </tr>
-            <tr class="table-row" id="tablerow3">
-              <td class="table-data">Task 3</td>
-              <td class="table-data"><h3 class="label-tag">Pending</h3></td>
-              <td class="table-data"><button class="button-tag btns">View</button></td>
-            </tr>
-          </tbody>
-        </table>
+      
+        <div class="project-body">
+            {% if tasks %}
+                <table class="main-table" id="maintable">
+                    <thead>
+                        <th>Tasks</th>
+                        <th>Status</th>
+                        <th>Edit task</th>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+                            <tr class="table-row" id="tablerow{{ task.taskID }}">
+                                <td class="table-data">{{ task.taskTitle }}</td>
+                                <td class="table-data">
+                                    <h3 class="label-tag">
+                                        {% if task.status == 'I' %}
+                                            In Progress
+                                        {% elif task.status == 'C' %}
+                                            Completed
+                                        {% elif task.status == 'R' %}
+                                            Submitted For Review
+                                        {% endif %}
+                                    </h3>
+                                </td>
+                                <td class="table-data">
+                                    <a href="{% url 'edit-tasks' project_id=project_instance.projectID task_id=task.taskID %}">
+                                        <button class="button-tag btns">Edit</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No tasks to show.</p>
+            {% endif %}
+        </div>        
       </div>
-    
-  </div>
-  <script src="./view_project.js"></script>
+      
 </body>
 </html>

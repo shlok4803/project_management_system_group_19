@@ -285,17 +285,21 @@
         letter-spacing: 3px;
     }
 
-
+/* 
     
     .project-container {
-        min-height: 300px;
-        max-width: 1200px;
+        min-height: 400px;
+        max-width: 500px;
         margin: 70px auto 0px auto;
         background-color: #ffffff;
         border-radius: 30px;
         box-shadow: 3px 3px 10px rgb(188, 188, 188);
         padding: 0px 20px 20px 20px;
-    }
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    } */
     
     .project-header {
         height: auto;
@@ -372,7 +376,6 @@
         font-size: 14px;
         letter-spacing: 0px;
         font-weight: 600;
-        padding: 2px;
     }
     
     .button-tag
@@ -419,19 +422,6 @@
         color: inherit;
     }
 
-    .description-box{
-        height: 200px;
-        max-height: 300px;
-        overflow-y: auto;
-        width: 600px;
-        background-color: aqua;
-        border-radius: 12px;
-        box-shadow: 7px 6px rgb(6, 88, 88);
-        display: none;
-        flex-direction: column;
-        justify-content:space-evenly;
-     }
-
      .taskdata{
         font-size: 22px;
         margin-left: 3px;
@@ -453,7 +443,7 @@
      .progress-create-btn{
         display: flex;
         justify-content: space-between;
-        width: 400px;
+        width: 20%;
      }
 
      .details-container{
@@ -464,7 +454,6 @@
         flex-direction: column;
         align-items: center;
         width: 600px;
-        display: none;
         background-color: aqua;
         border-radius: 12px;
         box-shadow: 7px 6px rgb(6, 88, 88);
@@ -472,64 +461,73 @@
         justify-content:space-evenly;
         transition: all 0.4s;
      }
-     .desc-box{
-        height: auto;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-     }
-     .details-container button{
-        width: 120px;
+     .editdeletebtn button{
+        width: 200px;
+        height: 40px;
         text-align: center;
         background-color: #0c007d;
         color: white;
-        border-radius: 4px;
-        font-size: 16px;
+        border-radius: 10px;
+        font-size: 22px;
         letter-spacing: 0px;
         font-weight: 600;
         border: none;
         cursor: pointer;
         padding: 2px;
+        margin-top: 20px;
      }
-     .description-box{
-        height: 200px;
-        max-height: 300px;
-        overflow-y: auto;
-        width: 600px;
-        background-color: aqua;
-        border-radius: 12px;
-        box-shadow: 7px 6px rgb(6, 88, 88);
-        display: none;
+ 
+     .project-container {
+        min-height: 400px;
+        max-width: 500px;
+        margin: 70px auto 0px auto;
+        background-color: #3badd0;
+        border-radius: 30px;
+        box-shadow: 3px 3px 10px rgb(188, 188, 188);
+        padding: 0px 20px 20px 20px;
+        display: flex;
         flex-direction: column;
-        justify-content:space-evenly;
-        transition: all 0.4s;
-     }
-     .project-header input{
-        width: auto;
-        height: 35px;
-        border-style: none;
+        justify-content: space-evenly;
+        overflow-y: auto;
+    }
+    
+    .editdeletebtn{
+        width: 100%;
+        text-align: center;
+    }
+    .statuscheck{
+        background-color: #6eb6cd;
+        padding: 2px;
+        border: none;
         border: 2px solid black;
         border-radius: 10px;
-        padding: 2px;
-        color: white;
-        background-color:#0e5469;
+        cursor: pointer;
     }
-    .project-header input::placeholder{
-        color: white;
+    .confirmation{
+       height: 120px;
+       width: 400px;
+       background-color:white;
+       display: flex;
+       flex-direction: column;
+       align-self: center;
+       justify-content: space-evenly;
+       border-radius: 10px;
+       position: absolute;
+       top: 250px;
+       text-align: center;
+       font-size: 18px;
+       left: 650px;
+       display: none;
     }
-
-    .status-container{
+    .confirmation-btn{
         display: flex;
+        width: 100%;
         justify-content: space-evenly;
-        width: 400px;
-     }
-     #select1{
-        background-color: #5500cb;
-        color: white;
-        font-size: 14px;
+    }
+    .confirmation-btn button{
+        height: 30px;
+        width: 100px;
         border: none;
-        border-radius: 10px;
-     }
-     
+        background-color: #3badd0;
+        cursor: pointer;
+    }

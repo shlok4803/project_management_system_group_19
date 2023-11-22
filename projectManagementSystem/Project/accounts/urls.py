@@ -17,11 +17,17 @@ urlpatterns = [
     path('dashboard/',dashboard,name="dashboard"),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name="logout"),
     #path('dashboard/dashboard-owner',dashboard,name="Owner_dashboard"),
-    path('dashboard/project/',view_project,name="viewProjects"),
+    path('dashboard/project/',view_project,name="viewProjectsList"),
     path('dashboard/myprofile/',view_profile,name="viewProfile"),
     path('dashboard/project/createProject/',CreateProject, name="create-project"),
     path('dashboard/createProject/<str:company_name>/', CreateProject, name='create_project'),
     path('dashboard/project/edit-project/<slug:project_id>/',edit_project, name='edit-project'),
+    path('dashboard/project/view-details/<slug:project_id>/',view_project_details, name='project-details'),
+    path('dashboard/project/task-view/<slug:project_id>/',view_task_list,name='view-tasks'),
+    path('dashboard/project/task-view/create-task/<slug:project_id>/',CreateTask,name='create-task'),
+    path('dashboard/project/task-view/<slug:project_id>/task-details/<slug:task_id>',view_task_details,name='view-taskdetail'),
+    path('dashboard/project/task-view/<slug:project_id>/edit-task/<slug:task_id>',edit_task,name='edit-tasks'),
+    path('dashboard/project/task-view/<slug:project_id>/<slug:task_id>/delete',delete_task,name='delete-task'),
     path('dashboard/project/chat/<slug:project_id>/',viewChat, name='view-chat'),
 
     # reset password with email auth

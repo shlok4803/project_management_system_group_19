@@ -13,6 +13,7 @@ from accounts.models import manager
 from django.db import models
 from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
+from django.http import JsonResponse
 
 
 
@@ -30,7 +31,7 @@ def dashboard(request):
         recent_projects = projects.order_by('-created')[:3]
         ongoing_count = project.objects.filter(status='O').count()
         completed_count = project.objects.filter(status='C').count()
-        return render(request, 'dashboard_owner.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
+        return render(request, 'owner/dashboard_owner.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
     
     elif user.user_type == 'manager':
         # Redirect the manager to the manager dashboard
@@ -38,11 +39,15 @@ def dashboard(request):
         recent_projects = projects.order_by('-created')[:3]
         ongoing_count = projects.filter(status='O').count()
         completed_count = projects.filter(status='C').count()
-        return render(request, 'dashboard_manager.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
+        return render(request, 'manager/dashboard_manager.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
     
     elif user.user_type == 'employee':
         # Redirect the employee to the employee dashboard
-        return render(request,'dashboard_employee.html')
+        task_instance = Task.objects.filter(employeeEmail=user.email)
+        recent_task = task_instance.order_by('-assignedDate')[:3]
+        ongoing_count = task_instance.filter(status='I').count()
+        completed_count = task_instance.filter(status='C').count()
+        return render(request,'employee/dashboard_employee.html',{'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_tasks':recent_task})
     
     else:
        return render(request, 'access_denied.html')
@@ -91,31 +96,32 @@ def CreateProject(request):
         return redirect('/dashboard/project')  # Redirect to a project list view
     
     #managers = manager.objects.get(company_name=user.company_name)
-    return render(request, 'create_project.html',{'managers':managers})
+    return render(request, 'owner/create_project.html',{'managers':managers})
+
 
 @login_required
 def view_project(request):
     user = request.user
     projects = None
     
-    
-    if user.user_type == 'owner':
-        
+    if user.user_type == 'owner': 
         # Owners can view all projects.
-        projects = project.objects.all()
         
-        return render(request,'owner_view_project.html',{'projects': projects})
+        projects = project.objects.all() 
+        return render(request,'owner/owner_view_project.html',{'projects': projects})
         
     elif user.user_type == 'manager': 
-        # Managers and employees can view projects they are assigned to.
+        # Managers can view projects they are assigned to.
+        
         projects = project.objects.filter(managerEmail=user.email)
-        return render(request,'manager_view_project.html',{'project': projects})
+        ongoing_count = projects.filter(status='O').count()
+        completed_count = projects.filter(status='C').count()
+        return render(request,'manager/manager_my_project.html',{'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count})
         
     elif user.user_type == 'employee':
-        
-        curTasks = Task.objects.filter(EmployeeEmail=user.email).values()
-        projects = project.objects.filter(projectID__in=curTasks)
-        return render(request,'employee_view_project.html',{'project': projects})
+        projects = project.objects.filter(projectID__in=Task.objects.filter(employeeEmail=user.email).values_list('projectID', flat=True))
+        return render(request,'employee/employee_view_project.html',{'projects': projects})
+
 
 #owner    
 @login_required    
@@ -136,7 +142,6 @@ def edit_project(request,project_id):
         deadline = request.POST.get('deadline')
         assignee = request.POST['manager'].split('-')
         status = request.POST.get('projectstatus')
-        print(status)
         
         
         project_instance.projectTitle = project_title
@@ -157,8 +162,15 @@ def edit_project(request,project_id):
 
         return redirect('/dashboard/project')  # Redirect to the project details page
 
-    return render(request, 'edit_project.html', {'managers':managers,'project': project_instance})    
+    return render(request, 'owner/edit_project.html', {'managers':managers,'project': project_instance})    
 
+
+@login_required
+def view_project_details(request,project_id):
+
+    project_instance=project.objects.get(projectID=project_id)
+    
+    return render(request,'manager/manager_project_details.html',{'project_instance':project_instance})
 
 #Project Chat
 @login_required    
@@ -218,51 +230,135 @@ def viewChat(request,project_id):
 
 #Project Manager
 @login_required
-def CreateTask(request, projectID):
-    try: 
-        project = project.objects.get(projectID=projectID)
-    except:
-        raise ObjectDoesNotExist
-    
+def CreateTask(request,project_id):
     user = request.user
     
-    if not user.user_type == 'manager':
-        raise PermissionDenied
+    project_instance = project.objects.get(projectID=project_id)
+    owner_instance = owner.objects.get(email=project_instance.ownerEmail)
+    employees = employee.objects.filter(company_name=owner_instance)
 
-    if request.method == "POST":
-        assignee = request.POST['employee'].split('-')
-        if request.POST.get('taskID', ''):
-            task = Task.objects.get(taskID=request.POST['taskID'])
-            task.taskTitle = request.POST['title']
-            task.description = request.POST['description']
-            task.deadline = request.POST['deadline']
-            task.EmployeeName = assignee[0]
-            task.EmployeeEmail=assignee[1]
-            task.save()
-            messages.success(request, 'Task updated successfully.')
-            return redirect(reverse("TaskDashboard", kwargs={"taskID": task.taskID}))
-        timestamp = datetime.now()  
-        if not task.taskTitle or not task.description or not task.Employee or not task.deadline:
-            messages.error(request, "Please fill out all required fields.")  
-             
-        else:  
-            task = Task(
+    
+    if not user.user_type != manager:
+        messages.error(request, "Only owners can edit projects.")
+        return redirect('Logout')
+    
+
+    if request.method == 'POST':
+        csrf_token = request.POST.get('csrfmiddlewaretoken')
+        tasktitle = request.POST.get('task_title')
+        description = request.POST.get('description')
+        assignee = request.POST['employee'].split(' - ')
+        deadline = request.POST.get('deadline')
+        timestamp = datetime.now()
+        
+        task_instance = Task(
                 taskID="TSK"+timestamp.strftime("%d%m%y%H%M%S"),
-                taskTitle=request.POST['title'],
-                description=request.POST['description'],
-                EmployeeName=assignee[0],
-                deadline=request.POST['deadline'],
-                assigned=timestamp,
-                projectID=projectID,
-                ManagerEmail= project.managerEmail,
-                status='I'
+                taskTitle=tasktitle,
+                description=description,
+                deadline=deadline,
+                assignedDate=timestamp,
+                managerName=user.first_name,
+                managerEmail=user.email,
+                projectID=project_instance,
+                employeeName = assignee[0],
+                employeeEmail = assignee[1]
             )
-            task.save()
-            messages.success(request, 'Task '+ task.taskID + ' created successfully.')
-            return redirect('your_task_dashboard_name', taskID=task.taskID)
+        messages.success(request, 'Task Created Successfully.')
+        task_instance.save()
+        view_task_url = reverse('view-tasks', kwargs={'project_id': project_id})
 
-    return redirect(reverse("ProjectDashboard", kwargs={"projectID": projectID}))
+        return redirect(view_task_url) 
+    
+    context = {'project_instance': project_instance,'employees' : employees}
+    return render(request,'manager/create_task.html',context)
 
+
+
+@login_required
+def view_task_list(request,project_id):
+    
+    project_instance = project.objects.get(projectID=project_id) 
+    task_instance=Task.objects.filter(projectID=project_instance)
+    
+    context = {'project_instance': project_instance,'task_instance':task_instance}
+    return render(request, 'manager/manager_view_task_list.html', context)
+
+
+@login_required
+def view_task_details(request,project_id,task_id):
+    
+    user=request.user
+    
+    task_instance=Task.objects.get(taskID=task_id)
+    project_instance = project.objects.get(projectID=project_id)
+    
+    context = {'project_instance': project_instance,'task_instance':task_instance}
+    return render(request, 'manager/manager_view_task_details.html', context)
+    
+
+def edit_task(request, project_id, task_id):
+    task_instance=Task.objects.get(taskID=task_id)
+    user=request.user
+    
+    project_instance = project.objects.get(projectID=project_id)
+    owner_instance = owner.objects.get(email=project_instance.ownerEmail)
+    employees = employee.objects.filter(company_name=owner_instance)
+    
+    if user.user_type == employee:
+        messages.error(request, "Only manager and owner can edit task")
+        return redirect('Logout')
+    
+    if request.method == 'POST':
+        
+        task_instance.taskTitle = request.POST.get('task-title')
+        task_instance.description = request.POST.get('description')
+        task_instance.deadline = request.POST.get('deadline')
+        assignee = request.POST['employee'].split('-')
+        task_instance.employeeName=assignee[0]
+        task_instance.employeeEmail=assignee[1]
+        status=request.POST.get('taskstatus')
+        
+        if status == 'C':
+            task_instance.status='C'
+            task_instance.completed=datetime.now()
+        
+        elif status == 'I':
+            task_instance.status='I'
+            task_instance.completed=None
+               
+        
+        task_instance.save()
+        view_task_detail = reverse('view-taskdetail', kwargs={'project_id': project_id,'task_id':task_id}) 
+        
+        return redirect(view_task_detail)
+        
+    return render(request, 'manager/edit_task.html', {'employees':employees,'project_instance': project_instance,'task_instance':task_instance})    
+
+    
+@login_required        
+def delete_task(request,task_id,project_id):
+    #project_instance=project.objects.get(projectID=project_id)
+    try:
+        task = Task.objects.get(taskID=task_id)
+        task.delete()
+        view_tasks_url = reverse('view-tasks', kwargs={'project_id': project_id})
+        return redirect(view_tasks_url)
+        
+    except Task.DoesNotExist:
+        return JsonResponse({'error': 'Task does not exist'}, status=404)
+     
+    
+    
+    
+    
+            
+        
+        
+        
+    
+
+        
+        
 
 @login_required
 def view_profile(request):

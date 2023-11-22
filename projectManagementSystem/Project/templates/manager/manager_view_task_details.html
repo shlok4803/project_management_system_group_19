@@ -1,0 +1,173 @@
+ <-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, 
+				initial-scale=1.0">
+    <title>dashboard</title>
+    <!-- <link rel="stylesheet" href="{%static 'css/dashboard_main.css' %}">
+    <link rel="stylesheet" href="{%static 'css/dashboard_res.css' %}">
+    <link rel="stylesheet" href="{%static 'css/create_project.css' %}"> -->
+    <link rel="stylesheet" href="{%static 'css/manager_view_project_res.css' %}">
+    <link rel="stylesheet" href="{%static 'css/manager_view_details.css' %}">
+</head>
+
+<body>
+
+    <!-- for header part -->
+    <header>
+
+        <div class="logosec">
+            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+                class="icn menuicn" id="menuicn" alt="menu-icon">
+            <div class="logo">ProPlanning</div>
+        </div>
+
+        <div class="message">
+            <div class="circle"></div>
+            <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+                <img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
+            </a>
+            <div class="dp">
+                <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+                    <img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
+                </a>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="main-container">
+		<div class="navcontainer">
+			<nav class="nav">
+				<div class="nav-upper-options">
+					<a href="/dashboard">
+						<div class="nav-option option1">
+							<img src="{% static '/img/dashboard.svg' %}"
+								class="nav-img"
+								alt="dashboard">
+							<h3> Dashboard</h3>
+						</div>
+					</a>
+					<a href="/dashboard/myprofile">
+						<div class="option2 nav-option">
+							<img src="{%static '/img/my_profile.svg' %}"
+								class="nav-img"
+								alt="articles">
+							<h3> My Profile</h3>
+						</div>
+					</a>
+
+					<a href="/dashboard/project">
+						<div class="nav-option option3">
+							<img src="{%static '/img/my_project.svg' %}"
+								class="nav-img"
+								alt="report">
+							<h3> My Project </h3>
+						</div>
+					</a>
+
+					<a href="">
+						<div class="nav-option option4">
+							<img src="{%static '/img/progress.png' %}"
+								class="nav-img"
+								alt="institution">
+							<h3> Progress </h3>
+						</div>
+					</a>
+
+					<a href="">
+						<div class="nav-option option5">
+							<img src="{%static '/img/chat.svg' %}"
+								class="nav-img"
+								alt="blog">
+							<h3> Chat </h3>
+						</div>
+					</a>
+					
+					<a href="{% url 'logout' %}">
+						<div class="nav-option logout">
+							<img src="{%static '/img/logout.svg' %}"
+								class="nav-img"
+								alt="logout">
+							<h3>Logout</h3>
+						</div>
+					</a>
+
+				</div>
+			</nav>
+		</div>
+    <div class="main">
+
+        <!-- <div class="searchbar2">
+            <input type="text"
+                name=""
+                id=""
+                placeholder="Search">
+            <div class="searchbtn">
+            <img src="https://tse3.mm.bing.net/th?id=OIP.qj2wH0lhKIfZH159GxkpNgHaHa&pid=Api&P=0&h=180"
+                    class="icn srchicn"
+                    alt="search-button">
+            </div>
+        </div> -->
+        <!-- <div class="desc-box">
+          <div class="description-box">
+            <div class="taskdata">
+              <span class="tasktitle">Task Name: </span><span class="tasktitle1">Task 1</span>
+             </div>
+             <div class="taskdata">
+               <span class="tasktitle">Deadline: </span><span>08/11/2023</span>
+             </div>
+             <div class="taskdata">
+               <span class="tasktitle">Description: </span><span class="desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, accusantium!</span>
+             </div>
+           </div>
+         </div> -->
+      <div class="confirmation">
+         <p>Please Press Accept or Decline!</p>
+         <div class="confirmation-btn">
+           <button class="confirmation-btn1">Accept</button>
+           <button class="confirmation-btn2">Decline</button>
+          </div>
+      </div> 
+      <div class="project-container">
+          <div class="taskdata">
+              <span class="tasktitle">Task Name: </span><span class="tasktitle1">{{ task_instance.taskTitle }}</span>
+          </div>
+          <div class="taskdata">
+            <span class="tasktitle">Status: </span>
+            <span class="tasktitle1">
+                {% if task_instance.status == 'I' %}
+                    In Progress
+                {% elif task_instance.status == 'C' %}
+                    Completed
+                {% elif task_instance.status == 'R' %}
+                    Submitted for Review 
+                {% endif %}
+            </span>
+          </div>
+          <div class="taskdata">
+              <span class="tasktitle">Employee Name: </span><span>{{ task_instance.employeeName }}</span>
+          </div>
+          <div class="taskdata">
+              <span class="tasktitle">Email ID: </span><span>{{task_instance.employeeEmail }}</span>
+          </div>
+          <div class="taskdata">
+              <span class="tasktitle">Deadline: </span><span>{{ task_instance.deadline }}</span>
+          </div>
+          <div class="taskdata">
+              <span class="tasktitle">Description: </span><span class="desc">{{ task_instance.description }} </span>
+          </div>
+    </div>
+    <div class="editdeletebtn">
+      <a href="{% url 'edit-tasks' project_id=project_instance.projectID task_id=task_instance.taskID %}"> <button class="details-btn btns">Edit Task</button></a>
+      <button class="details-btn btns" id="deletebtn" onclick="deleteRow(this)" data-task-id="{{ task_instance.taskID }}" data-project-id="{{ project_instance.projectID }}">Delete Task</button>
+    </div>
+    
+      <script src="{%static 'js/manager_view_project.js' %}"></script>
+</body>
+
+</html>

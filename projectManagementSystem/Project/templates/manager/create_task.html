@@ -1,3 +1,4 @@
+<-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,9 +8,9 @@
     <meta name="viewport" content="width=device-width, 
 				initial-scale=1.0">
     <title>dashboard</title>
-    <link rel="stylesheet" href="./css/dashboard_main.css">
-    <link rel="stylesheet" href="./css/dashboard_res.css">
-    <link rel="stylesheet" href="./css/create_project.css">
+    <link rel="stylesheet" href="{%static 'css/dashboard_main.css' %}">
+    <link rel="stylesheet" href="{%static 'css/dashboard_res.css' %}">
+    <link rel="stylesheet" href="{%static 'css/create_project.css' %}">
 </head>
 
 <body>
@@ -41,49 +42,61 @@
         <div class="navcontainer">
             <nav class="nav">
                 <div class="nav-upper-options">
-                    <a href="./dashboard.html">
-                        <div class="nav-option option1">
-                            <img src="./image/dashboard.svg" class="nav-img" alt="dashboard">
-                            <h3> Dashboard</h3>
-                        </div>
-                    </a>
-                    <a href="./profile.html">
-                        <div class="option2 nav-option">
-                            <img src="./image/my_profile.svg" class="nav-img" alt="articles">
-                            <h3> My Profile</h3>
-                        </div>
-                    </a>
-
-                    <a href="./MyProject.html">
-                        <div class="nav-option option3">
-                            <img src="./image/my_project.svg" class="nav-img" alt="report">
-                            <h3> My Project </h3>
-                        </div>
-                    </a>
-
-                    <a href="">
-                        <div class="nav-option option4">
-                            <img src="./image/progress.png" class="nav-img" alt="institution">
-                            <h3> Progress </h3>
-                        </div>
-                    </a>
-
-                    <a href="">
-                        <div class="nav-option option5">
-                            <img src="./image/chat.svg" class="nav-img" alt="blog">
-                            <h3> Chat </h3>
-                        </div>
-                    </a>
-
-                    <a href="">
-                        <div class="nav-option logout">
-                            <img src="./image/logout.svg" class="nav-img" alt="logout">
-                            <h3>Logout</h3>
-                        </div>
-                    </a>
-
+                  <a href="/dashboard">
+                    <div class="nav-option option1">
+                      <img src="{% static '/img/dashboard.svg' %}"
+                        class="nav-img"
+                        alt="dashboard">
+                      <h3> Dashboard</h3>
+                    </div>
+                  </a>
+                  <a href="/dashboard/myprofile">
+                    <div class="option2 nav-option">
+                      <img src="{%static '/img/my_profile.svg' %}"
+                        class="nav-img"
+                        alt="articles">
+                      <h3> My Profile</h3>
+                    </div>
+                  </a>
+          
+                  <a href="/dashboard/project">
+                    <div class="nav-option option3">
+                      <img src="{%static '/img/my_project.svg' %}"
+                        class="nav-img"
+                        alt="report">
+                      <h3> My Project </h3>
+                    </div>
+                  </a>
+          
+                  <a href="">
+                    <div class="nav-option option4">
+                      <img src="{%static '/img/progress.png' %}"
+                        class="nav-img"
+                        alt="institution">
+                      <h3> Progress </h3>
+                    </div>
+                  </a>
+          
+                  <a href="">
+                    <div class="nav-option option5">
+                      <img src="{%static '/img/chat.svg' %}"
+                        class="nav-img"
+                        alt="blog">
+                      <h3> Chat </h3>
+                    </div>
+                  </a>
+                  
+                  <a href="{% url 'logout' %}">
+                    <div class="nav-option logout">
+                      <img src="{%static '/img/logout.svg' %}"
+                        class="nav-img"
+                        alt="logout">
+                      <h3>Logout</h3>
+                    </div>
+                  </a>
+          
                 </div>
-            </nav>
+              </nav>
         </div>
         <div class="main">
             <div class="project-container"> 
@@ -92,9 +105,10 @@
                 </div>
                 <div class="project-body">
                     <form action="" method="post">
+                         {% csrf_token %}
                         <div class="field">
                             <label for="title"> Task Name : </label>
-                            <input type="text" name="title" id="title" placeholder="Enter Project Title" required>
+                            <input type="text" name="task_title" id="title" placeholder="Enter Task Title" required>
                         </div>
 
 
@@ -103,7 +117,7 @@
                             <select name="employee" id="employee">
                                 <option value="">Select Employee</option>
                                 {% for employee in employees %}
-                                    <option value="{{ employee.first_name }} - {{ employee.email }}">{{ employee.first_name }} ({{ employee.email }})</option>
+                                    <option value="{{ employee.first_name }} - {{ employee.email }}">{{ employee.first_name }}-{{ employee.email }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -129,7 +143,7 @@
         </div>
     </div>
 
-    <script src="./dashboard.js"></script>
+    <script src="{%static 'js/dashboard.js' %}"></script>
 </body>
 
 </html>
