@@ -176,25 +176,19 @@ def view_project_details(request,project_id):
 @login_required    
 def viewChat(request,project_id):
     curProject=project.objects.get(projectID=project_id)
-    curManager = manager.objects.get(email=curProject.managerEmail)
-    curOwner = owner.objects.get(email=curProject.ownerEmail)
-    curTasks = Task.objects.filter(projectID=project_id)
-    curEmployees = employee.objects.filter(taskID__in=curTasks)
+    # curTasks = Task.objects.filter(projectID=project_id)
+    # curEmployees = employee.objects.filter(taskID__in=curTasks)
     user=request.user
     curRole='N'
-
-
-    if user==curOwner:
+    if owner.objects.filter(email=curProject.ownerEmail).filter(email=user.email):
         curRole='O'
-    if user==curManager:
+    elif manager.objects.filter(email=curProject.managerEmail).filter(email=user.email):
         curRole='M'
-    if user in curEmployees:
+    elif Task.objects.filter(employeeEmail=user.email).filter(projectID=project_id):
         curRole='E'
-
-
-    if curRole=='N':
+    else:
         messages.error(request, "You don't have access to this page")
-        return redirect('Logout')
+        return redirect('/dashboard')
     
     if request.method == 'POST':
         csrf_token = request.POST.get('csrfmiddlewaretoken')
@@ -202,24 +196,24 @@ def viewChat(request,project_id):
         timestamp = datetime.now()
         newChatID="CHT"+timestamp.strftime("%d%m%y%H%M%S")
         
-        newMessage = project(
+        newMessage = message(
             chatID=newChatID,
-            prevMessage=curProject.chatID,
+            prevMessage=curProject.chat,
             text=newText,
             senderName=user.first_name,
             senderEmail=user.email,
             role=curRole
         )
-        curProject.chatID=newChatID
+        project.objects.filter(projectID=curProject.projectID).update(chat=newChatID)
         newMessage.save()
         
-        return redirect('/dashboard/project/chat')
+        return redirect('/dashboard/project/chat/'+curProject.projectID)
 
     allMessage=[]
-    curChatID=curProject.chatID
+    curChatID=curProject.chat
     while curChatID!='NULL':
         allMessage.append(message.objects.get(chatID=curChatID))
-        curChatID=curChatID.prevMessage
+        curChatID=message.objects.get(chatID=curChatID).prevMessage
     allMessage.reverse()
 
     return render(request, 'view_chats.html', {'project':curProject,'messages': allMessage})

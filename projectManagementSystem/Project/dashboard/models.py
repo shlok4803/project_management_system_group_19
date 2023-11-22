@@ -30,7 +30,7 @@ class project(models.Model):
     
 class message(models.Model):
     chatID = models.SlugField(primary_key=True, max_length=15)
-    prevMessage = models.SlugField(max_length=15, blank=True)
+    prevMessage = models.CharField(max_length=15, blank=True)
     text = models.TextField()
     senderName = models.CharField(max_length=30, blank=True)
     senderEmail = models.EmailField()
