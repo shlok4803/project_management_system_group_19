@@ -224,6 +224,8 @@ def view_task_list(request,project_id):
     project_instance = project.objects.get(projectID=project_id) 
     task_instance=Task.objects.filter(projectID=project_instance)
     
+    
+    
     context = {'project_instance': project_instance,'task_instance':task_instance}
     return render(request, 'manager/manager_view_task_list.html', context)
 
@@ -232,12 +234,15 @@ def view_task_list(request,project_id):
 def view_task_details(request,project_id,task_id):
     
     user=request.user
-    
     task_instance=Task.objects.get(taskID=task_id)
     project_instance = project.objects.get(projectID=project_id)
-    
     context = {'project_instance': project_instance,'task_instance':task_instance}
-    return render(request, 'manager/manager_view_task_details.html', context)
+    
+    if user.user_type == 'manager':
+        return render(request, 'manager/manager_view_task_details.html', context)
+    
+    elif user.user_type == 'employee':
+        return render(request,'employee/employee_view_task_details.html',context)
     
 
 def edit_task(request, project_id, task_id):
