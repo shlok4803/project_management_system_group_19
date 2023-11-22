@@ -157,6 +157,9 @@
                     <a href="{% url 'view-tasks' project_id=project.projectID  %}">
                         <button class="button-tag btns">View</button>
                     </a>
+                    <a href="{% url 'view-chat' project_id=project.projectID  %}">
+                      <button class="button-tag btns">Chat</button>
+                  </a>
                 </td>
             </tr>
         {% empty %}
