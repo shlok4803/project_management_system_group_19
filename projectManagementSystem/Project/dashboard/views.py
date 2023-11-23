@@ -295,22 +295,32 @@ def delete_task(request,task_id,project_id):
         
     except Task.DoesNotExist:
         return JsonResponse({'error': 'Task does not exist'}, status=404)
-     
-    
-    
-    
-    
-            
-        
-        
-        
-    
-
-        
-        
+          
 
 @login_required
 def view_profile(request):
-    return render(request,'profile.html')
+    user = request.user
+
+    company_name = None  # Default value if company name is not found
+
+    # Retrieve company name based on the user's type
+    
+    if user.user_type == 'owner':
+            owner_user = owner.objects.get(email=user.email)
+            company_name = owner_user.company_name
+    elif user.user_type == 'manager':
+            manager_user = manager.objects.get(email=user.email)
+            company_name = manager_user.company_name.company_name
+    elif user.user_type == 'employee':
+            employee_user = employee.objects.get(email=user.email)
+            company_name = employee_user.company_name.company_name
+       
+
+    context = {
+        'user': user,
+        'company_name': company_name,
+    }
+
+    return render(request, 'profile_page.html', context)
 
 
