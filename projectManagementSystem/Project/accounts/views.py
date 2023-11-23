@@ -69,7 +69,7 @@ def register_view_owner(request):
             send_verification_email(request, form)
             messages.success(request, 'Please verify your email for ProPlaning and login after that')
             return redirect('/login')
-    return render(request, 'register_as_admin.html', {"form": form})
+    return render(request, 'owner/register_as_admin.html', {"form": form})
 
 
 def register_view_manager(request):
@@ -85,7 +85,7 @@ def register_view_manager(request):
             send_verification_email(request, form)
             messages.success(request, 'Please verify your email for ProPlaning and login after that')
             return redirect('/login')
-    return render(request, 'register_as_manager.html', {"form": form})
+    return render(request, 'manager/register_as_manager.html', {"form": form})
 
 
 def register_view_employee(request):
@@ -102,7 +102,7 @@ def register_view_employee(request):
             messages.success(request, 'Please verify your email for ProPlaning and login after that')
             CustomUser.is_employee=True
             return redirect('/login')
-    return render(request, 'register_as_employee.html', {"form": form})
+    return render(request, 'employee/register_as_employee.html', {"form": form})
 
 def Logout(request):
     request.session.flush()
