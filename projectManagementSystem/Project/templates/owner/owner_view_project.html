@@ -1,4 +1,4 @@
-{% load static %}
+<-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,9 +11,9 @@
 				initial-scale=1.0">
   <title>View Project</title>
   <link rel="stylesheet"
-        href="{%static 'css/owner_view_project.css' %}">
+        href="{%static '/css/owner_view_project.css' %}">
   <link rel="stylesheet"
-        href="{%static 'css/owner_view_project_res.css' %}">
+        href="{%static '/css/owner_view_project_res.css' %}">
 </head>
 
 <body>
@@ -119,28 +119,22 @@
     </div> -->
    
 
-      <div class="project-container">
-        <div class="project-header">
-            <div class="status-container">
-                <h1 class="project-header-text">My Projects</h1>
-                <select id="select1" onchange="getOption()">
-                    <option value="Show all" selected>Show all</option>
-                    <option value="I">Pending</option>
-                    <option value="C">Completed</option>
-                </select>
-            </div>
-            <a href="/dashboard/project/createProject"><button class="project-header-btn btns">Create project</button></a>
-            <!-- <a href=""><button class="project-header-btn">View Progress</button></a> -->
-            <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name">  -->
+    <div class="project-container">
+      <div class="project-header">
+        <h1 class="project-header-text">My Projects</h1>
+        <div class="progess-edit-btn">
+            <a href="/dashboard/project/createProject"><button class="project-header-btn btns">Create Project</button></a>
         </div>
+      </div>
 
       <div class="project-body">
         <table class="main-table" id="maintable">
           <thead>
-            <th>Project title</th>
-            <th>Status</th>
-            <th>View Project</th>
-            </thead>
+              <th>Project Title</th>
+              <th>Status</th>
+              <th>View Progress</th>
+              <th>Edit Project</th>
+          </thead>
           <tbody>
             {% for project in projects %}
                 <tr class="table-row">
@@ -157,8 +151,13 @@
                         </h3>
                     </td>
                     <td class="table-data">
-                        <a href="{% url 'view-tasks' project_id=project.projectID  %}">
+                        <a href="">
                             <button class="button-tag btns">View</button>
+                        </a>
+                    </td>
+                    <td class="table-data">
+                        <a href="{% url 'edit-project' project_id=project.projectID %}">
+                            <button class="button-tag btns">Edit</button>
                         </a>
                     </td>
                 </tr>
