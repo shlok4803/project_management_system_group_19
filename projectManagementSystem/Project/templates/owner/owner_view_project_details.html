@@ -1,4 +1,4 @@
-<!-- {% load static %} -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +13,13 @@
     <link rel="stylesheet" href="{%static 'css/create_project.css' %}"> -->
     <link rel="stylesheet" href="{%static 'css/admin_view_project_res.css' %}">
     <link rel="stylesheet" href="{%static 'css/admin_view_project_details.css' %}">
+    <style>
+      .message {
+          display: none;
+          color: red;
+          margin-top: 10px;
+      }
+  </style>
 </head>
 
 <body>
@@ -21,18 +28,15 @@
 <header>
 
     <div class="logosec">
-        <img src=
-                    "https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
-            class="icn menuicn"
-            id="menuicn"
-            alt="menu-icon">
+        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+             class="icn menuicn" id="menuicn" alt="menu-icon">
         <div class="logo">ProPlanning</div>
     </div>
 
     <div class="message">
         <div class="circle"></div>
         <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-            <img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
+            <img src="../images/icons8-notification-50.png" class="icn" alt="">
         </a>
         <div class="dp">
             <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
@@ -44,64 +48,65 @@
 </header>
 
 <div class="main-container">
-  <div class="navcontainer">
-    <nav class="nav">
-      <div class="nav-upper-options">
-        <a href="/dashboard">
-          <div class="nav-option option1">
-            <img src="{% static '/img/dashboard.svg' %}"
-              class="nav-img"
-              alt="dashboard">
-            <h3> Dashboard</h3>
-          </div>
-        </a>
-        <a href="/dashboard/myprofile">
-          <div class="option2 nav-option">
-            <img src="{%static '/img/my_profile.svg' %}"
-              class="nav-img"
-              alt="articles">
-            <h3> My Profile</h3>
-          </div>
-        </a>
+    <div class="navcontainer">
+      <nav class="nav">
+        <div class="nav-upper-options">
+          <a href="/dashboard">
+            <div class="nav-option option1">
+              <img src="{% static '/img/dashboard.svg' %}"
+                class="nav-img"
+                alt="dashboard">
+              <h3> Dashboard</h3>
+            </div>
+          </a>
+          <a href="/dashboard/myprofile">
+            <div class="option2 nav-option">
+              <img src="{%static '/img/my_profile.svg' %}"
+                class="nav-img"
+                alt="articles">
+              <h3> My Profile</h3>
+            </div>
+          </a>
+  
+          <a href="/dashboard/project">
+            <div class="nav-option option3">
+              <img src="{%static '/img/my_project.svg' %}"
+                class="nav-img"
+                alt="report">
+              <h3> My Project </h3>
+            </div>
+          </a>
+  
+          <a href="">
+            <div class="nav-option option4">
+              <img src="{%static '/img/progress.png' %}"
+                class="nav-img"
+                alt="institution">
+              <h3> Progress </h3>
+            </div>
+          </a>
+  
+          <a href="">
+            <div class="nav-option option5">
+              <img src="{%static '/img/chat.svg' %}"
+                class="nav-img"
+                alt="blog">
+              <h3> Chat </h3>
+            </div>
+          </a>
+          
+          <a href="{% url 'logout' %}">
+            <div class="nav-option logout">
+              <img src="{%static '/img/logout.svg' %}"
+                class="nav-img"
+                alt="logout">
+              <h3>Logout</h3>
+            </div>
+          </a>
+  
+        </div>
+      </nav>
 
-        <a href="/dashboard/project">
-          <div class="nav-option option3">
-            <img src="{%static '/img/my_project.svg' %}"
-              class="nav-img"
-              alt="report">
-            <h3> My Project </h3>
-          </div>
-        </a>
-
-        <a href="">
-          <div class="nav-option option4">
-            <img src="{%static '/img/progress.png' %}"
-              class="nav-img"
-              alt="institution">
-            <h3> Progress </h3>
-          </div>
-        </a>
-
-        <a href="">
-          <div class="nav-option option5">
-            <img src="{%static '/img/chat.svg' %}"
-              class="nav-img"
-              alt="blog">
-            <h3> Chat </h3>
-          </div>
-        </a>
-        
-        <a href="{% url 'logout' %}">
-          <div class="nav-option logout">
-            <img src="{%static '/img/logout.svg' %}"
-              class="nav-img"
-              alt="logout">
-            <h3>Logout</h3>
-          </div>
-        </a>
-
-      </div>
-    </nav>
     </div>
     <div class="main">
 
@@ -130,42 +135,47 @@
            </div>
          </div> -->
         <div class="confirmation">
-            <p>Please Press Accept or Decline!</p>
+            <p>Press Ok to Complete</p>
             <div class="confirmation-btn">
-                <button class="confirmation-btn1">Accept</button>
-                <button class="confirmation-btn2">Decline</button>
+                <button class="confirmation-btn1">OK</button>
+                <button class="confirmation-btn2">Cancel</button>
             </div>
         </div>
         <div class="project-container">
             <div class="taskdata">
-                <span class="tasktitle">Project Name: </span><span class="tasktitle1">{{ project_instance.projectTitle }}</span>
+                <span class="tasktitle">Project Name: </span><span class="tasktitle1">{{ project_instance.projectTitle}}</span>
             </div>
             <div class="taskdata">
-                <span class="tasktitle">Status: </span>
-                <span class="tasktitle1">
-                    {% if project_instance.status == 'O' %}
-                        Ongoing
-                    {% elif project_instance.status == 'C' %}
-                        Completed
-                    {% endif %}
-                </span>
-              </div>
+                <span class="tasktitle">Status: </span><span id="statusdetail" > 
+              {% if project_instance.status == 'O' %}
+                  Pending
+              {% elif project_instance.status == 'C' %}
+                  Completed
+              {% else %}
+                  Unknown
+              {% endif %}</span>
+              &nbsp;&nbsp;
+              <button class="statuschanger" data-project-id="{{ project_instance.projectID }}">Complete</button>
+
+            </div>
             <div class="taskdata">
-                <span class="tasktitle">Manager Name: </span><span>{{project_instance.managerName}} - {{ project_instance.managerEmail}} </span>
+                <span class="tasktitle">Manager Name: </span><span>{{project_instance.managerName}} - {{ project_instance.managerEmail }}</span>
             </div>
             <div class="taskdata">
                 <span class="tasktitle">Deadline: </span><span>{{project_instance.deadline}}</span>
             </div>
             <div class="taskdata">
-                <span class="tasktitle">Description: </span><span class="desc">{{ project_instance.description }}</span>
+                <span class="tasktitle">Description: </span><span class="desc">{{project_instance.description}}</span>
             </div>
         </div>
         <div class="editdeletebtn">
             <a href="{%url 'edit-project' project_id=project_instance.projectID %}"> <button class="details-btn btns">Edit project</button></a>
-            <button class="details-btn btns" id="deletebtn" onclick="deleteRow(this)" data-project-id="{{ project_instance.projectID }}">Delete project</button>
+            <button class="details-btn btns" id="deletebtn" onclick="deleteRow(this)">Delete project</button>
         </div>
 
+        <script src="{%static 'js/admin_view_projectdetails.js' %}"></script>
         <script src="{%static 'js/admin_viewproject.js' %}"></script>
+        
 </body>
 
 </html>

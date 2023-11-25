@@ -144,7 +144,12 @@
                     </select>
                 </div>
                 <div class="progress-create-btn">
-                    <a href="{% url 'project-details' project_id=project_instance.projectID %}"><button class="project-header-btn btns">View project details</button></a>
+                  <a href="{%url 'view-progress' project_id=project_instance.projectID %}">
+                    <button style="margin:5px;" class="progress-header-btn btns">View project progress</button>
+                </a>
+                <a href="{% url 'project-details' project_id=project_instance.projectID %}">
+                    <button style="margin:5px;" class="project-header-btn btns">View project details</button>
+                </a>
                     <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name"> -->
                 </div>
             </div>

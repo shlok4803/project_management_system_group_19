@@ -11,9 +11,9 @@
 				initial-scale=1.0">
   <title>View Project</title>
   <link rel="stylesheet"
-        href="{%static 'css/owner_view_project.css' %}">
+        href="{%static 'css/admin_myprojects.css' %}">
   <link rel="stylesheet"
-        href="{%static 'css/owner_view_project_res.css' %}">
+        href="{%static 'css/admin_myprojects_res.css' %}">
 </head>
 
 <body>
@@ -125,10 +125,11 @@
                 <h1 class="project-header-text">My Projects</h1>
                 <select id="select1" onchange="getOption()">
                     <option value="Show all" selected>Show all</option>
-                    <option value="I">Pending</option>
+                    <option value="P">Pending</option>
                     <option value="C">Completed</option>
                 </select>
             </div>
+            
             <a href="/dashboard/project/createProject"><button class="project-header-btn btns">Create project</button></a>
             <!-- <a href=""><button class="project-header-btn">View Progress</button></a> -->
             <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name">  -->
@@ -170,7 +171,7 @@
         </tbody>
       </table>
     </div>
-    
+    <script src="{%static 'js/admin_myprojects.js' %}"></script>
   </div>
 </body>
 </html>

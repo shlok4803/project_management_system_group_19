@@ -23,12 +23,14 @@ urlpatterns = [
     path('dashboard/createProject/<str:company_name>/', CreateProject, name='create_project'),
     path('dashboard/project/edit-project/<slug:project_id>/',edit_project, name='edit-project'),
     path('dashboard/project/view-details/<slug:project_id>/',view_project_details, name='project-details'),
+    path('dashboard/project/view-details/<slug:project_id>/update-status/',complete_project, name='change-project-status'),
     path('dashboard/project/task-view/<slug:project_id>/',view_task_list,name='view-tasks'),
     path('dashboard/project/task-view/create-task/<slug:project_id>/',CreateTask,name='create-task'),
     path('dashboard/project/task-view/<slug:project_id>/task-details/<slug:task_id>',view_task_details,name='view-taskdetail'),
     path('dashboard/project/task-view/<slug:project_id>/edit-task/<slug:task_id>',edit_task,name='edit-tasks'),
     path('dashboard/project/task-view/<slug:project_id>/<slug:task_id>/delete',delete_task,name='delete-task'),
     path('dashboard/project/view-details/<slug:project_id>/delete',delete_project,name='delete-project'),
+    path('dashboard/project/<slug:project_id>/view-progress/',view_progress, name='view-progress'),
 
     # reset password with email auth
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name='forgot_password.html'), name='reset_password'),

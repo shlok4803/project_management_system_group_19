@@ -9,7 +9,6 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-
 :root{
     --background-color1: #00303f;
     --background-color2: #ffffff;
@@ -173,7 +172,7 @@ header {
     background-color: var(--background-color2);
     position: absolute;
     top: 0px;
-    left: 00;
+    left: 0px;
     box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
     display: flex;
     flex-direction: column;
@@ -268,12 +267,15 @@ header {
     background-color: var(--two-use-color);
 }
 
-.box img {
+
+
+/* .box img {
     height: 50px;
 }
 .box .text {
     color: white;
 }
+
 .topic {
     font-size: 13px;
     font-weight: 400;
@@ -283,7 +285,7 @@ header {
 .topic-heading {
     font-size: 30px;
     letter-spacing: 3px;
-}
+} */
 
 
 
@@ -372,7 +374,6 @@ header {
     font-size: 14px;
     letter-spacing: 0px;
     font-weight: 600;
-    padding: 2px;
 }
 
 .button-tag
@@ -387,28 +388,25 @@ header {
     font-weight: 600;
     border: none;
     cursor: pointer;
-}
-
-.button-tag
-{
-    width: 100px;
-    text-align: center;
-    background-color: #00303f;
-    color: white;
-    border-radius: 4px;
-    font-size: 14px;
-    letter-spacing: 0px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    padding: 2px;
 }
 .btns{
     transition: all 0.4s;
 }
-
 .btns:hover{
     transform: scale(1.1);
+}
+.button-tag
+{
+    width: 100px;
+    text-align: center;
+    background-color: #00303f;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    letter-spacing: 0px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
 }
 
 .table-data a:link,a:visited{
@@ -419,112 +417,15 @@ header {
     color: inherit;
 }
 
-.description-box{
-    height: 200px;
-    max-height: 300px;
-    overflow-y: auto;
-    width: 600px;
-    background-color: aqua;
-    border-radius: 12px;
-    box-shadow: 7px 6px rgb(6, 88, 88);
-    display: none;
-    flex-direction: column;
-    justify-content:space-evenly;
-}
-
-.taskdata{
-    font-size: 22px;
-    margin-left: 3px;
-}
-.tasktitle{
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.desc-box{
-    height: auto;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.progress-create-btn{
-    display: flex;
-    justify-content: flex-end;
-    width: 400px;
-}
-
-.details-container{
-    height: 200px;
-    max-height: 300px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 600px;
-    display: none;
-    background-color: aqua;
-    border-radius: 12px;
-    box-shadow: 7px 6px rgb(6, 88, 88);
-    flex-direction: column;
-    justify-content:space-evenly;
-    transition: all 0.4s;
-}
-.desc-box{
-    height: auto;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.details-container button{
-    width: 120px;
-    text-align: center;
-    background-color: #00303f;
-    color: white;
-    border-radius: 4px;
-    font-size: 16px;
-    letter-spacing: 0px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    padding: 2px;
-}
-.description-box{
-    height: 200px;
-    max-height: 300px;
-    overflow-y: auto;
-    width: 600px;
-    background-color: aqua;
-    border-radius: 12px;
-    box-shadow: 7px 6px rgb(6, 88, 88);
-    display: none;
-    flex-direction: column;
-    justify-content:space-evenly;
-    transition: all 0.4s;
-}
 .project-header input{
     width: auto;
-    height: 35px;
+    height: 30px;
     border-style: none;
     border: 2px solid black;
     border-radius: 10px;
-    padding: 3px;
+    padding: 2px;
     color: white;
-    background-color:#00303f;
-}
-.progress-header-btn{
-    width: auto;
-    height: 35px;
-    border-style: none;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 3px;
-    color: white;
-    background-color:#00303f;
+    background-color:#0e5469;
 }
 .project-header input::placeholder{
     color: white;
@@ -540,6 +441,5 @@ header {
     color: white;
     font-size: 14px;
     border: none;
-    padding: 2px;
     border-radius: 10px;
 }
