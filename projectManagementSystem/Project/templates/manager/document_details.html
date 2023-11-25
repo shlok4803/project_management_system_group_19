@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,9 +10,11 @@
 				initial-scale=1.0">
   <title>View Project</title>
   <link rel="stylesheet"
-  href="{%static '/css/manager_view_project.css' %}">
+        href="../../static/css/manager_view_project_res.css">
   <link rel="stylesheet"
-  href="{%static '/css/manager_view_project_res.css' %}">
+        href="../../static/css/document_details.css">
+  <!-- <link rel="stylesheet"
+        href="./css/manager_view_details.css"> -->
 </head>
 
 <body>
@@ -32,11 +33,11 @@
 
     <div class="message">
         <div class="circle"></div>
-        <a href="dashboard/myprofile/" style="display: flex;justify-content: center;align-items: center;">
-            <img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
+        <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+            <img src="./image/icons8-notification-50.png" class="icn" alt="">
         </a>
         <div class="dp">
-            <a href="dashboard/myprofile/" style="display: flex;justify-content: center;align-items: center;">
+            <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
                 <img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
             </a>
         </div>
@@ -85,6 +86,8 @@
         </div>
       </nav>
 </div>
+
+  </div>
   <div class="main">
 
     <!-- <div class="searchbar2">
@@ -111,53 +114,49 @@
          </div>
        </div>
      </div> -->
-
-     <div class="project-container">
-      <div class="project-header">
-        <h1 class="project-header-text">{{ project_instance.projectTitle }}</h1>
-        <div class="progress-create-btn">
-            <a href="./progress.html"><button class="project-header-btn btns">View Progress</button></a>
-            <a href="{% url 'create-task' project_id=project_instance.projectID %}"><button class="project-header-btn btns">Create Task</button></a>
-        </div>
-      </div>
-      
-        <div class="project-body">
-            {% if tasks %}
-                <table class="main-table" id="maintable">
-                    <thead>
-                        <th>Tasks</th>
-                        <th>Status</th>
-                        <th>Edit task</th>
-                    </thead>
-                    <tbody>
-                        {% for task in tasks %}
-                            <tr class="table-row" id="tablerow{{ task.taskID }}">
-                                <td class="table-data">{{ task.taskTitle }}</td>
-                                <td class="table-data">
-                                    <h3 class="label-tag">
-                                        {% if task.status == 'I' %}
-                                            In Progress
-                                        {% elif task.status == 'C' %}
-                                            Completed
-                                        {% elif task.status == 'R' %}
-                                            Submitted For Review
-                                        {% endif %}
-                                    </h3>
-                                </td>
-                                <td class="table-data">
-                                    <a href="{% url 'edit-tasks' project_id=project_instance.projectID task_id=task.taskID %}">
-                                        <button class="button-tag btns">Edit</button>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <p>No tasks to show.</p>
-            {% endif %}
-        </div>        
-      </div>
-      
+   
+    <div class="project-container">
+            <!-- <div class="taskdata">
+                <span class="tasktitle">Task Name: </span><span class="tasktitle1">Task 1</span>
+            </div>
+            <div class="taskdata">
+                <span class="tasktitle">Assgined By: </span><span>Name</span>
+            </div>
+            <div class="taskdata">
+                <span class="tasktitle">Deadline: </span><span>08/11/2023</span>
+            </div>
+            <div class="taskdata">
+                <span class="tasktitle">Description: </span><span class="desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, accusantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, mollitia? Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium vero assumenda harum dolores nihil pariatur earum, voluptates quod alias molestias! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis, in laborum! Nobis nesciunt neque hic quas aut magnam animi molestiae.</span>
+            </div> --> 
+            <div class="buttons">
+              <button>Accept</button>
+              <button>Decline</button>
+            </div>
+            <div class="table-wrapper"> 
+             <table>
+              <thead>
+                <th>Documents</th>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Document 1</td>
+              </tr>  
+              <tr>
+                <td>Document 2</td>
+              </tr>  
+              <tr>
+                <td>Document 3</td>
+              </tr>  
+              <tr>
+                <td>Document 4</td>
+              </tr>  
+              <tr>
+                <td>Document 5</td>
+              </tr>  
+              </tbody>
+            </table> 
+        </div>              
+    </div>
+  <script src="manager_view_project.js"></script>
 </body>
 </html>

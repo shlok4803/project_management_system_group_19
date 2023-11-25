@@ -288,13 +288,12 @@
 
     
     .project-container {
-        min-height: 300px;
-        max-width: 1200px;
-        margin: 70px auto 0px auto;
-        background-color: #ffffff;
-        border-radius: 30px;
-        box-shadow: 3px 3px 10px rgb(188, 188, 188);
-        padding: 0px 20px 20px 20px;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     
     .project-header {
@@ -355,7 +354,7 @@
     
     .table-data{
         text-align: center;
-        width: 25%;
+        width: 33%;
         font-size: 14px;
         letter-spacing: 0px;
         font-weight: 600;
@@ -400,6 +399,14 @@
         font-weight: 600;
         border: none;
         cursor: pointer;
+        padding: 2px;
+    }
+    .btns{
+        transition: all 0.4s;
+    }
+
+    .btns:hover{
+        transform: scale(1.1);
     }
     
     .table-data a:link,a:visited{
@@ -409,19 +416,6 @@
     .table-data a{
         color: inherit;
     }
-
-    .description-box{
-        height: 200px;
-        max-height: 300px;
-        overflow-y: auto;
-        width: 600px;
-        background-color: aqua;
-        border-radius: 12px;
-        box-shadow: 7px 6px rgb(6, 88, 88);
-        display: none;
-        flex-direction: column;
-        justify-content:space-evenly;
-     }
 
      .taskdata{
         font-size: 22px;
@@ -440,11 +434,116 @@
         align-items: center;
         flex-wrap: wrap;
      }
-     .btns{
-        transition: all 0.4s;
+
+     .progress-create-btn{
+        display: flex;
+        justify-content: space-between;
+        width: 20%;
      }
 
-     .btns:hover{
+     .details-container{
+        height: 45vh;
+        max-height: 70vh;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        width: 40vw;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 3px 3px 10px rgb(188, 188, 188);;
+        flex-direction: column;
+        justify-content:space-around;
+        transition: all 0.4s;
+     }
+     .field input{
+        width: 60%;
+        margin-left: 1%;
+        height: auto;
+        text-decoration: none;
+        border: none;
+        background-color:transparent;
+        font-size: 21px;
+     }
+     .field label{
+        margin-left: 1%;
+        font-size: 25px;
+        font-weight: bold;
+     }
+     /* .project-container button{
+        width: 400px;
+        height: 80px;
+        text-align: center;
+        background-color: #0c007d;
+        color: white;
+        border-radius: 10px;
+        font-size: 22px;
+        letter-spacing: 0px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        padding: 2px;
+     } */
+      
+     .submit-container{
+        height: 80px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+     }
+     .buttons button{
+          width: 18%;
+          height: fit-content;
+          border: none;
+          border-radius: 10px;
+          background-color: var(--background-color1);
+          color: white;
+          font-size: 25px;
+          transition: all 0.5s;
+          margin-bottom: 10px;
+     }
+     .buttons button:hover{
         transform: scale(1.1);
      }
-    
+
+     .table-wrapper{
+        width: 90%;
+        height: 70%;
+        max-height: 70%;
+        overflow-y: auto;
+     }
+     thead{
+        position: sticky;
+        top: 0;
+     }
+     
+     table {
+       font-family: arial, sans-serif;
+       border-collapse: collapse;
+       width: 100%;
+       background-color: white;
+       border: none;
+       max-height: 20px;
+       height: 10px;
+       overflow-y: auto;
+     }
+     
+     td, th {
+       border: 1px solid #dddddd;
+       text-align: center;
+       padding: 8px;
+     }
+     th{
+        background-color: white;
+        font-size: 25px;
+     }
+     
+     tr:nth-child(even) {
+       background-color: #dddddd;
+     }
+     
+     .buttons{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+     }

@@ -11,9 +11,15 @@
 				initial-scale=1.0">
   <title>View Project</title>
   <link rel="stylesheet"
+<<<<<<< HEAD
         href="{%static 'css/admin_myprojects.css' %}">
   <link rel="stylesheet"
         href="{%static 'css/admin_myprojects_res.css' %}">
+=======
+        href="{%static '/css/owner_view_project.css' %}">
+  <link rel="stylesheet"
+        href="{%static '/css/owner_view_project_res.css' %}">
+>>>>>>> 114338d95363a13868acac08865f2785379eaf84
 </head>
 
 <body>
@@ -70,16 +76,7 @@
             <img src="{%static '/img/my_project.svg' %}"
               class="nav-img"
               alt="report">
-            <h3> My Project </h3>
-          </div>
-        </a>
-
-        <a href="">
-          <div class="nav-option option4">
-            <img src="{%static '/img/progress.png' %}"
-              class="nav-img"
-              alt="institution">
-            <h3> Progress </h3>
+            <h3> My Projects </h3>
           </div>
         </a>
 
@@ -88,7 +85,7 @@
             <img src="{%static '/img/chat.svg' %}"
               class="nav-img"
               alt="blog">
-            <h3> Chat </h3>
+            <h3> Manage Employees </h3>
           </div>
         </a>
         
@@ -104,8 +101,10 @@
       </div>
     </nav>
   </div>
+  
   <div class="main">
 
+<<<<<<< HEAD
     <!-- <div class="searchbar2">
         <input type="text"
             name=""
@@ -133,15 +132,24 @@
             <a href="/dashboard/project/createProject"><button class="project-header-btn btns">Create project</button></a>
             <!-- <a href=""><button class="project-header-btn">View Progress</button></a> -->
             <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name">  -->
+=======
+    <div class="project-container">
+      <div class="project-header">
+        <h1 class="project-header-text">My Projects</h1>
+        <div class="progess-edit-btn">
+            <a href="/dashboard/project/createProject"><button class="project-header-btn btns">Create Project</button></a>
+>>>>>>> 114338d95363a13868acac08865f2785379eaf84
         </div>
+      </div>
 
       <div class="project-body">
         <table class="main-table" id="maintable">
           <thead>
-            <th>Project title</th>
-            <th>Status</th>
-            <th>View Project</th>
-            </thead>
+              <th>Project Title</th>
+              <th>Status</th>
+              <th>View Progress</th>
+              <th>Edit Project</th>
+          </thead>
           <tbody>
             {% for project in projects %}
                 <tr class="table-row">
@@ -158,8 +166,13 @@
                         </h3>
                     </td>
                     <td class="table-data">
-                        <a href="{% url 'view-tasks' project_id=project.projectID  %}">
+                        <a href="">
                             <button class="button-tag btns">View</button>
+                        </a>
+                    </td>
+                    <td class="table-data">
+                        <a href="{% url 'edit-project' project_id=project.projectID %}">
+                            <button class="button-tag btns">Edit</button>
                         </a>
                     </td>
                 </tr>

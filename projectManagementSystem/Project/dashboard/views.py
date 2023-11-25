@@ -106,7 +106,7 @@ def view_project(request):
     if user.user_type == 'owner': 
         # Owners can view all projects.
         
-        projects = project.objects.all()
+        projects = project.objects.all() 
         return render(request,'owner/owner_view_project.html',{'projects': projects})
         
     elif user.user_type == 'manager': 
@@ -157,8 +157,8 @@ def edit_project(request,project_id):
             project_instance.completed=None
         
         project_instance.save()
-        view_project_details = reverse('project-details', kwargs={'project_id': project_id})
-        return redirect(view_project_details)  # Redirect to the project details page
+
+        return redirect('/dashboard/project')  # Redirect to the project details page
 
     return render(request, 'owner/edit_project.html', {'managers':managers,'project': project_instance})    
 
@@ -167,7 +167,6 @@ def edit_project(request,project_id):
 def view_project_details(request,project_id):
 
     project_instance=project.objects.get(projectID=project_id)
-    user=request.user
     
     if user.user_type =='owner':
         return render(request,'owner/owner_view_project_details.html',{'project_instance':project_instance})
@@ -256,19 +255,13 @@ def CreateTask(request,project_id):
 @login_required
 def view_task_list(request,project_id):
     
-    user=request.user
-    
     project_instance = project.objects.get(projectID=project_id) 
     task_instance=Task.objects.filter(projectID=project_instance)
     
     
     
     context = {'project_instance': project_instance,'task_instance':task_instance}
-    
-    if user.user_type == 'owner':
-        return render(request,'owner/owner_view_task_list.html',context)
-    elif user.user_type == 'manager':
-        return render(request, 'manager/manager_view_task_list.html', context)
+    return render(request, 'manager/manager_view_task_list.html', context)
 
 
 @login_required
