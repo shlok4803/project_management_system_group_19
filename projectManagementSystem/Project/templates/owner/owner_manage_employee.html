@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, 
+         initial-scale=1.0">
+    <title>dashboard</title>
+    <link rel="stylesheet" href="{%static 'css/dashboard_main.css' %}">
+    <link rel="stylesheet" href="{%static 'css/dashboard_res.css' %}">
+</head>
+
+<body>
+
+    <!-- for header part -->
+    <header>
+
+		<div class="logosec">
+			<img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+				class="icn menuicn"
+				id="menuicn"
+				alt="menu-icon">
+			<div class="logo">ProPlanning</div>
+		</div>
+
+		<div class="message">
+			<div class="circle"></div>
+			<a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+				<img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
+			</a>
+			<div class="dp">
+				<a href="/dashboard/myprofile" style="display: flex;justify-content: center;align-items: center;">
+					<img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
+				</a>
+			</div>
+		</div>
+
+	</header>
+
+	<div class="main-container">
+		<div class="navcontainer">
+			<nav class="nav">
+				<div class="nav-upper-options">
+					<a href="/dashboard">
+						<div class="nav-option option1">
+							<img src="{% static '/img/dashboard.svg' %}"
+								class="nav-img"
+								alt="dashboard">
+							<h3> Dashboard</h3>
+						</div>
+					</a>
+					<a href="/dashboard/myprofile">
+						<div class="option2 nav-option">
+							<img src="{%static '/img/my_profile.svg' %}"
+								class="nav-img"
+								alt="articles">
+							<h3> My Profile</h3>
+						</div>
+					</a>
+
+					<a href="/dashboard/project">
+						<div class="nav-option option3">
+							<img src="{%static '/img/my_project.svg' %}"
+								class="nav-img"
+								alt="report">
+							<h3> My Project </h3>
+						</div>
+					</a>
+
+					<a href="">
+						<div class="nav-option option4">
+							<img src="{%static '/img/progress.png' %}"
+								class="nav-img"
+								alt="institution">
+							<h3> Progress </h3>
+						</div>
+					</a>
+
+					<a href="">
+						<div class="nav-option option5">
+							<img src="{%static '/img/chat.svg' %}"
+								class="nav-img"
+								alt="blog">
+							<h3> Chat </h3>
+						</div>
+					</a>
+					
+					<a href="{% url 'logout' %}">
+						<div class="nav-option logout">
+							<img src="{%static '/img/logout.svg' %}"
+								class="nav-img"
+								alt="logout">
+							<h3>Logout</h3>
+						</div>
+					</a>
+
+				</div>
+			</nav>
+		</div>
+        <div class="main">
+
+            <div class="project-container">
+                <div class="project-header">
+                    <h1 class="project-header-text">Manage Managers</h1>
+                </div>
+
+                <div class="project-body">
+                    <table class="main-table" id="maintable">
+                        <thead>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Change Role</th>
+                            <th>Delete</th>
+                        </thead>
+
+                        <tbody>
+                            <tr class="table-row" id="managertablerow1">
+                                <td class="table-data">Manager 1</td>
+                                <td class="table-data">
+                                    <h3>manager1@gmail.com</h3>
+                                </td>
+                                <td class="table-data"><button onclick="Confirmrole(this)"
+                                    class="button-tag btns">Manager</button></td>
+                                
+                                <td class="table-data"><button onclick="deleteRow(this)"
+                                            class="button-tag btns">Delete</button></td>
+                    
+                            </tr>
+                            
+                            <tr class="table-row" id="managertablerow2">
+                                <td class="table-data">Manager 2</td>
+                                <td class="table-data">
+                                    <h3>manager2@gmail.com</h3>
+                                </td>
+                                <td class="table-data"><button onclick="Confirmrole(this)"
+                                    class="button-tag btns">Manager</button></td>
+                                
+                                <td class="table-data"><button onclick="deleteRow(this)"
+                                            class="button-tag btns">Delete</button></td>
+                    
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="project-container">
+                <div class="project-header">
+                    <h1 class="project-header-text">Manage Employees</h1>
+                </div>
+
+                <div class="project-body">
+                    <table class="main-table" id="maintable">
+                        <thead>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Change Role</th>
+                            <th>Delete</th>
+                        </thead>
+
+                        <tbody>
+                            <tr class="table-row" id="employeetablerow1">
+                                <td class="table-data">Employee 1</td>
+                                <td class="table-data">
+                                    <h3>employee1@gmail.com</h3>
+                                </td>
+                                <td class="table-data"><button onclick="Confirmrole2(this)"
+                                    class="button-tag btns">Employee</button></td>
+                                
+                                <td class="table-data"><button onclick="deleteRow(this)"
+                                            class="button-tag btns">Delete</button></td>
+                    
+                            </tr>
+                            
+                            <tr class="table-row" id="employeetablerow2">
+                                <td class="table-data">Manager 2</td>
+                                <td class="table-data">
+                                    <h3>employee2@gmail.com</h3>
+                                </td>
+                                <td class="table-data"><button onclick="Confirmrole2(this)"
+                                    class="button-tag btns">Employee</button></td>
+                                
+                                <td class="table-data"><button onclick="deleteRow(this)"
+                                            class="button-tag btns">Delete</button></td>
+                    
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <script src="{%static 'js/owner_manage_employee.js' %}"></script>
+</body>
+
+</html>
