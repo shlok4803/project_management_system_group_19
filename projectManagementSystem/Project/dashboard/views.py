@@ -168,7 +168,41 @@ def view_project_details(request,project_id):
 
     project_instance=project.objects.get(projectID=project_id)
     
-    return render(request,'manager/manager_project_details.html',{'project_instance':project_instance})
+    if user.user_type =='owner':
+        return render(request,'owner/owner_view_project_details.html',{'project_instance':project_instance})
+    
+    elif user.user_type == 'manager':
+        return render(request,'manager/manager_project_details.html',{'project_instance':project_instance})
+    
+    
+def complete_project(request, project_id):
+    project_instance=project.objects.get(projectID=project_id)
+    task_instance = Task.objects.filter(projectID=project_instance)
+
+    # Check if all tasks are completed
+    all_tasks_completed = all(task.status == 'C' for task in task_instance)
+
+    if all_tasks_completed:
+        # Update the project completion date
+        project_instance.completed = datetime.now()
+        project_instance.status = 'C'  # Update project status to 'Completed'
+        project_instance.save()
+        return JsonResponse({'message': 'Project completed successfully'})
+        
+
+    return JsonResponse({'message': 'Tasks are pending'})  
+    
+    
+@login_required        
+def delete_project(request,project_id):
+    try:
+        project_instance =project.objects.get(projectID=project_id)
+        project_instance.delete()
+        return redirect('/dashboard/project/')
+        
+    except project.DoesNotExist:
+        return redirect('')
+        return JsonResponse({'error': 'Project does not exist'}, status=404)
 
 
 
@@ -322,5 +356,49 @@ def view_profile(request):
     }
 
     return render(request, 'profile_page.html', context)
+
+
+def update_profile(request):
+    if request.method == 'POST' and request.is_ajax():
+        user = request.user
+        if user.is_authenticated:
+            try:
+                user.first_name = request.POST.get('fullname')
+                user.contact = request.POST.get('contact')
+                user.role = request.POST.get('role')
+                user.company = request.POST.get('company')
+                user.save()
+                return JsonResponse({'success': True})
+            except Exception as e:
+                return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
+    
+    
+def view_progress(request, project_id):
+    project_instance = project.objects.get(projectID=project_id)
+    task_instance = Task.objects.filter(projectID=project_instance)
+    
+    total_task = task_instance.count()  # Total tasks for the project
+    
+    in_progress_tasks = task_instance.filter(status='I').count()
+    completed_tasks = task_instance.filter(status='C').count()
+    review_tasks = task_instance.filter(status='R').count()
+    
+    # Calculate total completed tasks considering all tasks in 'C' and 'R' status
+    total_completed = completed_tasks + review_tasks + in_progress_tasks
+    
+    # Calculate progress percentage
+    if total_task > 0:
+        progress_percentage = (total_completed / total_task) * 100
+    else:
+        progress_percentage = 0
+    
+    context = {
+        'progress': progress_percentage,
+        'project_instance': project_instance
+    }
+    
+    return render(request, 'progress_page.html', context)
+
 
 

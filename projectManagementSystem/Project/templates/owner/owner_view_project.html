@@ -11,9 +11,15 @@
 				initial-scale=1.0">
   <title>View Project</title>
   <link rel="stylesheet"
+<<<<<<< HEAD
+        href="{%static 'css/admin_myprojects.css' %}">
+  <link rel="stylesheet"
+        href="{%static 'css/admin_myprojects_res.css' %}">
+=======
         href="{%static '/css/owner_view_project.css' %}">
   <link rel="stylesheet"
         href="{%static '/css/owner_view_project_res.css' %}">
+>>>>>>> 114338d95363a13868acac08865f2785379eaf84
 </head>
 
 <body>
@@ -98,11 +104,41 @@
   
   <div class="main">
 
+<<<<<<< HEAD
+    <!-- <div class="searchbar2">
+        <input type="text"
+            name=""
+            id=""
+            placeholder="Search">
+        <div class="searchbtn">
+        <img src="https://tse3.mm.bing.net/th?id=OIP.qj2wH0lhKIfZH159GxkpNgHaHa&pid=Api&P=0&h=180"
+                class="icn srchicn"
+                alt="search-button">
+        </div>
+    </div> -->
+   
+
+      <div class="project-container">
+        <div class="project-header">
+            <div class="status-container">
+                <h1 class="project-header-text">My Projects</h1>
+                <select id="select1" onchange="getOption()">
+                    <option value="Show all" selected>Show all</option>
+                    <option value="P">Pending</option>
+                    <option value="C">Completed</option>
+                </select>
+            </div>
+            
+            <a href="/dashboard/project/createProject"><button class="project-header-btn btns">Create project</button></a>
+            <!-- <a href=""><button class="project-header-btn">View Progress</button></a> -->
+            <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name">  -->
+=======
     <div class="project-container">
       <div class="project-header">
         <h1 class="project-header-text">My Projects</h1>
         <div class="progess-edit-btn">
             <a href="/dashboard/project/createProject"><button class="project-header-btn btns">Create Project</button></a>
+>>>>>>> 114338d95363a13868acac08865f2785379eaf84
         </div>
       </div>
 
@@ -148,7 +184,7 @@
         </tbody>
       </table>
     </div>
-    
+    <script src="{%static 'js/admin_myprojects.js' %}"></script>
   </div>
 </body>
 </html>

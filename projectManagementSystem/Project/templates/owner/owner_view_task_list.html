@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,
+				initial-scale=1.0">
+    <title>dashboard</title>
+    <!-- <link rel="stylesheet" href="{%static 'css/dashboard_main.css' %}">
+    <link rel="stylesheet" href="{%static 'css/dashboard_res.css' %}">
+    <link rel="stylesheet" href="{%static 'css/create_project.css' %}"> -->
+    <link rel="stylesheet"
+          href="{%static 'css/admin_view_project.css' %}">
+    <link rel="stylesheet"
+          href="{%static 'css/admin_view_project_res.css' %}">
+</head>
+
+<body>
+
+<!-- for header part -->
+<header>
+
+    <div class="logosec">
+        <img src=
+                    "https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+            class="icn menuicn"
+            id="menuicn"
+            alt="menu-icon">
+        <div class="logo">ProPlanning</div>
+    </div>
+
+    <div class="message">
+        <div class="circle"></div>
+        <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+            <img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
+        </a>
+        <div class="dp">
+            <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+                <img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
+            </a>
+        </div>
+    </div>
+
+</header>
+
+<div class="main-container">
+  <div class="navcontainer">
+    <nav class="nav">
+      <div class="nav-upper-options">
+        <a href="/dashboard">
+          <div class="nav-option option1">
+            <img src="{% static '/img/dashboard.svg' %}"
+              class="nav-img"
+              alt="dashboard">
+            <h3> Dashboard</h3>
+          </div>
+        </a>
+        <a href="/dashboard/myprofile">
+          <div class="option2 nav-option">
+            <img src="{%static '/img/my_profile.svg' %}"
+              class="nav-img"
+              alt="articles">
+            <h3> My Profile</h3>
+          </div>
+        </a>
+
+        <a href="/dashboard/project">
+          <div class="nav-option option3">
+            <img src="{%static '/img/my_project.svg' %}"
+              class="nav-img"
+              alt="report">
+            <h3> My Project </h3>
+          </div>
+        </a>
+
+        <a href="">
+          <div class="nav-option option4">
+            <img src="{%static '/img/progress.png' %}"
+              class="nav-img"
+              alt="institution">
+            <h3> Progress </h3>
+          </div>
+        </a>
+
+        <a href="">
+          <div class="nav-option option5">
+            <img src="{%static '/img/chat.svg' %}"
+              class="nav-img"
+              alt="blog">
+            <h3> Chat </h3>
+          </div>
+        </a>
+        
+        <a href="{% url 'logout' %}">
+          <div class="nav-option logout">
+            <img src="{%static '/img/logout.svg' %}"
+              class="nav-img"
+              alt="logout">
+            <h3>Logout</h3>
+          </div>
+        </a>
+
+      </div>
+    </nav>
+    </div>
+    <div class="main">
+
+        <!-- <div class="searchbar2">
+            <input type="text"
+                name=""
+                id=""
+                placeholder="Search">
+            <div class="searchbtn">
+            <img src="https://tse3.mm.bing.net/th?id=OIP.qj2wH0lhKIfZH159GxkpNgHaHa&pid=Api&P=0&h=180"
+                    class="icn srchicn"
+                    alt="search-button">
+            </div>
+        </div> -->
+        <!-- <div class="desc-box">
+          <div class="description-box">
+            <div class="taskdata">
+              <span class="tasktitle">Task Name: </span><span class="tasktitle1">Task 1</span>
+             </div>
+             <div class="taskdata">
+               <span class="tasktitle">Deadline: </span><span>08/11/2023</span>
+             </div>
+             <div class="taskdata">
+               <span class="tasktitle">Description: </span><span class="desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, accusantium!</span>
+             </div>
+           </div>
+         </div> -->
+
+        <div class="project-container">
+            <div class="project-header">
+                <div class="status-container">
+                    <h1 class="project-header-text">{{ project_instance.projectTitle }} </h1>
+                    <select id="select1" onchange="getOption()">
+                        <option value="Show all" selected>Show all</option>
+                        <option value="I">Pending</option>
+                        <option value="C">Completed</option>
+                        <option value="R">Submitted for review</option>
+                    </select>
+                </div>
+                <div class="progress-create-btn">
+                  <a href="{%url 'view-progress' project_id=project_instance.projectID %}">
+                    <button style="margin:5px;" class="progress-header-btn btns">View project progress</button>
+                </a>
+                <a href="{% url 'project-details' project_id=project_instance.projectID %}">
+                    <button style="margin:5px;" class="project-header-btn btns">View project details</button>
+                </a>
+                    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name"> -->
+                </div>
+            </div>
+
+        <div class="project-body">
+            {% if task_instance %}
+                <table class="main-table" id="maintable">
+                    <thead>
+                        <th>Tasks</th>
+                        <th>Status</th>
+                        <th>Assigned employees</th>
+                        <th>Deadline</th>
+                    </thead>
+                    <tbody>
+                        {% for task in task_instance %}
+                            <tr class="table-row">
+                                <td class="table-data">{{ task.taskTitle }}</td>
+                                <td class="table-data">
+                                  <h3 class="label-tag">
+                                      {% if task.status == 'I' %}
+                                          In Progress
+                                      {% elif task.status == 'C' %}
+                                          Completed
+                                      {% elif task.status == 'R' %}
+                                          Submitted for Review
+                                      {% else %}
+                                          Unknown
+                                      {% endif %}
+                                  </h3>
+                              </td>
+                                <td class="table-data">{{ task.employeeName }} - {{task.employeeEmail}}</td>
+                                <td class="table-data">{{ task.deadline }}</td>
+
+                            </tr>
+                        {% endfor %}
+                    
+                    {% else %}
+                        <p>No tasks to show.</p>
+                    {% endif %}
+          </tbody>
+        </table>
+        </div>
+        
+        </div>
+        <script src="{%static 'js/admin_viewproject.js' %}"></script>
+</body>
+
+</html>
