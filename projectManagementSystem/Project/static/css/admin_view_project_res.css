@@ -152,3 +152,23 @@
         width: 70px;
     }
 }
+
+
+@media screen and (max-width:550px){
+    
+    .project-container
+    {
+        width: 100%;
+    }
+
+    .taskdata
+    {
+        font-size: 18px;
+    }
+
+    .tasktitle
+    {
+        font-size: 21px;
+    }
+}
+
