@@ -32,11 +32,11 @@ function myFunction(filter) {
     if(filter==="C"){
       filter="Completed";
     }
-    if(filter==="S"){
-      filter="Submitted for review";
-    }
+    // if(filter==="S"){
+    //   filter="Submitted for review";
+    // }
     filter=filter.toUpperCase();
-    if(filter==="SHOW ALL" || filter==='#'){
+    if(filter==="SHOW ALL"){
       let filter1="PENDING";
       let filter2="COMPLETED";
       for (i = 0; i < tr.length; i++) {
