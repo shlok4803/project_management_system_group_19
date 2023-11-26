@@ -61,7 +61,7 @@
                         <label for="taskstatus">Task Status :</label>
                         <select name="taskstatus" id="taskstatus" required>
                             <option value="I" {% if task_instance.status == 'I' %}selected{% endif %}>In Progress</option>
-                            <option value="C" {% if task_instance.status == 'C' %}selected{% endif %}>Completed</option>
+                            {% comment %} <option value="C" {% if task_instance.status == 'C' %}selected{% endif %}>Completed</option> {% endcomment %}
                             <option value="R" {% if task_instance.status == 'R' %}selected{% endif %}>Submitted for Review</option>
                         </select>
                     </div>

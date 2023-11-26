@@ -35,7 +35,6 @@
                         <thead>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Change Role</th>
                             <th>Delete</th>
                         </thead>
             
@@ -45,12 +44,6 @@
                                     <td class="table-data">{{ manager.first_name }}</td>
                                     <td class="table-data">
                                         <h3>{{ manager.email }}</h3>
-                                    </td>
-                                    <td class="table-data">
-                                        <!-- Assuming this element contains the email -->
-                                        <button onclick="changeRole(this)"
-                                         class="button-tag btns" data-email="{{ manager.email }}">Manager</button>
-
                                     </td>
                                     <td class="table-data"><button
                                         class="button-tag btns" data-email= "{{ manager.email }}">Delete</button>
@@ -72,7 +65,6 @@
                         <thead>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Role</th>
                             <th>Delete</th>
                         </thead>
             
@@ -82,10 +74,6 @@
                                     <td class="table-data">{{ employee.first_name }}</td>
                                     <td class="table-data">
                                         <h3>{{ employee.email }}</h3>
-                                    </td>
-                                    <td class="table-data">
-                                        <button 
-                                        class="button-tag btns" data-email="{{employee.email}}">Employee</button>
                                     </td>
                                     <td class="table-data"><button onclick="deleteRow(this)"
                                         class="button-tag btns" data-email="{{employee.email}}">Delete</button></td>
