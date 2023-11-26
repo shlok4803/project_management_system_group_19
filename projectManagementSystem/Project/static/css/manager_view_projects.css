@@ -441,7 +441,7 @@
      .progress-create-btn{
         display: flex;
         justify-content: space-between;
-        width: 400px;
+        width: 70vh;
      }
 
      .details-container{

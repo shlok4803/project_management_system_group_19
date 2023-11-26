@@ -11,7 +11,7 @@
 				initial-scale=1.0">
   <title>View Project</title>
   <link rel="stylesheet"
-        href="{%static 'css/view_project.css' %}">
+        href="{%static 'css/view_projects.css' %}">
   <link rel="stylesheet"
         href="{%static 'css/view_project_res.css' %}">
 </head>
@@ -39,6 +39,7 @@
           </select>
         </div>
         <div class="progress-edit-btn">
+          <a href="{% url  'view-chat' project_instance.projectID %}"><button class="project-header-btn btns">Chat</button></a>
           <a href="{% url 'project-details' project_id=project_instance.projectID %}"><button class="project-header-btn btns">View Project Details</button></a>
           <a href="./progress.html"><button class="project-header-btn btns">View Progress</button></a>
           <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name"> -->

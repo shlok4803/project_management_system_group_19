@@ -22,18 +22,6 @@
     --two-use-color: #00303f;
 }
 
-/* :root {
---background-color1: #fafaff;
---background-color2: #ffffff;
---background-color3: #ededed;
---background-color4: #cad7fda4;
---primary-color: #4b49ac;
---secondary-color: #0c007d;
---Border-color: #3f0097;
---one-use-color: #3f0097;
---two-use-color: #5500cb;
-} */
-
 body {
     background-color: var(--background-color4);
     max-width: 100%;
@@ -533,6 +521,7 @@ header {
 .status-container{
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
     width: 400px;
 }
 #select1{
@@ -542,4 +531,9 @@ header {
     border: none;
     padding: 2px;
     border-radius: 10px;
+    height: 40px;
+}
+
+.project-header-text{
+    width: 40vh;
 }
