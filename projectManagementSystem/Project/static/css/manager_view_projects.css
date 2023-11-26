@@ -351,7 +351,7 @@
     
     .label-tag
     {
-        width: 100px;
+        width: 130px;
         display: inline-block;
         text-align: center;
         background-color: rgb(0, 177, 0);
@@ -367,7 +367,7 @@
     {
         width: 100px;
         text-align: center;
-        background-color: #0c007d;
+        background-color: #00303f;
         color: white;
         border-radius: 4px;
         font-size: 14px;
@@ -381,7 +381,7 @@
     {
         width: 100px;
         text-align: center;
-        background-color: #0c007d;
+        background-color: #00303f;
         color: white;
         border-radius: 4px;
         font-size: 14px;
@@ -412,7 +412,7 @@
         max-height: 300px;
         overflow-y: auto;
         width: 600px;
-        background-color: aqua;
+        background-color: #D2D2D2;
         border-radius: 12px;
         box-shadow: 7px 6px rgb(6, 88, 88);
         display: none;
@@ -453,7 +453,7 @@
         align-items: center;
         width: 600px;
         display: none;
-        background-color: aqua;
+        background-color: #D2D2D2;
         border-radius: 12px;
         box-shadow: 7px 6px rgb(6, 88, 88);
         flex-direction: column;
@@ -471,7 +471,7 @@
      .details-container button{
         width: 120px;
         text-align: center;
-        background-color: #0c007d;
+        background-color: #00303f;
         color: white;
         border-radius: 4px;
         font-size: 16px;
@@ -486,7 +486,7 @@
         max-height: 300px;
         overflow-y: auto;
         width: 600px;
-        background-color: aqua;
+        background-color: #D2D2D2;
         border-radius: 12px;
         box-shadow: 7px 6px rgb(6, 88, 88);
         display: none;
@@ -514,7 +514,7 @@
         width: 400px;
      }
      #select1{
-        background-color: #5500cb;
+        background-color: #00303f;
         color: white;
         font-size: 14px;
         border: none;
