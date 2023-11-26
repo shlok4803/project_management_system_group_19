@@ -124,15 +124,14 @@
         </div>
         <!-- <a href=""><button class="project-header-btn">View Progress</button></a> -->
         <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name"> -->
-      </div>
         <div class="progress-create-btn">
-            <a href="{% url 'project-details' project_id=project_instance.projectID %}"><button class="project-header-btn btns">View Project Details</button></a>
-            <a href="./progress.html"><button class="project-header-btn btns">View Progress</button></a>
-            <a href="{% url 'create-task' project_id=project_instance.projectID %}"><button class="project-header-btn btns">Create Task</button></a>
-            <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name"> -->
+          <a href="{% url 'project-details' project_id=project_instance.projectID %}"><button class="project-header-btn btns">View Project Details</button></a>
+          <a href="./progress.html"><button class="project-header-btn btns">View Progress</button></a>
+          <a href="{% url 'create-task' project_id=project_instance.projectID %}"><button class="project-header-btn btns">Create Task</button></a>
+          <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name"> -->
         </div>
       </div>
-
+      
       <div class="project-body">
         <table class="main-table" id="maintable">
           <thead>
@@ -143,35 +142,36 @@
           <tbody>
             {% for task in task_instance %}
             <tr class="table-row">
-                <td class="table-data">{{ task.taskTitle }}</td>
-                <td class="table-data">
-                    <h3 class="label-tag">
-                        {% if task.status == 'I' %}
-                            In Progress
-                        {% elif task.status == 'C' %}
-                            Completed
-                        {% elif task.status == 'R' %}
-                            Submitted for Review
-                        {% else %}
-                            Unknown
-                        {% endif %}
-                    </h3>
-                </td>
-                <td class="table-data">
-                  <a href="{% url 'view-taskdetail' project_id=project_instance.projectID task_id=task.taskID %}">
-                        <button class="button-tag btns">View</button>
-                    </a>
-                </td>
+              <td class="table-data">{{ task.taskTitle }}</td>
+              <td class="table-data">
+                <h3 class="label-tag">
+                  {% if task.status == 'I' %}
+                  In Progress
+                  {% elif task.status == 'C' %}
+                  Completed
+                  {% elif task.status == 'R' %}
+                  Submitted for Review
+                  {% else %}
+                  Unknown
+                  {% endif %}
+                </h3>
+              </td>
+              <td class="table-data">
+                <a href="{% url 'view-taskdetail' project_id=project_instance.projectID task_id=task.taskID %}">
+                  <button class="button-tag btns">View</button>
+                </a>
+              </td>
             </tr>
-        {% empty %}
+            {% empty %}
             <tr class="table-row">
-                <td class="table-data" colspan="4">No tasks to show</td>
+              <td class="table-data" colspan="4">No tasks to show</td>
             </tr>
-        {% endfor %}
-
+            {% endfor %}
+            
           </tbody>
         </table>
       </div>
+    </div>
   </div>
   <script src="{%static 'js/manager_view_project.js' %}"></script>
 </body>

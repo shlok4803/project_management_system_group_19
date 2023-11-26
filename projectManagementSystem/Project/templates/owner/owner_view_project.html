@@ -18,82 +18,12 @@
 
 <body>
 
-<!-- for header part -->
-<header>
-
-    <div class="logosec">
-        <img src=
-                    "https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
-            class="icn menuicn"
-            id="menuicn"
-            alt="menu-icon">
-        <div class="logo">ProPlanning</div>
-    </div>
-
-    <div class="message">
-        <div class="circle"></div>
-        <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-            <img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
-        </a>
-        <div class="dp">
-            <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-                <img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
-            </a>
-        </div>
-    </div>
-
-</header>
+	<!-- for header part -->
+	{% include '../header_page.html' %}
 
 <div class="main-container">
   <div class="navcontainer">
-    <nav class="nav">
-      <div class="nav-upper-options">
-        <a href="/dashboard">
-          <div class="nav-option option1">
-            <img src="{% static '/img/dashboard.svg' %}"
-              class="nav-img"
-              alt="dashboard">
-            <h3> Dashboard</h3>
-          </div>
-        </a>
-        <a href="/dashboard/myprofile">
-          <div class="option2 nav-option">
-            <img src="{%static '/img/my_profile.svg' %}"
-              class="nav-img"
-              alt="articles">
-            <h3> My Profile</h3>
-          </div>
-        </a>
-
-        <a href="/dashboard/project">
-          <div class="nav-option option3">
-            <img src="{%static '/img/my_project.svg' %}"
-              class="nav-img"
-              alt="report">
-            <h3> My Projects </h3>
-          </div>
-        </a>
-
-        <a href="">
-          <div class="nav-option option5">
-            <img src="{%static '/img/chat.svg' %}"
-              class="nav-img"
-              alt="blog">
-            <h3> Manage Employees </h3>
-          </div>
-        </a>
-        
-        <a href="{% url 'logout' %}">
-          <div class="nav-option logout">
-            <img src="{%static '/img/logout.svg' %}"
-              class="nav-img"
-              alt="logout">
-            <h3>Logout</h3>
-          </div>
-        </a>
-
-      </div>
-    </nav>
+    {% include './owner_navbar.html' %}
   </div>
   
   <div class="main">
