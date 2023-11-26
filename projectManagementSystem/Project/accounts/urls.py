@@ -32,6 +32,7 @@ urlpatterns = [
     path('dashboard/project/view-details/<slug:project_id>/delete',delete_project,name='delete-project'),
     path('dashboard/project/<slug:project_id>/view-progress/',view_progress, name='view-progress'),
     path('dashboard/manage-employees',manage_employee, name='manage-employee'),
+    path('dashboard/project/chat/<slug:project_id>/',viewChat, name='view-chat'),
 
     # reset password with email auth
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name='forgot_password.html'), name='reset_password'),

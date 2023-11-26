@@ -191,6 +191,51 @@ def complete_project(request, project_id):
         
 
     return JsonResponse({'message': 'Tasks are pending'})  
+
+@login_required    
+def viewChat(request,project_id):
+    curProject=project.objects.get(projectID=project_id)
+    # curTasks = Task.objects.filter(projectID=project_id)
+    # curEmployees = employee.objects.filter(taskID__in=curTasks)
+    user=request.user
+    curRole='N'
+    if owner.objects.filter(email=curProject.ownerEmail).filter(email=user.email):
+        curRole='O'
+    elif manager.objects.filter(email=curProject.managerEmail).filter(email=user.email):
+        curRole='M'
+    elif Task.objects.filter(employeeEmail=user.email).filter(projectID=project_id):
+        curRole='E'
+    else:
+        messages.error(request, "You don't have access to this page")
+        return redirect('/dashboard')
+    
+    if request.method == 'POST':
+        csrf_token = request.POST.get('csrfmiddlewaretoken')
+        newText = request.POST.get('Text')
+        timestamp = datetime.now()
+        newChatID="CHT"+timestamp.strftime("%d%m%y%H%M%S")
+        
+        newMessage = message(
+            chatID=newChatID,
+            prevMessage=curProject.chat,
+            text=newText,
+            senderName=user.first_name,
+            senderEmail=user.email,
+            role=curRole
+        )
+        project.objects.filter(projectID=curProject.projectID).update(chat=newChatID)
+        newMessage.save()
+        
+        return redirect('/dashboard/project/chat/'+curProject.projectID)
+
+    allMessage=[]
+    curChatID=curProject.chat
+    while curChatID!='NULL':
+        allMessage.append(message.objects.get(chatID=curChatID))
+        curChatID=message.objects.get(chatID=curChatID).prevMessage
+    allMessage.reverse()
+
+    return render(request, 'view_chats.html', {'project':curProject,'messages': allMessage})
     
 #Owner   
 @login_required        
@@ -216,6 +261,9 @@ def manage_employee(request):
     context={'manager_instance':manager_instance,'employee_instance':employee_instance}
     
     return render(request,'owner/owner_manage_employee.html',context)    
+
+
+
 
 
 
