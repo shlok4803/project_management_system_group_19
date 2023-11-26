@@ -235,7 +235,7 @@ def viewChat(request,project_id):
         curChatID=message.objects.get(chatID=curChatID).prevMessage
     allMessage.reverse()
 
-    return render(request, 'view_chats.html', {'project':curProject,'messages': allMessage})
+    return render(request, 'chat_section.html', {'project':curProject,'messages': allMessage})
     
 #Owner   
 @login_required        
