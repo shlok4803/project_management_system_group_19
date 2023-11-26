@@ -285,21 +285,21 @@
         letter-spacing: 3px;
     }
 
-
+/* 
     
     .project-container {
         min-height: 400px;
         max-width: 500px;
         margin: 70px auto 0px auto;
-        background-color: #3badd0;
+        background-color: #ffffff;
         border-radius: 30px;
         box-shadow: 3px 3px 10px rgb(188, 188, 188);
         padding: 0px 20px 20px 20px;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        overflow-y: auto;
-    }
+        align-items: center;
+    } */
     
     .project-header {
         height: auto;
@@ -461,9 +461,9 @@
         justify-content:space-evenly;
         transition: all 0.4s;
      }
-     .project-container button{
-        width: 400px;
-        height: 80px;
+     .editdeletebtn button{
+        width: 200px;
+        height: 40px;
         text-align: center;
         background-color: #0c007d;
         color: white;
@@ -474,6 +474,81 @@
         border: none;
         cursor: pointer;
         padding: 2px;
+        margin-top: 20px;
      }
-   
-  
+ 
+     .project-container {
+        min-height: 400px;
+        max-width: 500px;
+        margin: 70px auto 0px auto;
+        background-color:#D2D2D2;
+        border-radius: 30px;
+        box-shadow: 3px 3px 10px rgb(188, 188, 188);
+        padding: 0px 20px 20px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        overflow-y: auto;
+        overflow-x: auto;
+        flex-wrap: wrap;
+    }
+    
+    .editdeletebtn{
+        width: 100%;
+        text-align: center; 
+    }
+    .statuscheck{
+        background-color: #6eb6cd;
+        padding: 2px;
+        border: none;
+        border: 2px solid black;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .confirmation{
+       height: 120px;
+       width: 400px;
+       background-color:var(--background-color1);
+       color: white;
+       display: flex;
+       flex-direction: column;
+       align-self: center;
+       justify-content: space-between;
+       border-radius: 10px;
+       position: absolute;
+       top: 250px;
+       text-align: center;
+       font-size: 18px;
+       left: 650px;
+       display: none;
+    }
+    .confirmation-btn{
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+        margin-bottom: 10px;
+    }
+    .confirmation-btn button{
+        height: 30px;
+        width: 100px;
+        border: none;
+        background-color: #D2D2D2;
+        cursor: pointer;
+    }
+    .cross-button{
+        height: 20%;
+        width: 100%;
+        top: 0px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .cross-button img{
+        height: 90%;
+        width: 6%;
+        margin-right: 4px;
+        margin-top: 1px;
+        transition: all 0.5s;
+    }
+    .cross-button img:hover{
+        transform: scale(1.1);
+    }

@@ -21,19 +21,7 @@
         --one-use-color: #00303f;
         --two-use-color: #00303f;
     }
-    
-    /* :root {
-    --background-color1: #fafaff;
-    --background-color2: #ffffff;
-    --background-color3: #ededed;
-    --background-color4: #cad7fda4;
-    --primary-color: #4b49ac;
-    --secondary-color: #0c007d;
-    --Border-color: #3f0097;
-    --one-use-color: #3f0097;
-    --two-use-color: #5500cb;
-    } */
-    
+        
     body {
         background-color: var(--background-color4);
         max-width: 100%;
@@ -285,21 +273,21 @@
         letter-spacing: 3px;
     }
 
-/* 
+
     
     .project-container {
         min-height: 400px;
         max-width: 500px;
         margin: 70px auto 0px auto;
-        background-color: #ffffff;
+        background-color: white;
         border-radius: 30px;
         box-shadow: 3px 3px 10px rgb(188, 188, 188);
         padding: 0px 20px 20px 20px;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        align-items: center;
-    } */
+        overflow-y: auto;
+    }
     
     .project-header {
         height: auto;
@@ -461,73 +449,26 @@
         justify-content:space-evenly;
         transition: all 0.4s;
      }
-     .editdeletebtn button{
-        width: 200px;
-        height: 40px;
-        text-align: center;
-        background-color: #0c007d;
-        color: white;
-        border-radius: 10px;
-        font-size: 22px;
-        letter-spacing: 0px;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-        padding: 2px;
-        margin-top: 20px;
+
+     .submit-container{
+        height: 80px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
      }
- 
-     .project-container {
-        min-height: 400px;
-        max-width: 500px;
-        margin: 70px auto 0px auto;
-        background-color: #3badd0;
-        border-radius: 30px;
-        box-shadow: 3px 3px 10px rgb(188, 188, 188);
-        padding: 0px 20px 20px 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        overflow-y: auto;
-    }
-    
-    .editdeletebtn{
-        width: 100%;
-        text-align: center;
-    }
-    .statuscheck{
-        background-color: #6eb6cd;
-        padding: 2px;
-        border: none;
-        border: 2px solid black;
-        border-radius: 10px;
-        cursor: pointer;
-    }
-    .confirmation{
-       height: 120px;
-       width: 400px;
-       background-color:white;
-       display: flex;
-       flex-direction: column;
-       align-self: center;
-       justify-content: space-evenly;
-       border-radius: 10px;
-       position: absolute;
-       top: 250px;
-       text-align: center;
-       font-size: 18px;
-       left: 650px;
-       display: none;
-    }
-    .confirmation-btn{
-        display: flex;
-        width: 100%;
-        justify-content: space-evenly;
-    }
-    .confirmation-btn button{
-        height: 30px;
-        width: 100px;
-        border: none;
-        background-color: #3badd0;
-        cursor: pointer;
-    }
+     .submit-container button{
+          width: 90%;
+          height: 50%;
+          border: none;
+          border-radius: 10px;
+          background-color: var(--background-color1);
+          color: white;
+          font-size: 25px;
+          transition: all 0.5s;
+     }
+     .submit-container button:hover{
+        transform: scale(1.1);
+     }
+   
+  
