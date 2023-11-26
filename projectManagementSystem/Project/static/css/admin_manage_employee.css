@@ -30,7 +30,7 @@
     width: auto;
     padding: 0px 5px;
     border-radius: 8px;
-    background-color: #5500cb;
+    background-color: #00303f;
     color: white;
     font-size: 15px;
     border: none;
@@ -74,7 +74,7 @@ a:visited {
 }
 
 .label-tag {
-    width: 100px;
+    width: 130px;
     display: inline-block;
     text-align: center;
     background-color: rgb(0, 177, 0);
@@ -88,7 +88,7 @@ a:visited {
 .button-tag {
     width: 100px;
     text-align: center;
-    background-color: #0c007d;
+    background-color: #00303f;
     color: white;
     border-radius: 4px;
     font-size: 14px;
@@ -109,7 +109,7 @@ a:visited {
 .button-tag {
     width: 100px;
     text-align: center;
-    background-color: #0c007d;
+    background-color: #00303f;
     color: white;
     border-radius: 4px;
     font-size: 14px;
@@ -150,7 +150,7 @@ a:visited {
 }
 
 #select1 {
-    background-color: #5500cb;
+    background-color: #00303f;
     color: white;
     font-size: 14px;
     height: 60px;
