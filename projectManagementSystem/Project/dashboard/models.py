@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
 from accounts.models import *
+import os
     
 class project(models.Model):
     projectID = models.SlugField(primary_key=True, max_length=15)
@@ -43,6 +44,8 @@ class Task(models.Model):
     projectID = models.ForeignKey(project, on_delete=models.CASCADE)
     managerName = models.CharField(max_length=30, blank=True)
     managerEmail = models.EmailField()
+    #late = models.BooleanField(default=False)
+    
     status = models.CharField(max_length=1, default='I',
         choices=[
             ('I', 'In Progress'),
@@ -52,6 +55,7 @@ class Task(models.Model):
  
     def __str__(self):
         return self.taskID
+
     
 
 

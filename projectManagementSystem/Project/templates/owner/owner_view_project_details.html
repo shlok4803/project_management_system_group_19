@@ -170,7 +170,7 @@
         </div>
         <div class="editdeletebtn">
             <a href="{%url 'edit-project' project_id=project_instance.projectID %}"> <button class="details-btn btns">Edit project</button></a>
-            <button class="details-btn btns" id="deletebtn" onclick="deleteRow(this)">Delete project</button>
+            <button class="details-btn btns" id="deletebtn" onclick="deleteRow(this)" data-project-id="{{ project_instance.projectID }}">Delete project</button>
         </div>
 
         <script src="{%static 'js/admin_view_projectdetails.js' %}"></script>

@@ -321,7 +321,7 @@ header {
     width: auto;
     padding: 0px 5px;
     border-radius: 8px;
-    background-color: #5500cb;
+    background-color: #00303f;
     color: white;
     font-size: 15px;
     border: none;
@@ -437,7 +437,7 @@ header {
     width: 400px;
  }
  #select1{
-    background-color: #5500cb;
+    background-color: #00303f;
     color: white;
     font-size: 14px;
     border: none;

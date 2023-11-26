@@ -1,31 +1,28 @@
 function deleteRow(r) {
-  let taskId = r.getAttribute('data-task-id');
   let projectId = r.getAttribute('data-project-id');
-  let text = "Press OK to delete the task!";
+  let text = "Press OK to delete the project!";
   if (confirm(text)) {
-      // AJAX request
-      fetch(`/dashboard/project/task-view/${projectId}/${taskId}/delete`, {
-          method: 'DELETE',
-          headers: {
-              'X-CSRFToken': getCSRFToken()  // Ensure you have a function to retrieve the CSRF token
-          },
-      })
-      .then(response => {
-          if (response.ok) {
-              // Handle success: remove row from the table
-              let row = r.parentNode.parentNode;
-              row.parentNode.removeChild(row);
-              window.location.href = `/dashboard/project/task-view/${projectId}`;
-          } else {
-              // Handle error
-              console.error('Error deleting task');
-          }
-      })
-      .catch(error => {
-          console.error('Error:', error);
-      });
+    // AJAX request
+    fetch(`/dashboard/project/view-details/${projectId}/delete`, {
+      method: 'DELETE',
+      headers: {
+        'X-CSRFToken': getCSRFToken()  // Ensure you have a function to retrieve the CSRF token
+      },
+    })
+    .then(response => {
+      if (response.ok) {
+        // Handle success: redirect or display a message
+        window.location.href = `/dashboard/project/`; // Redirect to project list or dashboard
+      } else {
+        // Handle error
+        console.error('Error deleting project');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   } else {
-      text = "You canceled!";
+    text = "You canceled!";
   }
 }
 
@@ -44,12 +41,12 @@ function getCSRFToken() {
 // function showtask2(row){
 //   if(descbox2.style.display=="none"){
 //       descbox2.style.display="flex";
-//       document.querySelector(".tasktitle1").textContent=`Task ${row}`;      
+//       document.querySelector(".tasktitle1").textContent=`Task ${row}`;
 //       document.querySelector("#taskdetails").textContent="Hide Details";
 //       document.querySelector(".desc-box").style.justifyContent="space-between";
-//   }  
+//   }
 //   else{
-//       descbox2.style.display="none";    
+//       descbox2.style.display="none";
 //       document.querySelector(".desc-box").style.justifyContent="center";
 //       document.querySelector("#taskdetails").textContent="Task Details";
 //   }
@@ -71,7 +68,7 @@ function getCSRFToken() {
 // }
 // function showtask(row,btn){
 //     // console.log(row);
-//     descbox2.style.display="none"; 
+//     descbox2.style.display="none";
 //      if(btn.textContent=="View"){
 //         document.querySelector(".desc-box").style.justifyContent="center";
 //         document.querySelector("#taskdetails").textContent="Task Details";
@@ -121,64 +118,49 @@ function getCSRFToken() {
 
 document.querySelector(".statuscheck").addEventListener('click',()=>{
   if(document.querySelector(".statuscheck").textContent=="Submitted for review"){
-     document.querySelector(".confirmation").style.display="flex";
-    }
-  })
+      document.querySelector(".confirmation").style.display="flex";
+  }
+})
 document.querySelector(".confirmation-btn1").addEventListener('click',()=>{
-   document.querySelector(".statuscheck").textContent="Completed";
-   document.querySelector(".confirmation").style.display="none";
+  document.querySelector(".statuscheck").textContent="Completed";
+  document.querySelector(".confirmation").style.display="none";
 });
 document.querySelector(".confirmation-btn2").addEventListener('click',()=>{
-   document.querySelector(".statuscheck").textContent="Inprogress";
-   document.querySelector(".confirmation").style.display="none";
+  document.querySelector(".statuscheck").textContent="Inprogress";
+  document.querySelector(".confirmation").style.display="none";
 });
-  
+
 
 function myFunction(filter) {
   var table, tr, td, i, txtValue;
   // input = document.getElementById("myInput");
   // filter = input.value.toUpperCase();
-  table = document.querySelector(".main-table");
-  tr = table.getElementsByTagName("tr");
-  if(filter==="I"){
-    filter="In Progress";
+  if(filter=="I"){
+      filter="Pending";
   }
-  if(filter==="C"){
-    filter="Completed";
+  if(filter=="C"){
+      filter="Completed";
   }
-  if(filter==="R"){
-    filter="Submitted for review";
+  if(filter=="S"){
+      filter="Submitted for review";
   }
   filter=filter.toUpperCase();
-  if(filter==="SHOW ALL" || filter==='#'){
-    let filter1="PENDING";
-    let filter2="COMPLETED";
-    let filter3="SUBMITTED FOR REVIEW";
-    for (i = 0; i < tr.length; i++) {
+  if(filter=="SHOW ALL" || filter=="#"){
+      filter="";
+  }
+  table = document.querySelector(".main-table");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("td")[1];
       if (td) {
-        txtValue = td.textContent || td.innerText;
-        if ((txtValue.toUpperCase().indexOf(filter1) > -1) || (txtValue.toUpperCase().indexOf(filter2)>-1) || (txtValue.toUpperCase().indexOf(filter3) > -1))  {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }       
-    }
-  }
-  else{
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+          } else {
+              tr[i].style.display = "none";
+          }
       }
-    }       
   }
- }
 }
 function getOption() {
   selectElement = document.querySelector('#select1');
@@ -186,4 +168,3 @@ function getOption() {
   console.log(output);
   myFunction(output);
 }
-

@@ -99,94 +99,70 @@
                     <h1 class="project-header-text">Manage Managers</h1>
                 </div>
 
-                <div class="project-body">
-                    <table class="main-table" id="maintable">
-                        <thead>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Change Role</th>
-                            <th>Delete</th>
-                        </thead>
-
-                        <tbody>
-                            <tr class="table-row" id="managertablerow1">
-                                <td class="table-data">Manager 1</td>
+            <div class="project-body">
+                <table class="main-table" id="managersTable">
+                    <thead>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Change Role</th>
+                        <th>Delete</th>
+                    </thead>
+        
+                    <tbody>
+                        {% for manager in manager_instance %}
+                            <tr class="table-row">
+                                <td class="table-data">{{ manager.name }}</td>
                                 <td class="table-data">
-                                    <h3>manager1@gmail.com</h3>
+                                    <h3>{{ manager.email }}</h3>
                                 </td>
-                                <td class="table-data"><button onclick="Confirmrole(this)"
-                                    class="button-tag btns">Manager</button></td>
-                                
-                                <td class="table-data"><button onclick="deleteRow(this)"
-                                            class="button-tag btns">Delete</button></td>
-                    
-                            </tr>
-                            
-                            <tr class="table-row" id="managertablerow2">
-                                <td class="table-data">Manager 2</td>
                                 <td class="table-data">
-                                    <h3>manager2@gmail.com</h3>
+                                    <button onclick="changeRole('{{ manager.id }}', 'manager')"
+                                        class="button-tag btns">Manager</button>
                                 </td>
-                                <td class="table-data"><button onclick="Confirmrole(this)"
-                                    class="button-tag btns">Manager</button></td>
-                                
                                 <td class="table-data"><button onclick="deleteRow(this)"
-                                            class="button-tag btns">Delete</button></td>
-                    
+                                    class="button-tag btns">Delete</button>
+                                </td>
                             </tr>
-
-                        </tbody>
-                    </table>
-                </div>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
 
-            <div class="project-container">
-                <div class="project-header">
-                    <h1 class="project-header-text">Manage Employees</h1>
-                </div>
-
-                <div class="project-body">
-                    <table class="main-table" id="maintable">
-                        <thead>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Change Role</th>
-                            <th>Delete</th>
-                        </thead>
-
-                        <tbody>
-                            <tr class="table-row" id="employeetablerow1">
-                                <td class="table-data">Employee 1</td>
-                                <td class="table-data">
-                                    <h3>employee1@gmail.com</h3>
-                                </td>
-                                <td class="table-data"><button onclick="Confirmrole2(this)"
-                                    class="button-tag btns">Employee</button></td>
-                                
-                                <td class="table-data"><button onclick="deleteRow(this)"
-                                            class="button-tag btns">Delete</button></td>
-                    
-                            </tr>
-                            
-                            <tr class="table-row" id="employeetablerow2">
-                                <td class="table-data">Manager 2</td>
-                                <td class="table-data">
-                                    <h3>employee2@gmail.com</h3>
-                                </td>
-                                <td class="table-data"><button onclick="Confirmrole2(this)"
-                                    class="button-tag btns">Employee</button></td>
-                                
-                                <td class="table-data"><button onclick="deleteRow(this)"
-                                            class="button-tag btns">Delete</button></td>
-                    
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
+        <div class="project-container">
+            <div class="project-header">
+                <h1 class="project-header-text">Manage Employees</h1>
             </div>
+        
+            <div class="project-body">
+                <table class="main-table" id="employeesTable">
+                    <thead>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Change Role</th>
+                        <th>Delete</th>
+                    </thead>
+        
+                    <tbody>
+                        {% for employee in employee_instance %}
+                            <tr class="table-row">
+                                <td class="table-data">{{ employee.name }}</td>
+                                <td class="table-data">
+                                    <h3>{{ employee.email }}</h3>
+                                </td>
+                                <td class="table-data">
+                                    <button onclick="changeRole('{{ employee.id }}', 'employee')"
+                                        class="button-tag btns">Employee</button>
+                                </td>
+                                <td class="table-data"><button onclick="deleteRow(this)"
+                                    class="button-tag btns">Delete</button></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-            <script src="{%static 'js/owner_manage_employee.js' %}"></script>
+<script src="{%static 'js/owner_manage_employee.js' %}"></script>
 </body>
 
 </html>

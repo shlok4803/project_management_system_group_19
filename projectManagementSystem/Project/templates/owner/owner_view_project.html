@@ -11,15 +11,9 @@
 				initial-scale=1.0">
   <title>View Project</title>
   <link rel="stylesheet"
-<<<<<<< HEAD
         href="{%static 'css/admin_myprojects.css' %}">
   <link rel="stylesheet"
         href="{%static 'css/admin_myprojects_res.css' %}">
-=======
-        href="{%static '/css/owner_view_project.css' %}">
-  <link rel="stylesheet"
-        href="{%static '/css/owner_view_project_res.css' %}">
->>>>>>> 114338d95363a13868acac08865f2785379eaf84
 </head>
 
 <body>
@@ -104,7 +98,6 @@
   
   <div class="main">
 
-<<<<<<< HEAD
     <!-- <div class="searchbar2">
         <input type="text"
             name=""
@@ -132,58 +125,44 @@
             <a href="/dashboard/project/createProject"><button class="project-header-btn btns">Create project</button></a>
             <!-- <a href=""><button class="project-header-btn">View Progress</button></a> -->
             <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name">  -->
-=======
-    <div class="project-container">
-      <div class="project-header">
-        <h1 class="project-header-text">My Projects</h1>
-        <div class="progess-edit-btn">
-            <a href="/dashboard/project/createProject"><button class="project-header-btn btns">Create Project</button></a>
->>>>>>> 114338d95363a13868acac08865f2785379eaf84
         </div>
-      </div>
 
-      <div class="project-body">
-        <table class="main-table" id="maintable">
-          <thead>
-              <th>Project Title</th>
+        <div class="project-body">
+          <table class="main-table" id="maintable">
+            <thead>
+              <th>Project title</th>
               <th>Status</th>
-              <th>View Progress</th>
-              <th>Edit Project</th>
-          </thead>
-          <tbody>
-            {% for project in projects %}
-                <tr class="table-row">
-                    <td class="table-data">{{ project.projectTitle }}</td>
-                    <td class="table-data">
-                        <h3 class="label-tag">
-                            {% if project.status == 'O' %}
-                                Pending
-                            {% elif project.status == 'C' %}
-                                Completed
-                            {% else %}
-                                Unknown
-                            {% endif %}
-                        </h3>
-                    </td>
-                    <td class="table-data">
-                        <a href="">
-                            <button class="button-tag btns">View</button>
-                        </a>
-                    </td>
-                    <td class="table-data">
-                        <a href="{% url 'edit-project' project_id=project.projectID %}">
-                            <button class="button-tag btns">Edit</button>
-                        </a>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr class="table-row">
-                    <td class="table-data" colspan="4">No projects to show</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-      </table>
-    </div>
+              <th>View Project</th>
+              </thead>
+            <tbody>
+              {% for project in projects %}
+                  <tr class="table-row">
+                      <td class="table-data">{{ project.projectTitle }}</td>
+                      <td class="table-data">
+                          <h3 class="label-tag">
+                              {% if project.status == 'O' %}
+                                  Pending
+                              {% elif project.status == 'C' %}
+                                  Completed
+                              {% else %}
+                                  Unknown
+                              {% endif %}
+                          </h3>
+                      </td>
+                      <td class="table-data">
+                          <a href="{% url 'view-tasks' project_id=project.projectID  %}">
+                              <button class="button-tag btns">View</button>
+                          </a>
+                      </td>
+                  </tr>
+              {% empty %}
+                  <tr class="table-row">
+                      <td class="table-data" colspan="4">No projects to show</td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
     <script src="{%static 'js/admin_myprojects.js' %}"></script>
   </div>
 </body>

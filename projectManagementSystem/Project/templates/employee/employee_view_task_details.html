@@ -1,4 +1,4 @@
-{% load static %}
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,10 +11,9 @@
 				initial-scale=1.0">
   <title>View Project</title>
   <link rel="stylesheet"
-        href="{% static 'css/manager_view_project_res.css' %}">
+        href="{%static 'css/manager_view_project_res.css' %}">
   <link rel="stylesheet"
         href="{%static 'css/task_details.css' %}">
-   
   <!-- <link rel="stylesheet"
         href="./css/manager_view_details.css"> -->
 </head>
@@ -24,23 +23,26 @@
 <!-- for header part -->
 <header>
 
-  <div class="logosec">
-      <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
-          class="icn menuicn" id="menuicn" alt="menu-icon">
-      <div class="logo">ProPlanning</div>
-  </div>
+    <div class="logosec">
+        <img src=
+                    "https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+            class="icn menuicn"
+            id="menuicn"
+            alt="menu-icon">
+        <div class="logo">ProPlanning</div>
+    </div>
 
-  <div class="message">
-      <div class="circle"></div>
-      <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-          <img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
-      </a>
-      <div class="dp">
-          <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-              <img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
-          </a>
-      </div>
-  </div>
+    <div class="message">
+        <div class="circle"></div>
+        <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+            <img src="{%static 'img/icons8-notification-50.png' %}" class="icn" alt="">
+        </a>
+        <div class="dp">
+            <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
+                <img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
+            </a>
+        </div>
+    </div>
 
 </header>
 
@@ -114,25 +116,34 @@
    
     <div class="project-container">
             <div class="taskdata">
-                <span class="tasktitle">Task Name: </span><span class="tasktitle1">{{ task_instance.taskTitle }}</span>
+                <span class="tasktitle">Task Name: </span><span class="tasktitle1">{{ task_instance.taskTitle}}</span>
             </div>
             <div class="taskdata">
-                <span class="tasktitle">Assgined By: </span><span>{{ task_instance.managerName }} - {{ task_instance.managerEmail }}</span>
+              <span class="tasktitle">Status: </span>
+              <span class="tasktitle1">
+                  {% if task_instance.status == 'I' %}
+                      In Progress
+                  {% elif task_instance.status == 'C' %}
+                      Completed
+                  {% elif task_instance.status == 'R' %}
+                      Submitted for Review 
+                  {% endif %}
+              </span>
             </div>
             <div class="taskdata">
-                <span class="tasktitle">Deadline: </span><span>{{ task_instance.deadline }}</span>
+                <span class="tasktitle">Assgined By: </span><span>{{task_instance.managerName}} - {{ task_instance.managerEmail }}</span>
             </div>
             <div class="taskdata">
-                <span class="tasktitle">Description: </span><span class="desc">{{ task_instance.description }}</span>
+                <span class="tasktitle">Deadline: </span><span>{{task_instance.deadline}}</span>
+            </div>
+            <div class="taskdata">
+                <span class="tasktitle">Description: </span><span class="desc">{{task_instance.description}}</span>
             </div>
             <div class="submit-container">
-              <form action="">
-                <input type="file" id="myFile" name="filename">
-                <input type="submit" id="upload" value="Upload">
-              </form>
-               <button class="submit">Submit</button>
-            </div>
+              <button class="submit">Submit</button>
+           </div>
     </div>
-  <script src="manager_view_project.js"></script>
+  <script src="{%static 'js/task_details.js' %}"></script>
+  <script src="{%static 'js/dashboard.js' %}"></script>
 </body>
 </html>

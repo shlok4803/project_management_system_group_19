@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,12 +15,9 @@
     <link rel="stylesheet"
           href="{%static 'css/admin_view_project_res.css' %}">
 </head>
-
 <body>
-
 <!-- for header part -->
 <header>
-
     <div class="logosec">
         <img src=
                     "https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
@@ -30,7 +26,6 @@
             alt="menu-icon">
         <div class="logo">ProPlanning</div>
     </div>
-
     <div class="message">
         <div class="circle"></div>
         <a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
@@ -42,9 +37,7 @@
             </a>
         </div>
     </div>
-
 </header>
-
 <div class="main-container">
   <div class="navcontainer">
     <nav class="nav">
@@ -65,7 +58,6 @@
             <h3> My Profile</h3>
           </div>
         </a>
-
         <a href="/dashboard/project">
           <div class="nav-option option3">
             <img src="{%static '/img/my_project.svg' %}"
@@ -74,7 +66,6 @@
             <h3> My Project </h3>
           </div>
         </a>
-
         <a href="">
           <div class="nav-option option4">
             <img src="{%static '/img/progress.png' %}"
@@ -83,7 +74,6 @@
             <h3> Progress </h3>
           </div>
         </a>
-
         <a href="">
           <div class="nav-option option5">
             <img src="{%static '/img/chat.svg' %}"
@@ -101,12 +91,10 @@
             <h3>Logout</h3>
           </div>
         </a>
-
       </div>
     </nav>
     </div>
     <div class="main">
-
         <!-- <div class="searchbar2">
             <input type="text"
                 name=""
@@ -131,7 +119,6 @@
              </div>
            </div>
          </div> -->
-
         <div class="project-container">
             <div class="project-header">
                 <div class="status-container">
@@ -144,6 +131,7 @@
                     </select>
                 </div>
                 <div class="progress-create-btn">
+                    
                   <a href="{%url 'view-progress' project_id=project_instance.projectID %}">
                     <button style="margin:5px;" class="progress-header-btn btns">View project progress</button>
                 </a>
@@ -153,7 +141,6 @@
                     <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name"> -->
                 </div>
             </div>
-
         <div class="project-body">
             {% if task_instance %}
                 <table class="main-table" id="maintable">
@@ -182,7 +169,6 @@
                               </td>
                                 <td class="table-data">{{ task.employeeName }} - {{task.employeeEmail}}</td>
                                 <td class="table-data">{{ task.deadline }}</td>
-
                             </tr>
                         {% endfor %}
                     
@@ -196,5 +182,4 @@
         </div>
         <script src="{%static 'js/admin_viewproject.js' %}"></script>
 </body>
-
 </html>

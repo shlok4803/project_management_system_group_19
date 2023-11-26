@@ -23,11 +23,6 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(null='True', on_delete=django.db.models.deletion.CASCADE, related_name='projects_managed', to=settings.AUTH_USER_MODEL),
             preserve_default='True',
         ),
-        migrations.AddField(
-            model_name='project',
-            name='tasks',
-            field=models.ManyToManyField(related_name='projects', to='dashboard.task'),
-        ),
         migrations.AlterField(
             model_name='project',
             name='completed',

@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='task',
             name='deadline',
-            field=models.DateTimeField(),
+            field=models.DateTimeField(blank=True,null=True),
         ),
         migrations.AlterField(
             model_name='task',

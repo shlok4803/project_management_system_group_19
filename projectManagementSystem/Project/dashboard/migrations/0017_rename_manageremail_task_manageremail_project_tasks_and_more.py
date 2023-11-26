@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='project',
-            name='tasks',
+            name='taskIDs',
             field=models.ManyToManyField(blank=True, related_name='projects', to='dashboard.task'),
         ),
         migrations.AddField(

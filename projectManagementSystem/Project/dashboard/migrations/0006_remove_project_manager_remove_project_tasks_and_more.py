@@ -14,10 +14,6 @@ class Migration(migrations.Migration):
             model_name='project',
             name='manager',
         ),
-        migrations.RemoveField(
-            model_name='project',
-            name='tasks',
-        ),
         migrations.AddField(
             model_name='project',
             name='managerName',
