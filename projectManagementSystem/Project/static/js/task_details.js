@@ -19,3 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+function submittask() {
+  let text = "Press a OK for Submit task!";
+  if (confirm(text) == true) {
+    document.getElementById("statusdetail").textContent="Submitted for review";
+    document.querySelector(".submit-container").style.display="none";
+  } else {
+  text = "You canceled!";
+  }
+}

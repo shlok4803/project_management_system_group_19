@@ -88,7 +88,8 @@ def CreateProject(request):
             managerEmail=assignee[1],
             status='O',
             ownerName = user.first_name,
-            ownerEmail = user.email
+            ownerEmail = user.email,
+            chat='NULL'
         )
         messages.success(request, 'Project Created Successfully.')
         Project.save()
