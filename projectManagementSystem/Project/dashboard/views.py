@@ -33,7 +33,8 @@ def dashboard(request):
         recent_projects = projects.order_by('-created')[:3]
         ongoing_count = project.objects.filter(status='O').count()
         completed_count = project.objects.filter(status='C').count()
-        return render(request, 'owner/dashboard_owner.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
+        context={'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects}
+        return render(request, 'owner/dashboard_owner.html', context)
     
     elif user.user_type == 'manager':
         # Redirect the manager to the manager dashboard
@@ -41,7 +42,8 @@ def dashboard(request):
         recent_projects = projects.order_by('-created')[:3]
         ongoing_count = projects.filter(status='O').count()
         completed_count = projects.filter(status='C').count()
-        return render(request, 'manager/dashboard_manager.html', {'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects})
+        context={'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects}
+        return render(request, 'manager/dashboard_manager.html', context)
     
     elif user.user_type == 'employee':
         # Redirect the employee to the employee dashboard
@@ -49,7 +51,8 @@ def dashboard(request):
         recent_task = task_instance.order_by('-assignedDate')[:3]
         ongoing_count = task_instance.filter(status='I').count()
         completed_count = task_instance.filter(status='C').count()
-        return render(request,'employee/dashboard_employee.html',{'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_tasks':recent_task})
+        context={'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_tasks':recent_task}
+        return render(request,'employee/dashboard_employee.html',context)
 
     else:
        return render(request, 'access_denied.html')
@@ -94,7 +97,8 @@ def CreateProject(request):
         return redirect('/dashboard/project')  # Redirect to a project list view
     
     #managers = manager.objects.get(company_name=user.company_name)
-    return render(request, 'owner/create_project.html',{'managers':managers})
+    context={'managers':managers}
+    return render(request, 'owner/create_project.html',context)
 
 #Owner,PM,Employee
 @login_required
@@ -106,7 +110,8 @@ def view_project(request):
         # Owners can view all projects.
         
         projects = project.objects.all() 
-        return render(request,'owner/owner_view_project.html',{'projects': projects})
+        context={'projects': projects}
+        return render(request,'owner/owner_view_project.html',context)
         
     elif user.user_type == 'manager': 
         # Managers can view projects they are assigned to.
@@ -114,11 +119,14 @@ def view_project(request):
         projects = project.objects.filter(managerEmail=user.email)
         ongoing_count = projects.filter(status='O').count()
         completed_count = projects.filter(status='C').count()
-        return render(request,'manager/manager_my_project.html',{'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count})
+        context={'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count}
+        return render(request,'manager/manager_my_project.html',context)
         
     elif user.user_type == 'employee':
         projects = project.objects.filter(projectID__in=Task.objects.filter(employeeEmail=user.email).values_list('projectID', flat=True))
-        return render(request,'employee/employee_my_project.html',{'projects': projects})
+        context={'projects': projects}
+        
+        return render(request,'employee/employee_my_project.html',context)
 
 #Owner   
 @login_required    
@@ -420,26 +428,32 @@ def view_profile(request):
     user = request.user
 
     company_name = None  # Default value if company name is not found
+    context = {
+        'user': user,
+        'company_name': company_name,
+    }
+
 
     # Retrieve company name based on the user's type
     
     if user.user_type == 'owner':
             owner_user = owner.objects.get(email=user.email)
             company_name = owner_user.company_name
+            return render(request, 'owner/owner_profile_page.html', context)
     elif user.user_type == 'manager':
             manager_user = manager.objects.get(email=user.email)
             company_name = manager_user.company_name.company_name
+            return render(request, 'manager/manager_profile_page.html', context)
+            
     elif user.user_type == 'employee':
             employee_user = employee.objects.get(email=user.email)
             company_name = employee_user.company_name.company_name
+            return render(request, 'employee/employee_profile_page.html', context)
+            
        
 
-    context = {
-        'user': user,
-        'company_name': company_name,
-    }
-
-    return render(request, 'profile_page.html', context)
+   
+   
 
 
 #Owner,PM,Employee
