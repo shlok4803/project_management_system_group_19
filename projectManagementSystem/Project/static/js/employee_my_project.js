@@ -9,21 +9,29 @@ function myFunction(filter) {
   var table, tr, td, i, txtValue;
   // input = document.getElementById("myInput");
   // filter = input.value.toUpperCase();
-  if(filter=="I"){
+  if(filter==="I"){
     filter="Pending";
   }
-  if(filter=="C"){
+  if(filter==="C"){
     filter="Completed";
   }
-  if(filter=="S"){
-    filter="Submitted for review";
-  }
   filter=filter.toUpperCase();
-  if(filter=="SHOW ALL" || filter=='#'){
-    filter="";
+  if(filter==="SHOW ALL"){
+    let filter1="PENDING";
+    let filter2="COMPLETED";
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if ((txtValue.toUpperCase().indexOf(filter1) > -1) || (txtValue.toUpperCase().indexOf(filter2)>-1)) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
   }
-  table = document.querySelector(".main-table");
-  tr = table.getElementsByTagName("tr");
+  else{
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
@@ -35,6 +43,7 @@ function myFunction(filter) {
       }
     }       
   }
+ }
 }
 function getOption() {
   selectElement = document.querySelector('#select1');
