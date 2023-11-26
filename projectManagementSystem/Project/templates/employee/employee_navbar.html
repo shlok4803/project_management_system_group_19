@@ -1,0 +1,40 @@
+{% load static %}
+
+<nav class="nav">
+    <div class="nav-upper-options">
+        <a href="/dashboard">
+            <div class="nav-option option1">
+                <img src="{% static '/img/dashboard.svg' %}"
+                    class="nav-img"
+                    alt="dashboard">
+                <h3> Dashboard</h3>
+            </div>
+        </a>
+        <a href="/dashboard/myprofile">
+            <div class="option2 nav-option">
+                <img src="{%static '/img/my_profile.svg' %}"
+                    class="nav-img"
+                    alt="articles">
+                <h3> My Profile</h3>
+            </div>
+        </a>
+
+        <a href="/dashboard/project">
+            <div class="nav-option option3">
+                <img src="{%static '/img/my_project.svg' %}"
+                    class="nav-img"
+                    alt="report">
+                <h3> My Projects </h3>
+            </div>
+        </a>
+        
+        <a href="{% url 'logout' %}">
+            <div class="nav-option logout">
+                <img src="{%static '/img/logout.svg' %}"
+                    class="nav-img"
+                    alt="logout">
+                <h3>Logout</h3>
+            </div>
+        </a>
+    </div>
+</nav>

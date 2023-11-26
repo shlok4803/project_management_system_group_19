@@ -9,12 +9,31 @@ function myFunction(filter) {
   var table, tr, td, i, txtValue;
   // input = document.getElementById("myInput");
   // filter = input.value.toUpperCase();
-  filter=filter.toUpperCase();
-  if(filter=="SHOW ALL" || filter=='#'){
-    filter="";
-  }
   table = document.querySelector(".main-table");
   tr = table.getElementsByTagName("tr");
+  if(filter==="P"){
+    filter="Pending";
+  }
+  if(filter==="C"){
+    filter="Completed";
+  }
+  filter=filter.toUpperCase();
+  if(filter==="SHOW ALL"){
+    let filter1="PENDING";
+    let filter2="COMPLETED";
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if ((txtValue.toUpperCase().indexOf(filter1) > -1) || (txtValue.toUpperCase().indexOf(filter2)>-1)) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+  else{
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
@@ -26,6 +45,7 @@ function myFunction(filter) {
       }
     }       
   }
+ }
 }
 function getOption() {
   selectElement = document.querySelector('#select1');

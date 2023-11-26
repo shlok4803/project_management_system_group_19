@@ -1,7 +1,6 @@
 /* Main CSS Here */
 
-@import url(
-"https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
     margin: 0;
@@ -10,7 +9,7 @@
     font-family: "Poppins", sans-serif;
 }
 
-:root{
+:root {
     --background-color1: #00303f;
     --background-color2: #ffffff;
     --background-color3: #ededed;
@@ -21,18 +20,6 @@
     --one-use-color: #00303f;
     --two-use-color: #00303f;
 }
-
-/* :root {
---background-color1: #fafaff;
---background-color2: #ffffff;
---background-color3: #ededed;
---background-color4: #cad7fda4;
---primary-color: #4b49ac;
---secondary-color: #0c007d;
---Border-color: #3f0097;
---one-use-color: #3f0097;
---two-use-color: #5500cb;
-} */
 
 body {
     background-color: var(--background-color4);
@@ -62,6 +49,7 @@ header {
 .icn {
     height: 30px;
 }
+
 .menuicn {
     cursor: pointer;
 }
@@ -74,33 +62,8 @@ header {
     justify-content: center;
 }
 
-.searchbar2 {
-    display: none;
-}
-
 .logosec {
     gap: 60px;
-}
-
-.searchbar input {
-    width: 250px;
-    height: 42px;
-    border-radius: 50px 0 0 50px;
-    background-color: var(--background-color3);
-    padding: 0 20px;
-    font-size: 15px;
-    outline: none;
-    border: none;
-}
-.searchbtn {
-    width: 50px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0px 50px 50px 0px;
-    background-color: var(--background-color3);
-    cursor: pointer;
 }
 
 .message {
@@ -108,15 +71,7 @@ header {
     position: relative;
     cursor: pointer;
 }
-.circle {
-    height: 7px;
-    width: 7px;
-    position: absolute;
-    background-color: #fa7bb4;
-    border-radius: 50%;
-    left: 19px;
-    top: 8px;
-}
+
 .dp {
     height: 40px;
     width: 40px;
@@ -127,6 +82,7 @@ header {
     justify-content: center;
     overflow: hidden;
 }
+
 .main-container {
     display: flex;
     width: 100vw;
@@ -135,8 +91,7 @@ header {
     z-index: 1;
 }
 
-.dpicn
-{
+.dpicn {
     height: 40px;
     width: 40px;
 }
@@ -151,11 +106,13 @@ header {
 
 .main::-webkit-scrollbar-thumb {
     background-image:
-            linear-gradient(to bottom, rgb(0, 0, 85), rgb(0, 0, 50));
+        linear-gradient(to bottom, rgb(0, 0, 85), rgb(0, 0, 50));
 }
+
 .main::-webkit-scrollbar {
     width: 5px;
 }
+
 .main::-webkit-scrollbar-track {
     background-color: #9e9e9eb2;
 }
@@ -167,6 +124,7 @@ header {
     flex-wrap: wrap;
     gap: 50px;
 }
+
 .nav {
     min-height: 91vh;
     width: 250px;
@@ -181,6 +139,7 @@ header {
     overflow: hidden;
     padding: 30px 0 20px 10px;
 }
+
 .navcontainer {
     height: calc(100vh - 70px);
     width: 250px;
@@ -189,12 +148,15 @@ header {
     overflow-x: hidden;
     transition: all 0.5s ease-in-out;
 }
+
 .navcontainer::-webkit-scrollbar {
     display: none;
 }
+
 .navclose {
     width: 80px;
 }
+
 .nav-option {
     width: 250px;
     height: 60px;
@@ -204,11 +166,13 @@ header {
     gap: 20px;
     transition: all 0.1s ease-in-out;
 }
+
 .nav-option:hover {
     border-left: 5px solid #a2a2a2;
     background-color: #dadada;
     cursor: pointer;
 }
+
 .nav-img {
     height: 30px;
 }
@@ -226,16 +190,18 @@ header {
     color: white;
     cursor: pointer;
 }
+
 .option3:hover {
     border-left: 5px solid #010058af;
     background-color: var(--Border-color);
 }
 
-.nav a:link,a:visited{
+.nav a:link,
+a:visited {
     text-decoration: none;
 }
 
-.nav a{
+.nav a {
     color: inherit;
 }
 
@@ -251,6 +217,7 @@ header {
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
 }
+
 .box:hover {
     transform: scale(1.08);
 }
@@ -258,12 +225,15 @@ header {
 .box:nth-child(1) {
     background-color: var(--one-use-color);
 }
+
 .box:nth-child(2) {
     background-color: var(--two-use-color);
 }
+
 .box:nth-child(3) {
     background-color: var(--one-use-color);
 }
+
 .box:nth-child(4) {
     background-color: var(--two-use-color);
 }
@@ -271,9 +241,11 @@ header {
 .box img {
     height: 50px;
 }
+
 .box .text {
     color: white;
 }
+
 .topic {
     font-size: 13px;
     font-weight: 400;
@@ -285,79 +257,20 @@ header {
     letter-spacing: 3px;
 }
 
-/*
-
-    .project-container {
-        min-height: 400px;
-        max-width: 500px;
-        margin: 70px auto 0px auto;
-        background-color: #ffffff;
-        border-radius: 30px;
-        box-shadow: 3px 3px 10px rgb(188, 188, 188);
-        padding: 0px 20px 20px 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-    } */
-
-.project-header {
-    height: auto;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 20px 10px 20px;
-    border-bottom: 2px solid #00303f;
-    flex-wrap: wrap;
-}
-
-.project-header-text {
-    font-size: 30px;
-    font-weight: 600;
-    color: #00303f;
-}
-
-.project-header-btn{
-    height: 35px;
-    width: auto;
-    padding: 0px 5px;
-    border-radius: 8px;
-    background-color: #5500cb;
-    color: white;
-    font-size: 15px;
-    border: none;
-    cursor: pointer;
-}
-
-.project-header a:link,a:visited{
-    text-decoration: none;
-}
-
-.project-header a{
-    color: inherit;
-}
-
-.project-body {
-    max-width: 1160px;
-    overflow-x: auto;
-    padding: 20px;
-}
-
-.main-table{
+.main-table {
     width: 100%;
 }
 
-.main-table thead{
+.main-table thead {
     height: 50px;
     font-size: 18px;
 }
 
-.table-row{
+.table-row {
     height: 40px;
 }
 
-.table-data{
+.table-data {
     text-align: center;
     width: 33%;
     font-size: 14px;
@@ -365,8 +278,7 @@ header {
     font-weight: 600;
 }
 
-.label-tag
-{
+.label-tag {
     width: 130px;
     display: inline-block;
     text-align: center;
@@ -378,8 +290,7 @@ header {
     font-weight: 600;
 }
 
-.button-tag
-{
+.button-tag {
     width: 100px;
     text-align: center;
     background-color: #00303f;
@@ -392,8 +303,7 @@ header {
     cursor: pointer;
 }
 
-.button-tag
-{
+.button-tag {
     width: 100px;
     text-align: center;
     background-color: #00303f;
@@ -406,32 +316,35 @@ header {
     cursor: pointer;
     padding: 2px;
 }
-.btns{
+
+.btns {
     transition: all 0.4s;
 }
 
-.btns:hover{
-    transform: scale(1.1);
+.btns:hover {
+    transform: scale(1.05);
 }
 
-.table-data a:link,a:visited{
+.table-data a:link,
+a:visited {
     text-decoration: none;
 }
 
-.table-data a{
+.table-data a {
     color: inherit;
 }
 
-.taskdata{
+.taskdata {
     font-size: 22px;
     margin-left: 3px;
 }
-.tasktitle{
+
+.tasktitle {
     font-size: 25px;
     font-weight: bold;
 }
 
-.desc-box{
+.desc-box {
     height: auto;
     width: 100%;
     display: flex;
@@ -440,13 +353,13 @@ header {
     flex-wrap: wrap;
 }
 
-.progress-create-btn{
+.progress-create-btn {
     display: flex;
     justify-content: space-between;
     width: 20%;
 }
 
-.details-container{
+.details-container {
     height: 200px;
     max-height: 300px;
     overflow-y: auto;
@@ -458,29 +371,21 @@ header {
     border-radius: 12px;
     box-shadow: 7px 6px rgb(6, 88, 88);
     flex-direction: column;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
     transition: all 0.4s;
 }
-.editdeletebtn button{
-    width: 200px;
-    height: 40px;
-    text-align: center;
-    background-color: #00303f;
-    color: white;
-    border-radius: 10px;
-    font-size: 22px;
-    letter-spacing: 0px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    padding: 2px;
-    margin-top: 20px;
+
+
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .project-container {
-    min-height: 400px;
-    max-width: 500px;
-    margin: 70px auto 0px auto;
+    height: 60vh;
+    width: 50%;
     background-color: #d2d2d2;
     border-radius: 30px;
     box-shadow: 3px 3px 10px rgb(6, 113, 132);
@@ -491,13 +396,14 @@ header {
     overflow-y: auto;
 }
 
-.editdeletebtn{
+.editdeletebtn {
     width: 100%;
     text-align: center;
-
+    display: flex;
+    justify-content: space-evenly;
 }
 
-.statuscheck{
+.statuscheck {
 
     color: #ffffff;
     padding: 2px;
@@ -507,10 +413,11 @@ header {
     cursor: pointer;
     display: flex;
 }
-.confirmation{
+
+.confirmation {
     height: 120px;
     width: 400px;
-    background-color:white;
+    background-color: white;
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -523,12 +430,30 @@ header {
     left: 650px;
     display: none;
 }
-.confirmation-btn{
+
+.confirmation-btn {
     display: flex;
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
-.confirmation-btn button{
+
+.editdeletebtn button {
+    width: auto;
+    padding: 0px 10px;
+    height: 50px;
+    text-align: center;
+    background-color: #00303f;
+    color: white;
+    border-radius: 10px;
+    font-size: 22px;
+    letter-spacing: 0px;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.confirmation-btn button {
     height: 30px;
     width: 100px;
     border: none;
@@ -536,7 +461,7 @@ header {
     cursor: pointer;
 }
 
-.statuschanger{
+.statuschanger {
     background-color: #00303f;
     border-radius: 8px;
     padding: 4px;

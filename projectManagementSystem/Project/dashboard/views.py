@@ -14,9 +14,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
 from django.http import JsonResponse
-from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-import os
+import json
 
 
 
@@ -200,6 +199,8 @@ def complete_project(request, project_id):
 
     return JsonResponse({'message': 'Tasks are pending'})  
 
+
+
 @login_required    
 def viewChat(request,project_id):
     curProject=project.objects.get(projectID=project_id)
@@ -243,7 +244,7 @@ def viewChat(request,project_id):
         curChatID=message.objects.get(chatID=curChatID).prevMessage
     allMessage.reverse()
 
-    return render(request, 'view_chats.html', {'project':curProject,'messages': allMessage})
+    return render(request, 'chat_section.html', {'project':curProject,'messages': allMessage})
     
 #Owner   
 @login_required        
@@ -262,7 +263,24 @@ def delete_project(request,project_id):
 #Owner
 @login_required
 def manage_employee(request):
-    
+    if request.method == 'DELETE':
+        email = request.GET.get('email')
+        user = CustomUser.objects.get(email=email)
+        user_type = user.user_type 
+        
+        if user_type == 'manager':
+            
+            manager_user = manager.objects.get(email=email)
+            project_instance=project.objects.filter(managerEmail=email)
+            project_instance.delete()
+            manager_user.delete()
+            
+        elif user_type == 'employee': 
+            employee_user = employee.objects.get(email=email)
+            task_instance=Task.objects.filter(employeeEmail=email)
+            task_instance.delete()
+            employee_user.delete()  
+            
     manager_instance=manager.objects.all()
     employee_instance=employee.objects.all()
     
@@ -270,6 +288,37 @@ def manage_employee(request):
     
     return render(request,'owner/owner_manage_employee.html',context)    
 
+"""
+#Owner
+@login_required
+def change_role(request):
+    if request.method == 'POST':
+        email = request.GET.get('email')
+        user = CustomUser.objects.get(email=email)
+        user_type = user.user_type 
+        
+        if user_type == 'manager':
+            
+            manager_user = manager.objects.get(email=email)
+            project_instance=project.objects.filter(managerEmail=email)
+            project_instance.delete()
+            manager_user.user_type='employee'
+            manager_user.save()
+            
+        elif user_type == 'employee': 
+            employee_user = employee.objects.get(email=email)
+            task_instance=Task.objects.filter(employeeEmail=email)
+            task_instance.delete()
+            employee_user.save()
+            employee_user.user_type='manager' 
+            
+    manager_instance=manager.objects.all()
+    employee_instance=employee.objects.all()
+    
+    context={'manager_instance':manager_instance,'employee_instance':employee_instance}
+    
+    return render(request,'owner/owner_manage_employee.html',context)    
+"""
 
 
 
@@ -450,11 +499,6 @@ def view_profile(request):
             company_name = employee_user.company_name.company_name
             return render(request, 'employee/employee_profile_page.html', context)
             
-       
-
-   
-   
-
 
 #Owner,PM,Employee
 @login_required

@@ -21,19 +21,7 @@
         --one-use-color: #00303f;
         --two-use-color: #00303f;
     }
-    
-    /* :root {
-    --background-color1: #fafaff;
-    --background-color2: #ffffff;
-    --background-color3: #ededed;
-    --background-color4: #cad7fda4;
-    --primary-color: #4b49ac;
-    --secondary-color: #0c007d;
-    --Border-color: #3f0097;
-    --one-use-color: #3f0097;
-    --two-use-color: #5500cb;
-    } */
-    
+
     body {
         background-color: var(--background-color4);
         max-width: 100%;
@@ -453,7 +441,7 @@
      .progress-create-btn{
         display: flex;
         justify-content: space-between;
-        width: 400px;
+        width: 70vh;
      }
 
      .details-container{
@@ -532,4 +520,3 @@
         border: none;
         border-radius: 10px;
      }
-     

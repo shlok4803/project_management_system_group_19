@@ -1,57 +1,79 @@
 function deleteRow(r) {
-    //let projectId = r.getAttribute('data-project-id');
-    let text = "Press OK to delete the project!";
-    if (confirm(text)) {
+  let i = r.parentNode.parentNode.rowIndex;
+  let email = r.getAttribute('data-email');
+  let text = "Press OK to delete the user! Note corresponding projects and tasks will also be deleted";
+  
+  if (confirm(text)) {
       // AJAX request
-      fetch(`/dashboard/manage-employees/delete`, {
-        method: 'DELETE',
-        headers: {
-          'X-CSRFToken': getCSRFToken()  // Ensure you have a function to retrieve the CSRF token
+      fetch(`/dashboard/manage-employees/delete/?email=${email}`, {
+          method: 'DELETE',
+          headers: {
+            'X-CSRFToken': getCSRFToken()  // Ensure you have a function to retrieve the CSRF token
         },
+          body: JSON.stringify({ email: email }) // Pass the user's email for identification
       })
       .then(response => {
-        if (response.ok) {
-          // Handle success: redirect or display a message
-          window.location.href = `/dashboard/project/`; // Redirect to project list or dashboard
-        } else {
-          // Handle error
-          console.error('Error deleting project');
-        }
+          if (response.ok) {
+              // Handle success: redirect or display a message
+              window.location.reload(); // Refresh the page after successful deletion
+          } else {
+              // Handle error
+              console.error('Error deleting user');
+          }
       })
       .catch(error => {
-        console.error('Error:', error);
+          console.error('Error:', error);
       });
-    } else {
+  } else {
       text = "You canceled!";
-    }
   }
-  
-  function getCSRFToken() {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-        const [name, value] = cookie.trim().split('=');
-        if (name === 'csrftoken') {
-            return value;
-        }
-    }
+}
+
+function getCSRFToken() {
+  const cookieString = document.cookie;
+  const csrfToken = cookieString
+    .split(';')
+    .find(cookie => cookie.trim().startsWith('csrftoken='));
+
+  if (csrfToken) {
+    return csrfToken.split('=')[1];
+  } else {
     return null;
   }
-function Confirmrole(r) {
-    i=r.parentNode.parentNode.rowIndex;
-   let text = "Press a OK for Change Role";
-   if (confirm(text) == true) {
-     const managertablerow=document.getElementById(`managertablerow${i}`);
-     const btn2=managertablerow.querySelector(".button-tag");
-     if (btn2.textContent==="Manager") {
-        btn2.textContent="Employee"; 
-     } 
-     else if (btn2.textContent==="Employee") {
-        btn2.textContent="Manager"; 
-     } 
-   } else {
-       text = "You canceled!";
-   }
 }
+
+function changeRole(r) {
+  let email = r.getAttribute('data-email');
+  let text = "Press OK to change the role of user! Note corresponding projects and tasks will also be deleted";
+
+  if (confirm(text)) {
+      fetch(`/dashboard/manage-employees/change-role/?email=${email}`, {
+          method: 'POST',
+          headers: {
+              'X-CSRFToken': getCSRFToken()
+          },
+          body: JSON.stringify({ email: email }) // Sending only email for identification
+      })
+      .then(response => {
+          if (response.ok) {
+              // Handle success: Display a message or perform additional actions
+              console.log('Role changed successfully');
+              // Optionally reload the page after a delay or conditionally
+              window.location.reload();
+          } else {
+              // Handle error
+              console.error('Error changing role of user');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+  } else {
+      console.log("Role change canceled!");
+  }
+}
+
+
 function Confirmrole2(r) {
     i=r.parentNode.parentNode.rowIndex;
    let text = "Press a OK for Change Role";

@@ -10,87 +10,18 @@
     <title>dashboard</title>
     <link rel="stylesheet" href="{%static 'css/dashboard_main.css' %}">
     <link rel="stylesheet" href="{%static 'css/dashboard_res.css' %}">
+    <link rel="stylesheet" href="{%static 'css/admin_manage_employee.css' %}">
 </head>
 
 <body>
 
-    <!-- for header part -->
-    <header>
-
-		<div class="logosec">
-			<img src=
-"https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
-				class="icn menuicn"
-				id="menuicn"
-				alt="menu-icon">
-			<div class="logo">ProPlanning</div>
-		</div>
-
-		<div class="message">
-			<div class="circle"></div>
-			<a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-				<img src="{%static '/img/icons8-notification-50.png' %}" class="icn" alt="">
-			</a>
-			<div class="dp">
-				<a href="/dashboard/myprofile" style="display: flex;justify-content: center;align-items: center;">
-					<img src="https://clipground.com/images/white-profile-icon-png-7.png" class="dpicn" alt="dp">
-				</a>
-			</div>
-		</div>
-
-	</header>
+	<!-- for header part -->
+	{% include '../header_page.html' %}
 
 	<div class="main-container">
         <div class="navcontainer">
-			<nav class="nav">
-				<div class="nav-upper-options">
-					<a href="/dashboard">
-						<div class="nav-option option1">
-							<img src="{% static '/img/dashboard.svg' %}"
-								class="nav-img"
-								alt="dashboard">
-							<h3> Dashboard</h3>
-						</div>
-					</a>
-					<a href="/dashboard/myprofile">
-						<div class="option2 nav-option">
-							<img src="{%static '/img/my_profile.svg' %}"
-								class="nav-img"
-								alt="articles">
-							<h3> My Profile</h3>
-						</div>
-					</a>
-
-					<a href="/dashboard/project">
-						<div class="nav-option option3">
-							<img src="{%static '/img/my_project.svg' %}"
-								class="nav-img"
-								alt="report">
-							<h3> My Projects </h3>
-						</div>
-					</a>
-
-					<a href="">
-						<div class="nav-option option5">
-							<img src="{%static '/img/chat.svg' %}"
-								class="nav-img"
-								alt="blog">
-							<h3> Manage Employees </h3>
-						</div>
-					</a>
-					
-					<a href="{% url 'logout' %}">
-						<div class="nav-option logout">
-							<img src="{%static '/img/logout.svg' %}"
-								class="nav-img"
-								alt="logout">
-							<h3>Logout</h3>
-						</div>
-					</a>
-
-				</div>
-			</nav>
-		</div>
+            {% include './owner_navbar.html' %}
+        </div>
         
         <div class="main">
 
@@ -99,67 +30,71 @@
                     <h1 class="project-header-text">Manage Managers</h1>
                 </div>
 
-            <div class="project-body">
-                <table class="main-table" id="managersTable">
-                    <thead>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Change Role</th>
-                        <th>Delete</th>
-                    </thead>
-        
-                    <tbody>
-                        {% for manager in manager_instance %}
-                            <tr class="table-row">
-                                <td class="table-data">{{ manager.name }}</td>
-                                <td class="table-data">
-                                    <h3>{{ manager.email }}</h3>
-                                </td>
-                                <td class="table-data">
-                                    <button onclick="changeRole('{{ manager.id }}', 'manager')"
-                                        class="button-tag btns">Manager</button>
-                                </td>
-                                <td class="table-data"><button onclick="deleteRow(this)" class="button-tag btns">Delete</button>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="project-body">
+                    <table class="main-table" id="managersTable">
+                        <thead>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Change Role</th>
+                            <th>Delete</th>
+                        </thead>
+            
+                        <tbody>
+                            {% for manager in manager_instance %}
+                                <tr class="table-row">
+                                    <td class="table-data">{{ manager.first_name }}</td>
+                                    <td class="table-data">
+                                        <h3>{{ manager.email }}</h3>
+                                    </td>
+                                    <td class="table-data">
+                                        <!-- Assuming this element contains the email -->
+                                        <button onclick="changeRole(this)"
+                                         class="button-tag btns" data-email="{{ manager.email }}">Manager</button>
+
+                                    </td>
+                                    <td class="table-data"><button
+                                        class="button-tag btns" data-email= "{{ manager.email }}">Delete</button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-        <div class="project-container">
-            <div class="project-header">
-                <h1 class="project-header-text">Manage Employees</h1>
-            </div>
+            <div class="project-container">
+                <div class="project-header">
+                    <h1 class="project-header-text">Manage Employees</h1>
+                </div>
         
-            <div class="project-body">
-                <table class="main-table" id="employeesTable">
-                    <thead>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Change Role</th>
-                        <th>Delete</th>
-                    </thead>
-        
-                    <tbody>
-                        {% for employee in employee_instance %}
-                            <tr class="table-row">
-                                <td class="table-data">{{ employee.name }}</td>
-                                <td class="table-data">
-                                    <h3>{{ employee.email }}</h3>
-                                </td>
-                                <td class="table-data">
-                                    <button onclick="changeRole('{{ employee.id }}', 'employee')"
-                                        class="button-tag btns">Employee</button>
-                                </td>
-                                <td class="table-data"><button onclick="deleteRow(this)"
-                                    class="button-tag btns">Delete</button></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="project-body">
+                    <table class="main-table" id="employeesTable">
+                        <thead>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Delete</th>
+                        </thead>
+            
+                        <tbody>
+                            {% for employee in employee_instance %}
+                                <tr class="table-row">
+                                    <td class="table-data">{{ employee.first_name }}</td>
+                                    <td class="table-data">
+                                        <h3>{{ employee.email }}</h3>
+                                    </td>
+                                    <td class="table-data">
+                                        <button 
+                                        class="button-tag btns" data-email="{{employee.email}}">Employee</button>
+                                    </td>
+                                    <td class="table-data"><button onclick="deleteRow(this)"
+                                        class="button-tag btns" data-email="{{employee.email}}">Delete</button></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
 <script src="{%static 'js/owner_manage_employee.js' %}"></script>
 </body>
