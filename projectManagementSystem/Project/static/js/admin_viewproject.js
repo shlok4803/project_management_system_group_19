@@ -1,6 +1,6 @@
 function deleteRow(r) {
   let projectId = r.getAttribute('data-project-id');
-  let text = "Press OK to delete the project!";
+  let text = "Press OK to delete the project! if you press ok the all tasks related to project are will be deleted!";
   if (confirm(text)) {
     // AJAX request
     fetch(`/dashboard/project/view-details/${projectId}/delete`, {
