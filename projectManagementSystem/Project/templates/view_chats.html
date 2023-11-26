@@ -8,8 +8,8 @@
 	<meta name="viewport" content="width=device-width, 
 				initial-scale=1.0">
 	<title>chat</title>
-	<link rel="stylesheet" href="{%static 'chat.main..css' %}">
-	<link rel="stylesheet" href="{%static 'chat.res.css' %}">
+	<link rel="stylesheet" href="{%static 'css/chat.main.css' %}">
+	<link rel="stylesheet" href="{%static 'css/chat.res.css' %}">
 </head>
 
 <body>
@@ -26,7 +26,7 @@
 		<div class="message">
 			<div class="circle"></div>
 			<a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
-				<img src="{%static './image/icons8-notification-50.png' %}" class="icn" alt="">
+				<img src="{%static 'img/icons8-notification-50.png' %}" class="icn" alt="">
 			</a>
 			<div class="dp">
 				<a href="./profile.html" style="display: flex;justify-content: center;align-items: center;">
@@ -43,41 +43,41 @@
 				<div class="nav-upper-options">
 					<a href="./dashboard.html">
 						<div class="nav-option option1">
-							<img src="{%static './image/dashboard.svg' %}" class="nav-img" alt="dashboard">
+							<img src="{%static 'img/dashboard.svg' %}" class="nav-img" alt="dashboard">
 							<h3> Dashboard</h3>
 						</div>
 					</a>
 					<a href="./profile.html">
 						<div class="option2 nav-option">
-							<img src="{%static './image/my_profile.svg' %}" class="nav-img" alt="articles">
+							<img src="{%static 'img/my_profile.svg' %}" class="nav-img" alt="articles">
 							<h3> My Profile</h3>
 						</div>
 					</a>
 
 					<a href="./MyProject.html">
 						<div class="nav-option option3">
-							<img src="{%static './image/my_project.svg' %}" class="nav-img" alt="report">
+							<img src="{%static 'img/my_project.svg' %}" class="nav-img" alt="report">
 							<h3> My Project </h3>
 						</div>
 					</a>
 
 					<a href="">
 						<div class="nav-option option4">
-							<img src="{%static './image/progress.png' %}" class="nav-img" alt="institution">
+							<img src="{%static 'img/progress.png' %}" class="nav-img" alt="institution">
 							<h3> Progress </h3>
 						</div>
 					</a>
 
 					<a href="">
 						<div class="nav-option option5">
-							<img src="{%static './image/chat.svg' %}" class="nav-img" alt="blog">
+							<img src="{%static 'img/chat.svg' %}" class="nav-img" alt="blog">
 							<h3> Chat </h3>
 						</div>
 					</a>
 
 					<a href="">
 						<div class="nav-option logout">
-							<img src="{%static './image/logout.svg' %}" class="nav-img" alt="logout">
+							<img src="{%static 'img/logout.svg' %}" class="nav-img" alt="logout">
 							<h3>Logout</h3>
 						</div>
 					</a>
@@ -105,27 +105,30 @@
 					<!-- Message container -->
 					<div class="msg-page">
 						{% for message in messages %}
-							<div class="received-chats">
-								<div class="received-msg">
-									<div class="received-msg-inbox">
-										<p class="single-msg">
-											{{message.text}}
-										</p>
-										<span class="time">{{message.senderName}}</span>
-									</div>
-								</div>
-							</div>
-							<div class="outgoing-chats">
-								<div class="outgoing-msg">
-									<div class="outgoing-chats-msg">
-										<p>
-											{{message.text}}
-										</p>
+							{% if user.email == message.senderEmail %}
+								<div class="outgoing-chats">
+									<div class="outgoing-msg">
+										<div class="outgoing-chats-msg">
+											<p>
+												{{message.text}}
+											</p>
 
-										<span class="time">{{message.senderName}}</span>
+											<span class="time">{{message.senderName}}</span>
+										</div>
 									</div>
 								</div>
-							</div>
+							{% else %}
+								<div class="received-chats">
+									<div class="received-msg">
+										<div class="received-msg-inbox">
+											<p class="single-msg">
+												{{message.text}}
+											</p>
+											<span class="time">{{message.senderName}}</span>
+										</div>
+									</div>
+								</div>
+							{% endif %}
 						{% endfor %}
 					</div>
 				</div>
@@ -149,7 +152,7 @@
 	</div>
 	</div>
 
-	<script src="chat.js"></script>
+	<script src="{%static 'js/chat.js' %}"></script>
 </body>
 
 </html>
