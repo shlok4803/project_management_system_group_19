@@ -43,7 +43,7 @@
         <div class="progress-create-btn">
           <a href="{% url  'view-chat' project_instance.projectID %}"><button class="project-header-btn btns">Chat</button></a>
           <a href="{% url 'project-details' project_id=project_instance.projectID %}"><button class="project-header-btn btns">View Project Details</button></a>
-          <a href="./progress.html"><button class="project-header-btn btns">View Progress</button></a>
+          <a href="{%url 'view-progress' project_id=project_instance.projectID %}"><button class="project-header-btn btns">View Progress</button></a>
           <a href="{% url 'create-task' project_id=project_instance.projectID %}"><button class="project-header-btn btns">Create Task</button></a>
           <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name"> -->
         </div>

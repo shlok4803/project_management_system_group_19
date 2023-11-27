@@ -125,7 +125,7 @@ def view_project(request):
     elif user.user_type == 'employee':
         projects = project.objects.filter(projectID__in=Task.objects.filter(employeeEmail=user.email).values_list('projectID', flat=True))
         context={'projects': projects}
-        
+
         return render(request,'employee/employee_my_project.html',context)
 
 #Owner   
@@ -410,12 +410,18 @@ def view_task_details(request,project_id,task_id):
 
 #Employee
 @login_required
-def submit_task(request,task_id):
+def submit_task(request,task_id,project_id):
+    print("celled")
     task_instance=Task.objects.get(taskID=task_id)
     task_instance.submitted=datetime.now()
+    task_instance.save()
     
-    if task_instance.submitted > task_instance.deadline:
-        task_instance.late = True
+    view_task_detail = reverse('view-taskdetail', kwargs={'project_id': project_id,'task_id':task_id}) 
+        
+    return redirect(view_task_detail)
+    
+    #if task_instance.submitted > task_instance.deadline:
+     #   task_instance.late = True
         
     
 #PM    
@@ -526,12 +532,12 @@ def view_progress(request, project_id):
     
     total_task = task_instance.count()  # Total tasks for the project
     
-    in_progress_tasks = task_instance.filter(status='I').count()
+   # in_progress_tasks = task_instance.filter(status='I').count()
     completed_tasks = task_instance.filter(status='C').count()
-    review_tasks = task_instance.filter(status='R').count()
+    #review_tasks = task_instance.filter(status='R').count()
     
     # Calculate total completed tasks considering all tasks in 'C' and 'R' status
-    total_completed = completed_tasks + review_tasks + in_progress_tasks
+    total_completed = completed_tasks
     
     # Calculate progress percentage
     if total_task > 0:
@@ -543,8 +549,13 @@ def view_progress(request, project_id):
         'progress': progress_percentage,
         'project_instance': project_instance
     }
+    user=request.user
     
-    return render(request, 'progress_page.html', context)
+    if user.user_type == 'manager':
+        return render(request, 'manager/progress_page.html', context)
+    
+    elif user.user_type == 'owner':  
+        return render(request, 'progress_page.html', context)
 
 
 
