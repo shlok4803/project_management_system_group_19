@@ -411,9 +411,10 @@ def view_task_details(request,project_id,task_id):
 #Employee
 @login_required
 def submit_task(request,task_id,project_id):
-    print("celled")
+    # print("celled")
     task_instance=Task.objects.get(taskID=task_id)
     task_instance.submitted=datetime.now()
+    task_instance.status='R'
     task_instance.save()
     
     view_task_detail = reverse('view-taskdetail', kwargs={'project_id': project_id,'task_id':task_id}) 
@@ -552,7 +553,8 @@ def view_progress(request, project_id):
     user=request.user
     
     if user.user_type == 'manager':
-        return render(request, 'manager/progress_page.html', context)
+        print(context)
+        return render(request, 'progress_page.html', context)
     
     elif user.user_type == 'owner':  
         return render(request, 'progress_page.html', context)
