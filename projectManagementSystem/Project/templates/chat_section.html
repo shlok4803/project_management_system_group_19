@@ -123,16 +123,20 @@
 				<!-- msg-bottom section -->
 
 
-				<form action="" method="post">
+				<form action="" method="post" class="input-group">
 					{% csrf_token %}
-					<div class="field">
-						<label for="Text"> Message : </label>
-						<input type="text" id="title" name="Text" required>
-					</div>
-					<div class="field">
-						<button type="submit" id="submit">Send</button>
-					</div>
+					<input type="text" class="form-control" placeholder="Write message..." id="title" name="Text" required>
+					<button type="submit" class="input-group-text send-icon" id="submit"><img src="https://static.thenounproject.com/png/809336-200.png" class="nav-img" alt="Send"></button>
 				</form>
+
+				{% comment %} <div class="input-group">
+					<input type="form" class="form-control" placeholder="Write message...">
+
+					<button class="input-group-text send-icon">
+						<button="bi bi-send"=""><img src="https://static.thenounproject.com/png/809336-200.png" class="nav-img" alt="dashboard"></button>
+					</button>
+					
+				</div> {% endcomment %}
 			</div>
 		</div>
 
