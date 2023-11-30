@@ -57,7 +57,7 @@ def dashboard(request):
        return render(request, 'access_denied.html')
 
 
-#owner
+#Owner
 @login_required
 def CreateProject(request):
     
@@ -65,7 +65,7 @@ def CreateProject(request):
     managers = manager.objects.filter(company_name=owner_instance)
     
     user=request.user
-    if not user.user_type != owner:
+    if not user.user_type != 'owner':
         messages.error(request, "Only owners can create projects.")
         return redirect('Logout')
     
@@ -95,10 +95,10 @@ def CreateProject(request):
         Project.save()
         
         return redirect('/dashboard/project')  # Redirect to a project list view
-    
-    #managers = manager.objects.get(company_name=user.company_name)
+
     context={'managers':managers}
     return render(request, 'owner/create_project.html',context)
+
 
 #Owner,PM,Employee
 @login_required
@@ -128,16 +128,22 @@ def view_project(request):
 
         return render(request,'employee/employee_my_project.html',context)
 
+
 #Owner   
 @login_required    
 def edit_project(request,project_id):
+    
+    user=request.user
+    if not user.user_type != 'owner':
+        messages.error(request, "Only owners can edit projects")
+        return redirect('Logout')
     
     owner_instance = owner.objects.get(email=request.user.email)
     managers = manager.objects.filter(company_name=owner_instance)
     project_instance = project.objects.get(projectID=project_id)
     user=request.user
     
-    if not user.user_type != owner:
+    if not user.user_type != 'owner':
         messages.error(request, "Only owners can edit projects.")
         return redirect('Logout')
     
@@ -169,6 +175,7 @@ def edit_project(request,project_id):
 
     return render(request, 'owner/edit_project.html', {'managers':managers,'project': project_instance})    
 
+
 #Owner,PM,Employee
 @login_required
 def view_project_details(request,project_id):
@@ -181,9 +188,16 @@ def view_project_details(request,project_id):
     elif user.user_type in ('manager' ,'employee'):
         return render(request,'manager/manager_project_details.html',{'project_instance':project_instance})
 
+
 #Owner    
 @login_required    
 def complete_project(request, project_id):
+    user=request.user
+    
+    if not user.user_type != 'owner':
+        messages.error(request, "Only owners can submit projects.")
+        return redirect('Logout')
+    
     project_instance=project.objects.get(projectID=project_id)
     task_instance = Task.objects.filter(projectID=project_instance)
 
@@ -201,7 +215,7 @@ def complete_project(request, project_id):
     return JsonResponse({'message': 'Tasks are pending'})  
 
 
-
+#PM, Employee
 @login_required    
 def viewChat(request,project_id):
     curProject=project.objects.get(projectID=project_id)
@@ -250,7 +264,11 @@ def viewChat(request,project_id):
 #Owner   
 @login_required        
 def delete_project(request,project_id):
-    print(project_id)
+    user=request.user
+    if not user.user_type != 'owner':
+        messages.error(request, "Only owners can delete projects.")
+        return redirect('Logout')
+    
     try:
         project_instance = project.objects.get(projectID=project_id)
         project_instance.delete()
@@ -264,6 +282,11 @@ def delete_project(request,project_id):
 #Owner
 @login_required
 def manage_employee(request):
+    user=request.user
+    if not user.user_type != 'owner':
+        messages.error(request, "Only owners can manage employee.")
+        return redirect('Logout')
+    
     if request.method == 'DELETE':
         email = request.GET.get('email')
         user = CustomUser.objects.get(email=email)
@@ -323,12 +346,15 @@ def change_role(request):
 
 
 
-
-
 #Project Manager
 @login_required
 def CreateTask(request,project_id):
-    user = request.user
+    
+    user=request.user
+    if not user.user_type != 'manager':
+        messages.error(request, "Only manager can create tasks.")
+        return redirect('Logout')
+    
     
     project_instance = project.objects.get(projectID=project_id)
     owner_instance = owner.objects.get(email=project_instance.ownerEmail)
@@ -466,6 +492,10 @@ def edit_task(request, project_id, task_id):
 #PM    
 @login_required        
 def delete_task(request,task_id,project_id):
+    user=request.user
+    if not user.user_type != 'manager':
+        messages.error(request, "Only manager can delete tasks.")
+        return redirect('Logout')
     #project_instance=project.objects.get(projectID=project_id)
     try:
         task = Task.objects.get(taskID=task_id)
@@ -526,16 +556,16 @@ def update_profile(request):
 
 #Owner,PM    
 def view_progress(request, project_id):
+    user=request.user
+    if  user.user_type == 'employee':
+        messages.error(request, "Only owner and manager can view progress.")
+        return redirect('Logout')
+    
     project_instance = project.objects.get(projectID=project_id)
     task_instance = Task.objects.filter(projectID=project_instance)
     
     total_task = task_instance.count()  # Total tasks for the project
-    
-   # in_progress_tasks = task_instance.filter(status='I').count()
     completed_tasks = task_instance.filter(status='C').count()
-    #review_tasks = task_instance.filter(status='R').count()
-    
-    # Calculate total completed tasks considering all tasks in 'C' and 'R' status
     total_completed = completed_tasks
     
     # Calculate progress percentage
@@ -552,10 +582,10 @@ def view_progress(request, project_id):
     
     if user.user_type == 'manager':
         print(context)
-        return render(request, 'progress_page.html', context)
+        return render(request, 'manager_progress.html', context)
     
     elif user.user_type == 'owner':  
-        return render(request, 'progress_page.html', context)
+        return render(request, 'owner_progress.html', context)
 
 
 
