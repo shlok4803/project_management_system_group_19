@@ -48,7 +48,7 @@ function submittask(r) {
 
   if (confirm(text)) {
     // Make an AJAX request to update the task status
-    fetch(`/dashboard/project/task-view/${projectId}/task-details/${taskId}/submit/`, {
+    fetch(`/dashboard/project/task-view/${projectId}/task-details/${taskId}/submit`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

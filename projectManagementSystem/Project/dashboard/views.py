@@ -411,17 +411,16 @@ def view_task_details(request,project_id,task_id):
 #Employee
 @login_required
 def submit_task(request,task_id,project_id):
-    print("celled")
     task_instance=Task.objects.get(taskID=task_id)
     task_instance.submitted=datetime.now()
+    task_instance.status='R'
+    #if task_instance.submitted > task_instance.deadline:
+    #   task_instance.late = True
     task_instance.save()
     
     view_task_detail = reverse('view-taskdetail', kwargs={'project_id': project_id,'task_id':task_id}) 
         
     return redirect(view_task_detail)
-    
-    #if task_instance.submitted > task_instance.deadline:
-     #   task_instance.late = True
         
     
 #PM    
