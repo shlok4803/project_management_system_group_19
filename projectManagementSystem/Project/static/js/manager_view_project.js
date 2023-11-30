@@ -41,7 +41,7 @@ function getCSRFToken() {
 }
 
 document.querySelector(".statuscheck").addEventListener('click',()=>{
-  if(document.querySelector(".statuscheck").textContent=="Submitted for review"){
+  if(document.querySelector(".statuscheck").textContent=="Submitted for Review"){
      document.querySelector(".confirmation").style.display="flex";
     }
   })
