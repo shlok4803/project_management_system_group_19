@@ -40,18 +40,22 @@ function getCSRFToken() {
   return null;
 }
 
-document.querySelector(".statuscheck").addEventListener('click',()=>{
-  if(document.querySelector(".statuscheck").textContent=="Submitted for review"){
-     document.querySelector(".confirmation").style.display="flex";
-    }
-  })
-document.querySelector(".confirmation-btn1").addEventListener('click',()=>{
-   document.querySelector(".statuscheck").textContent="Completed";
-   document.querySelector(".confirmation").style.display="none";
+document.querySelector(".statuscheck").addEventListener('click', () => {
+  let statusText = document.querySelector(".statuscheck").textContent.trim();
+  
+  if (statusText === "Submitted for Review") {
+    document.querySelector(".confirmation").style.display = "flex";
+  }
 });
-document.querySelector(".confirmation-btn2").addEventListener('click',()=>{
-   document.querySelector(".statuscheck").textContent="Inprogress";
-   document.querySelector(".confirmation").style.display="none";
+
+document.querySelector(".confirmation-btn1").addEventListener('click', () => {
+  document.querySelector(".statuscheck").textContent = "Completed";
+  document.querySelector(".confirmation").style.display = "none";
+});
+
+document.querySelector(".confirmation-btn2").addEventListener('click', () => {
+  document.querySelector(".statuscheck").textContent = "In Progress"; // Changed to match your status text
+  document.querySelector(".confirmation").style.display = "none";
 });
   
 
