@@ -41,7 +41,7 @@ function getCSRFToken() {
 }
 
 document.querySelector(".statuscheck").addEventListener('click',()=>{
-  if(document.querySelector(".statuscheck").textContent=="Submitted for review"){
+  if(document.querySelector(".statuscheck").textContent=="Submitted for Review"){
      document.querySelector(".confirmation").style.display="flex";
     }
   })
@@ -73,7 +73,6 @@ function accepttask(r) {
       if (response.ok) {
         // Handle success: hide the submit button
         window.location.reload();
-        document.querySelector(".submit-container").style.display = "none";
         
       } else {
         // Handle error
@@ -106,7 +105,6 @@ function declinetask(r) {
       if (response.ok) {
         // Handle success: hide the submit button
         window.location.reload();
-        document.querySelector(".submit-container").style.display = "none";
         
       } else {
         // Handle error

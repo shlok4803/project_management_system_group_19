@@ -55,7 +55,9 @@
                   Unknown
                   {% endif %}</span>
                   &nbsp;&nbsp;
+                  {% if project_instance.status == 'O' %}
                   <button class="statuschanger" data-project-id="{{ project_instance.projectID }}">Complete</button>
+                  {% endif %}
               </div>
               <div class="taskdata">
                 <span class="tasktitle">Manager Name: </span><span>{{project_instance.managerName}} - {{ project_instance.managerEmail }}</span>

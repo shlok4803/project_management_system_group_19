@@ -65,9 +65,9 @@ def CreateProject(request):
     managers = manager.objects.filter(company_name=owner_instance)
     
     user=request.user
-    if not user.user_type != 'owner':
+    if not user.user_type == 'owner':
         messages.error(request, "Only owners can create projects.")
-        return redirect('Logout')
+        return redirect('/logout')
     
     if request.method == 'POST':
         csrf_token = request.POST.get('csrfmiddlewaretoken')
@@ -134,9 +134,9 @@ def view_project(request):
 def edit_project(request,project_id):
     
     user=request.user
-    if not user.user_type != 'owner':
+    if not user.user_type == 'owner':
         messages.error(request, "Only owners can edit projects")
-        return redirect('Logout')
+        return redirect('/logout')
     
     owner_instance = owner.objects.get(email=request.user.email)
     managers = manager.objects.filter(company_name=owner_instance)
@@ -145,7 +145,7 @@ def edit_project(request,project_id):
     
     if not user.user_type != 'owner':
         messages.error(request, "Only owners can edit projects.")
-        return redirect('Logout')
+        return redirect('/logout')
     
     if request.method == 'POST':
         project_title = request.POST.get('project_title')
@@ -194,9 +194,9 @@ def view_project_details(request,project_id):
 def complete_project(request, project_id):
     user=request.user
     
-    if not user.user_type != 'owner':
+    if not user.user_type == 'owner':
         messages.error(request, "Only owners can submit projects.")
-        return redirect('Logout')
+        return redirect('/logout')
     
     project_instance=project.objects.get(projectID=project_id)
     task_instance = Task.objects.filter(projectID=project_instance)
@@ -265,9 +265,9 @@ def viewChat(request,project_id):
 @login_required        
 def delete_project(request,project_id):
     user=request.user
-    if not user.user_type != 'owner':
+    if not user.user_type == 'owner':
         messages.error(request, "Only owners can delete projects.")
-        return redirect('Logout')
+        return redirect('/logout')
     
     try:
         project_instance = project.objects.get(projectID=project_id)
@@ -283,9 +283,9 @@ def delete_project(request,project_id):
 @login_required
 def manage_employee(request):
     user=request.user
-    if not user.user_type != 'owner':
+    if not user.user_type == 'owner':
         messages.error(request, "Only owners can manage employee.")
-        return redirect('Logout')
+        return redirect('/logout')
     
     if request.method == 'DELETE':
         email = request.GET.get('email')
@@ -351,9 +351,9 @@ def change_role(request):
 def CreateTask(request,project_id):
     
     user=request.user
-    if not user.user_type != 'manager':
+    if not user.user_type == 'manager':
         messages.error(request, "Only manager can create tasks.")
-        return redirect('Logout')
+        return redirect('/logout')
     
     
     project_instance = project.objects.get(projectID=project_id)
@@ -363,7 +363,7 @@ def CreateTask(request,project_id):
     
     if not user.user_type != manager:
         messages.error(request, "Only owners can edit projects.")
-        return redirect('Logout')
+        return redirect('/logout')
     
 
     if request.method == 'POST':
@@ -454,9 +454,10 @@ def accept_task(request,task_id,project_id):
     user=request.user
     if not user.user_type == 'manager':
         messages.error(request, "Only manager can change task status")
-        return redirect('Logout')
+        return redirect('/logout')
     task_instance=Task.objects.get(taskID=task_id)
     task_instance.completed=datetime.now()
+    task_instance.decline=False
     task_instance.status='C'
     task_instance.save()
     
@@ -471,7 +472,7 @@ def decline_task(request,task_id,project_id):
     user=request.user
     if not user.user_type == 'manager':
         messages.error(request, "Only manager change task status")
-        return redirect('Logout')
+        return redirect('/logout')
     
     task_instance=Task.objects.get(taskID=task_id)
     task_instance.completed=None
@@ -496,9 +497,9 @@ def edit_task(request, project_id, task_id):
     owner_instance = owner.objects.get(email=project_instance.ownerEmail)
     employees = employee.objects.filter(company_name=owner_instance)
     
-    if user.user_type == employee:
-        messages.error(request, "Only manager and owner can edit task")
-        return redirect('Logout')
+    if not user.user_type == 'manager':
+        messages.error(request, "Only manager can edit task")
+        return redirect('/logout')
     
     if request.method == 'POST':
         
@@ -532,7 +533,7 @@ def delete_task(request,task_id,project_id):
     user=request.user
     if not user.user_type != 'manager':
         messages.error(request, "Only manager can delete tasks.")
-        return redirect('Logout')
+        return redirect('/logout')
     #project_instance=project.objects.get(projectID=project_id)
     try:
         task = Task.objects.get(taskID=task_id)
@@ -596,7 +597,7 @@ def view_progress(request, project_id):
     user=request.user
     if  user.user_type == 'employee':
         messages.error(request, "Only owner and manager can view progress.")
-        return redirect('Logout')
+        return redirect('/logout')
     
     project_instance = project.objects.get(projectID=project_id)
     task_instance = Task.objects.filter(projectID=project_instance)

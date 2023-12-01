@@ -37,15 +37,29 @@
           <div class="taskdata">
               <span class="tasktitle">Task Name: </span><span class="tasktitle1">{{ task_instance.taskTitle }}</span>
           </div>
-          <div class="taskdata">
-            <span class="tasktitle">Status: </span><span id="statusdetail">
-            <span class="tasktitle1">
+          <div class="taskdata statusbutton">
+            <span class="tasktitle">Status: </span>
+            <span class="tasktitle1 statuscheck">
+
                 {% if task_instance.status == 'I' %}
                     In Progress
+                {% if task_instance.decline %} 
+                   (Declined)
+                  {% endif %}
                 {% elif task_instance.status == 'C' %}
                     Completed
+                    {% if task_instance.late %}
+                       (Late )
+                    {% endif %}
                 {% elif task_instance.status == 'R' %}
                     Submitted for Review 
+                {% endif %}
+                
+                  {% if task_instance.status == 'R' %}
+                  <div class="buttonstatus">
+                    <button onclick="accepttask(this)" data-project-id="{{ project_instance.projectID }}" data-task-id="{{ task_instance.taskID }}">Accept</button>
+                    <button onclick="declinetask(this)" data-project-id="{{ project_instance.projectID }}" data-task-id="{{ task_instance.taskID }}">Decline</button>
+                </div>
                 {% endif %}
             </span>
           </div>
@@ -57,6 +71,20 @@
           </div>
           <div class="taskdata">
               <span class="tasktitle">Deadline: </span><span>{{ task_instance.deadline }}</span>
+          </div>
+          <div class="taskdata">
+            <span class="tasktitle">Submission Date: </span><span class="tasktitle1 submission-date">
+              {% if task_instance.submitted %}
+                    {{ task_instance.submitted}} 
+                    {% if task_instance.late %}
+                       (Late submission)
+                    {% endif %}
+                {% elif task_instance.submitted%}
+                    {{ task_instance.submitted}}
+               {% else %}
+                    Not submitted 
+                {% endif %}
+            </span>
           </div>
           <div class="taskdata">
               <span class="tasktitle">Description: </span><span class="desc">{{ task_instance.description }} </span>

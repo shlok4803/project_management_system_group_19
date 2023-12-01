@@ -62,7 +62,9 @@ class Task(models.Model):
     projectID = models.ForeignKey(project, on_delete=models.CASCADE)
     managerName = models.CharField(max_length=30, blank=True)
     managerEmail = models.EmailField()
-    #late = models.BooleanField(default=False)
+    late = models.BooleanField(default=False)
+    decline = models.BooleanField(default=False)
+    
     
     status = models.CharField(max_length=1, default='I',
         choices=[
