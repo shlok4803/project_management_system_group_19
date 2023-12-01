@@ -552,3 +552,22 @@
     .cross-button img:hover{
         transform: scale(1.1);
     }
+
+    .statusbutton{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .statusbutton button{
+        width: 60px;
+        height: 30px;
+        background-color: #00303f;
+        margin-right: 8px;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        transition: all 0.5s;
+    }
+    .statusbutton button:hover{
+        transform: scale(1.1);
+    }

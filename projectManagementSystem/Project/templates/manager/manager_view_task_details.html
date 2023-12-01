@@ -37,7 +37,7 @@
           <div class="taskdata">
               <span class="tasktitle">Task Name: </span><span class="tasktitle1">{{ task_instance.taskTitle }}</span>
           </div>
-          <div class="taskdata">
+          <div class="taskdata statusbutton">
             <span class="tasktitle">Status: </span>
             <span class="tasktitle1 statuscheck">
                 {% if task_instance.status == 'I' %}
@@ -47,6 +47,10 @@
                 {% elif task_instance.status == 'R' %}
                     Submitted for Review 
                 {% endif %}
+                <div class="buttonstatus">
+                    <button>Accept</button>
+                    <button>Decline</button>
+                </div>
             </span>
           </div>
           <div class="taskdata">
@@ -57,6 +61,9 @@
           </div>
           <div class="taskdata">
               <span class="tasktitle">Deadline: </span><span>{{ task_instance.deadline }}</span>
+          </div>
+          <div class="taskdata">
+            <span class="tasktitle">Submission Date: </span><span class="tasktitle1 submission-date"></span>
           </div>
           <div class="taskdata">
               <span class="tasktitle">Description: </span><span class="desc">{{ task_instance.description }} </span>
