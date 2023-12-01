@@ -620,10 +620,10 @@ def view_progress(request, project_id):
     
     if user.user_type == 'manager':
         print(context)
-        return render(request, 'manager_progress.html', context)
+        return render(request, 'manager/manager_progress.html', context)
     
     elif user.user_type == 'owner':  
-        return render(request, 'owner_progress.html', context)
+        return render(request, 'owner/owner_progress.html', context)
 
 
 

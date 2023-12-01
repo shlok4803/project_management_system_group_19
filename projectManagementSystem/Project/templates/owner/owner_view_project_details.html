@@ -68,11 +68,20 @@
               <div class="taskdata">
                 <span class="tasktitle">Description: </span><span class="desc">{{project_instance.description}}</span>
               </div>
+              <div class="taskdata">
+                <span class="tasktitle">Completion date: </span><span class="desc">
+                  {% if project_instance.completed  %}
+                    {{project_instance.completed}}
+                  {% else %}
+                  Not Completed
+                  {% endif %}
+                </span>
+              </div>
           </div>
           
           <div class="editdeletebtn">
             <a href="{%url 'edit-project' project_id=project_instance.projectID %}"> <button class="details-btn btns">Edit project</button></a>
-            <button class="details-btn btns" id="deletebtn" onclick="deleteRow(this)" data-project-id="{{ project_instance.projectID }}">Delete project</button>
+            <button class="details-btn btns" onclick="deleteRow(this)" data-project-id="{{ project_instance.projectID }}">Delete project</button>
           </div>
         </div>
           

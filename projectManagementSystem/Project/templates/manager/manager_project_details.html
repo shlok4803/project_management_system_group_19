@@ -55,6 +55,15 @@
             <div class="taskdata">
                 <span class="tasktitle">Description: </span><span class="desc">{{ project_instance.description }}</span>
             </div>
+            <div class="taskdata">
+              <span class="tasktitle">Completion date: </span><span class="desc">
+                {% if project_instance.completed  %}
+                  {{project_instance.completed}}
+                {% else %}
+                Not Completed
+                {% endif %}
+              </span>
+            </div>
     </div>
   <script src="{%static 'js/manager_view_project.js' %}"></script>
 </body>
