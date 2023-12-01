@@ -447,6 +447,43 @@ def submit_task(request,task_id,project_id):
     view_task_detail = reverse('view-taskdetail', kwargs={'project_id': project_id,'task_id':task_id}) 
         
     return redirect(view_task_detail)
+
+#PM
+@login_required
+def accept_task(request,task_id,project_id):
+    user=request.user
+    if not user.user_type == 'manager':
+        messages.error(request, "Only manager can change task status")
+        return redirect('Logout')
+    task_instance=Task.objects.get(taskID=task_id)
+    task_instance.completed=datetime.now()
+    task_instance.status='C'
+    task_instance.save()
+    
+    view_task_detail = reverse('view-taskdetail', kwargs={'project_id': project_id,'task_id':task_id}) 
+        
+    return redirect(view_task_detail)
+
+
+#PM
+@login_required
+def decline_task(request,task_id,project_id):
+    user=request.user
+    if not user.user_type == 'manager':
+        messages.error(request, "Only manager change task status")
+        return redirect('Logout')
+    
+    task_instance=Task.objects.get(taskID=task_id)
+    task_instance.completed=None
+    task_instance.submitted=None
+    task_instance.decline=True
+    task_instance.status='I'
+    task_instance.save()
+    
+    view_task_detail = reverse('view-taskdetail', kwargs={'project_id': project_id,'task_id':task_id}) 
+        
+    return redirect(view_task_detail)
+
         
     
 #PM    

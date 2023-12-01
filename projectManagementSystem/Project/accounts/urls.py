@@ -28,6 +28,8 @@ urlpatterns = [
     path('dashboard/project/task-view/create-task/<slug:project_id>/',CreateTask,name='create-task'),
     path('dashboard/project/task-view/<slug:project_id>/task-details/<slug:task_id>',view_task_details,name='view-taskdetail'),
     path('dashboard/project/task-view/<slug:project_id>/task-details/<slug:task_id>/submit',submit_task,name='submit-task'),
+    path('dashboard/project/task-view/<slug:project_id>/task-details/<slug:task_id>/accept',accept_task,name='accept-task'),
+    path('dashboard/project/task-view/<slug:project_id>/task-details/<slug:task_id>/decline',decline_task,name='decline-task'),
     path('dashboard/project/task-view/<slug:project_id>/edit-task/<slug:task_id>',edit_task,name='edit-tasks'),
     path('dashboard/project/task-view/<slug:project_id>/',view_task_list,name='view-tasks'),
     path('dashboard/project/task-view/<slug:project_id>/<slug:task_id>/delete',delete_task,name='delete-task'),
@@ -35,7 +37,6 @@ urlpatterns = [
     path('dashboard/project/<slug:project_id>/view-progress/',view_progress, name='view-progress'),
     path('dashboard/manage-employees',manage_employee, name='manage-employee'),
     path('dashboard/manage-employees/delete/',manage_employee, name='delete-employee'),
-    #path('dashboard/manage-employees/change-role/',change_role, name='change-role'),
     path('dashboard/project/chat/<slug:project_id>/',viewChat, name='view-chat'),
 
     # reset password with email auth

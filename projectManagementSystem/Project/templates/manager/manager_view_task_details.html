@@ -38,7 +38,7 @@
               <span class="tasktitle">Task Name: </span><span class="tasktitle1">{{ task_instance.taskTitle }}</span>
           </div>
           <div class="taskdata">
-            <span class="tasktitle">Status: </span>
+            <span class="tasktitle">Status: </span><span id="statusdetail">
             <span class="tasktitle1">
                 {% if task_instance.status == 'I' %}
                     In Progress
