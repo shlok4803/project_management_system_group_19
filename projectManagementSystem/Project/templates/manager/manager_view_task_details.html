@@ -8,11 +8,11 @@
     <meta name="viewport" content="width=device-width, 
 				initial-scale=1.0">
     <title>dashboard</title>
-    <!-- <link rel="stylesheet" href="{%static 'css/dashboard_main.css' %}">
-    <link rel="stylesheet" href="{%static 'css/dashboard_res.css' %}">
-    <link rel="stylesheet" href="{%static 'css/create_project.css' %}"> -->
-    <link rel="stylesheet" href="{%static 'css/manager_view_project_res.css' %}">
-    <link rel="stylesheet" href="{%static 'css/manager_view_detail.css' %}">
+    {% comment %} <link rel="stylesheet" href="{%static 'css/dashboard_main.css' %}">
+    <link rel="stylesheet" href="{%static 'css/dashboard_res.css' %}"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="{%static 'css/create_project.css' %}"> {% endcomment %}
+    <link rel="stylesheet" href="{%static 'css/manager_view_project_ress.css' %}">
+    <link rel="stylesheet" href="{%static 'css/manager_view_details.css' %}">
 </head>
 
 <body>
@@ -37,7 +37,7 @@
           <div class="taskdata">
               <span class="tasktitle">Task Name: </span><span class="tasktitle1">{{ task_instance.taskTitle }}</span>
           </div>
-          <div class="taskdata statusbutton">
+          <div class="taskdata">
             <span class="tasktitle">Status: </span>
             <span class="tasktitle1 statuscheck">
 
@@ -62,6 +62,10 @@
                 </div>
                 {% endif %}
             </span>
+          </div>
+          <div class="taskdata statusbutton">
+              <button>Accept</button>
+              <button>Decline</button>
           </div>
           <div class="taskdata">
               <span class="tasktitle">Employee Name: </span><span>{{ task_instance.employeeName }}</span>
@@ -95,7 +99,7 @@
       <button class="details-btn btns" id="deletebtn" onclick="deleteRow(this)" data-task-id="{{ task_instance.taskID }}" data-project-id="{{ project_instance.projectID }}">Delete Task</button>
     </div>
     
-      <script src="{%static 'js/manager_view_project.js' %}"></script>
+      <script src="{%static 'js/manager_view_projects.js' %}"></script>
 </body>
 
 </html>

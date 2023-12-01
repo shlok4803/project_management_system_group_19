@@ -11,7 +11,7 @@
 				initial-scale=1.0">
   <title>My Projects</title>
   <link rel="stylesheet"
-        href="{% static 'css/my_project_main.css' %}">
+        href="{% static 'css/my_project_mains.css' %}">
   <link rel="stylesheet"
         href="{%static 'css/my_project_res.css' %}">
 </head>
@@ -44,13 +44,21 @@
 
     <div class="project-container">
       <div class="project-header">
-        <h1 class="project-header-text">My Projects</h1>
+        {% comment %} <h1 class="project-header-text">My Projects</h1>
         <select id="select1" onchange="getOption()">
           <option value="Show all" selected>Show all</option>
           <option value="P">Pending</option>
           <option value="C">Completed</option>
-        </select>
+        </select> {% endcomment %}
         <!-- <a href=""><button class="project-header-btn">View Progress</button></a> -->
+        <div class="status-container">
+          <h1 class="project-header-text">My Project</h1>
+          <select id="select1" onchange="getOption()">
+            <option value="Show all" selected>Show all</option>
+            <option value="P">Pending</option>
+            <option value="C">Completed</option>
+          </select>
+        </div>
       </div>
 
       <div class="project-body">
