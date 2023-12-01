@@ -504,6 +504,7 @@
         border: 2px solid black;
         border-radius: 10px;
         cursor: pointer;
+        color: white;
     }
     .confirmation{
        height: 120px;
@@ -555,11 +556,12 @@
 
     .statusbutton{
         display: flex;
-        justify-content: space-between;
+        width: 55%;
+        justify-content: flex-end;
         align-items: center;
     }
     .statusbutton button{
-        width: 60px;
+        width: 70px;
         height: 30px;
         background-color: #00303f;
         margin-right: 8px;
@@ -567,6 +569,7 @@
         border-radius: 6px;
         color: white;
         transition: all 0.5s;
+        padding: 2px;
     }
     .statusbutton button:hover{
         transform: scale(1.1);

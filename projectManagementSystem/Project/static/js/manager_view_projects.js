@@ -109,4 +109,3 @@ function getOption() {
   // console.log(output);
   myFunction(output);
 }
-
