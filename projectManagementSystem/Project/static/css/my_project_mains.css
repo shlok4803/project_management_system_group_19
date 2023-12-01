@@ -433,8 +433,8 @@ header {
 
 .status-container{
     display: flex;
-    justify-content: space-evenly;
-    width: 400px;
+    justify-content: space-between;
+    width: 300px;
  }
  #select1{
     background-color: #00303f;
@@ -443,4 +443,3 @@ header {
     border: none;
     border-radius: 10px;
  }
- 

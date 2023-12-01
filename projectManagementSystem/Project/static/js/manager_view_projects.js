@@ -1,3 +1,11 @@
+let menuicn = document.querySelector(".menuicn");
+let nav = document.querySelector(".navcontainer");
+
+menuicn.addEventListener("click", () => {
+	nav.classList.toggle("navclose");
+})
+
+
 function deleteRow(r) {
   let taskId = r.getAttribute('data-task-id');
   let projectId = r.getAttribute('data-project-id');
