@@ -143,7 +143,7 @@ def edit_project(request,project_id):
     project_instance = project.objects.get(projectID=project_id)
     user=request.user
     
-    if not user.user_type != 'owner':
+    if not user.user_type == 'owner':
         messages.error(request, "Only owners can edit projects.")
         return redirect('/logout')
     
@@ -364,12 +364,6 @@ def CreateTask(request,project_id):
     project_instance = project.objects.get(projectID=project_id)
     owner_instance = owner.objects.get(email=project_instance.ownerEmail)
     employees = employee.objects.filter(company_name=owner_instance)
-
-    
-    if not user.user_type != manager:
-        messages.error(request, "Only owners can edit projects.")
-        return redirect('/logout')
-    
 
     if request.method == 'POST':
         csrf_token = request.POST.get('csrfmiddlewaretoken')
