@@ -16,7 +16,19 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 import json
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import CreateView,ListView,DetailView, DeleteView, UpdateView
+from .forms import ChangingPassword, EditProfileForm
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
 
+
+class MyPasswordChangeView(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView):
+    template_name = 'password_change.html'
+    form_class = ChangingPassword
+    success_message = 'Password Changed Successfully !!!'
+    success_url = reverse_lazy('dashboard')
 
 
 # Owner, PM and Employee
@@ -631,6 +643,7 @@ def view_progress(request, project_id):
     
     elif user.user_type == 'owner':  
         return render(request, 'owner/owner_progress.html', context)
+
 
 
 
