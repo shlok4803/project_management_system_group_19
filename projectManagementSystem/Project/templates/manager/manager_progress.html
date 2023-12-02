@@ -27,7 +27,7 @@
             </div>
 
             <div class="container">
-                <div class="progress " style="--i:25;--clr:red;">
+                <div class="progress " style="--i;--clr:red;">
                     <h3>{{ progress }}<span>%</span></h3>
                     <h4>OVERALL</h4>
                 </div>
@@ -35,6 +35,13 @@
 
         </div>
     </div>
+    <script>
+        let var_progress= {{progress}}
+        var progressElement = document.querySelector(".progress");
+
+        progressElement.style.setProperty('--i',var_progress)
+        var iValue = progressElement.style.getPropertyValue("--i");
+    </script>
 
     <!-- Include your JavaScript file -->
     <script src="{% static 'js/progress.js' %}"></script>
