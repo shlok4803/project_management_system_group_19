@@ -8,22 +8,17 @@
 	<meta name="viewport" content="width=device-width, 
 				initial-scale=1.0">
 	<title>chat</title>
-	<link rel="stylesheet" href="{%static 'css/chat_main.css' %}">
-	<link rel="stylesheet" href="{%static 'css/chat_res.css' %}">
+    <link rel="stylesheet" href="{%static 'css/dashboard_main.css' %}">
+    <link rel="stylesheet" href="{%static 'css/dashboard_res.css' %}">
 </head>
 
 <body>
 
 	<!-- for header part -->
-	<header>
-
-		{% include '../header_page.html' %}
-	</header>
+	{% include './header_page.html' %}
 
 	<div class="main-container">
-		<div class="navcontainer">
-			{% include './manager_navbar.html' %}
-		</div>
+		{% include './owner/owner_navbar.html' %}
 		
 		<!-- <div class="main">
 
