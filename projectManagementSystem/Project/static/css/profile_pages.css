@@ -307,7 +307,6 @@ a:visited {
 .buttons{
 	display: flex;
 	justify-content: space-around;
-	display: none;
 }
 
 #save_button,.change-pass{
