@@ -141,7 +141,6 @@ def edit_project(request,project_id):
     owner_instance = owner.objects.get(email=request.user.email)
     managers = manager.objects.filter(company_name=owner_instance)
     project_instance = project.objects.get(projectID=project_id)
-    user=request.user
     
     if not user.user_type == 'owner':
         messages.error(request, "Only owners can edit projects.")
