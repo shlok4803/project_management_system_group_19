@@ -19,6 +19,7 @@ urlpatterns = [
     #path('dashboard/dashboard-owner',dashboard,name="Owner_dashboard"),
     path('dashboard/project/', view_project, name="viewProjectsList"),
     path('dashboard/myprofile/', view_profile, name="viewProfile"),
+    path('dashboard/myprofile/edit_profile', edit_profile_page.as_view(), name="edit_profile_page"),
     path('dashboard/myprofile/change_password', MyPasswordChangeView.as_view(), name="password_change"),
     path('dashboard/project/createProject/',CreateProject, name="create-project"),
     path('dashboard/createProject/<str:company_name>/', CreateProject, name='create_project'),

@@ -22,13 +22,3 @@ class EditProfileForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('first_name', 'contact')
-
-class EditProfileForm(UserChangeForm):
-    email = None
-    password = None
-    first_name = forms.CharField(label='First name', max_length=30, widget=forms.TextInput)
-    contact = forms.CharField(label='contact', widget=forms.TextInput, max_length=15)
-    
-    class Meta:
-        model = CustomUser
-        fields = ('first_name', 'contact')

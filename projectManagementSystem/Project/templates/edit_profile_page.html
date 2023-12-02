@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" />
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="{% static 'css/edit_profile_page.css'%}">
+</head>
+
+<body>
+    <header>
+        <h1>ProPlanning</h1>
+    </header>
+
+    <div class="wrapper">
+        <div class="container">
+            <div class="heading">
+                Edit Profile Page
+            </div>
+            
+            <form action="#" method="post">
+                {% csrf_token %}
+                
+                <div class="field">
+                    <label for="{{ form.first_name.id_for_label }}"> Name : </label>
+                    {{ form.first_name }}
+                </div>
+
+                <div class="field">
+                    <label for="{{ form.contact.id_for_label }}"> Contact : </label>
+                    {{ form.contact }}
+                </div>
+
+                <div class="field" id="submit-button">
+                    <input class="button-hover" id="submit" type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

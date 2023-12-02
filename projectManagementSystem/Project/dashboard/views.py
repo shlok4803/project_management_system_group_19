@@ -24,11 +24,21 @@ from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 
 
+
+class edit_profile_page(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    template_name = 'edit_profile_page.html'
+    form_class = EditProfileForm
+    success_message = 'Profile Changes Saved Successfully !!!'
+    success_url = reverse_lazy('viewProfile')
+
+    def get_object(self):
+        return self.request.user
+
 class MyPasswordChangeView(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView):
     template_name = 'password_change.html'
     form_class = ChangingPassword
     success_message = 'Password Changed Successfully !!!'
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('viewProfile')
 
 
 # Owner, PM and Employee
