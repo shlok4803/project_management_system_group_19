@@ -1,0 +1,86 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width,
+				initial-scale=1.0">
+  <title>My Projects</title>
+  <link rel="stylesheet"
+        href="{%static 'css/my_project_mains.css' %}">
+  <link rel="stylesheet"
+        href="{%static 'css/my_project_res.css' %}">
+</head>
+<body>
+
+	<!-- for header part -->
+	{% include '../header_page.html' %}
+
+<div class="main-container">
+  <div class="navcontainer">
+    {% include './employee_navbar.html' %}
+  </div>
+
+  <div class="main">
+    <div class="project-container">
+      <div class="project-header">
+        <div class="status-container">
+          <h1 class="project-header-text">My Project</h1>
+          <select id="select1" onchange="getOption()">
+            <option value="Show all" selected>Show all</option>
+            <option value="I">In Progress</option>
+            <option value="C">Completed</option>
+          </select>
+        </div>
+        <!-- <a href=""><button class="project-header-btn">View Progress</button></a> -->
+        <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name"> -->
+      </div>
+
+      <div class="project-body">
+        <table class="main-table">
+          <thead>
+            <th>Projects</th>
+            <th>Status</th>
+            <th>View Project</th>
+          </thead>
+          <tbody>
+            {% for project in projects %}
+            <tr class="table-row">
+                <td class="table-data">{{ project.projectTitle }}</td>
+                <td class="table-data">
+                    <h3 class="label-tag">
+                        {% if project.status == 'O' %}
+                            Pending
+                        {% elif project.status == 'C' %}
+                            Completed
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </h3>
+                </td>
+                <td class="table-data">
+                    <a href="{% url 'view-tasks' project_id=project.projectID  %}">
+                        <button class="button-tag btns">View</button>
+                    </a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr class="table-row">
+                <td class="table-data" colspan="4">No projects to show</td>
+            </tr>
+        {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="{%static 'js/employee_my_project.js' %}"></script>
+</body>
+</html>

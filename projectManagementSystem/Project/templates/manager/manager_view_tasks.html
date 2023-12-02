@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width,
+				initial-scale=1.0">
+  <title>View Project</title>
+  <link rel="stylesheet"
+  href="{%static '/css/manager_view_project.css' %}">
+  <link rel="stylesheet"
+  href="{%static '/css/manager_view_project_res.css' %}">
+</head>
+
+<body>
+
+	<!-- for header part -->
+	{% include '../header_page.html' %}
+
+<div class="main-container">
+  <div class="navcontainer">
+    {% include './manager_navbar.html' %}
+      </div>
+
+  <div class="main">
+
+     <div class="project-container">
+      <div class="project-header">
+        <h1 class="project-header-text">{{ project_instance.projectTitle }}</h1>
+        <div class="progress-create-btn">
+            <a href="./progress.html"><button class="project-header-btn btns">View Progress</button></a>
+            <a href="{% url 'create-task' project_id=project_instance.projectID %}"><button class="project-header-btn btns">Create Task</button></a>
+        </div>
+      </div>
+      
+        <div class="project-body">
+            {% if tasks %}
+                <table class="main-table" id="maintable">
+                    <thead>
+                        <th>Tasks</th>
+                        <th>Status</th>
+                        <th>Edit task</th>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+                            <tr class="table-row" id="tablerow{{ task.taskID }}">
+                                <td class="table-data">{{ task.taskTitle }}</td>
+                                <td class="table-data">
+                                    <h3 class="label-tag">
+                                        {% if task.status == 'I' %}
+                                            In Progress
+                                        {% elif task.status == 'C' %}
+                                            Completed
+                                        {% elif task.status == 'R' %}
+                                            Submitted For Review
+                                        {% endif %}
+                                    </h3>
+                                </td>
+                                <td class="table-data">
+                                    <a href="{% url 'edit-tasks' project_id=project_instance.projectID task_id=task.taskID %}">
+                                        <button class="button-tag btns">Edit</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No tasks to show.</p>
+            {% endif %}
+        </div>        
+      </div>
+      
+</body>
+</html>

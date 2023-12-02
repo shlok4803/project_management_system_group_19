@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'dashboard.apps.DashboardConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,6 +56,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 ROOT_URLCONF = 'Project.urls'
 
 TEMPLATES = [
@@ -151,3 +156,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') 
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Use the database-backed session engine
+SESSION_COOKIE_AGE = 3600  # Session timeout (1 hour)
+SESSION_SAVE_EVERY_REQUEST = True  # Save session data on every request

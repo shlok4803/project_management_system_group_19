@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, 
+				initial-scale=1.0">
+    <title>dashboard</title>
+    <link rel="stylesheet" href="{%static 'css/dashboard_main.css' %}">
+    <link rel="stylesheet" href="{%static 'css/dashboard_res.css' %}">
+    <link rel="stylesheet" href="{%static 'css/create_project.css' %}">
+</head>
+
+<body>
+
+	<!-- for header part -->
+	{% include '../header_page.html' %}
+
+    <div class="main-container">
+      <div class="navcontainer">
+        {% include './owner_navbar.html' %}
+    </div>
+      
+        <div class="main">
+            <div class="project-container"> 
+                <div class="project-header">
+                    <h1 class="recent-Articles">Create New Project</h1>
+                </div>
+                <div class="project-body">
+                    <form action="" method="post">
+                      {% csrf_token %}
+
+                        <div class="field">
+                            <label for="project_title"> Project Title : </label>
+                            <input type="text" name="project_title" id="title" placeholder="Enter Project Title" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="manager"> Select Manager :</label>
+                            <select name="manager" id="manager" required>
+                              <option value="" disabled selected>Select Manager</option>
+                              {% for manager in managers %}
+                              <option value="{{manager.first_name}}-{{ manager.email }}">{{ manager.first_name }}-{{ manager.email }}</option>
+                              {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="deadline"> Select Deadline :</label>
+                            <input type="datetime-local" name="deadline" id="deadline">
+                        </div>
+
+                        <div class="field">
+                            <label for="description"> Description :</label>
+                            <input type="text" name="description" id="description">
+                        </div>
+
+                        <div class="field">
+                            <input id="submit" type="submit" value="Create Project">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{%static 'js/dashboard.js' %}"></script>
+</body>
+
+</html>

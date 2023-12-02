@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>progress</title>
+    <link rel="stylesheet" href="{% static 'css/progress_page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/progress_page_res.css' %}">
+</head>
+
+<body>
+
+	<!-- for header part -->
+	{% include '../header_page.html' %}
+
+    <div class="main-container">
+		<div class="navcontainer">
+			{% include './manager_navbar.html' %}
+        </div>
+        
+        <div class="main">
+            <div class="heading">
+                <h1>OVERALL PROGRESS</h1>
+            </div>
+
+            <div class="container">
+                <div class="progress " style="--i:25;--clr:red;">
+                    <h3>{{ progress }}<span>%</span></h3>
+                    <h4>OVERALL</h4>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Include your JavaScript file -->
+    <script src="{% static 'js/progress.js' %}"></script>
+
+</body>
+
+</html>

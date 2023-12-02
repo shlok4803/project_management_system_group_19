@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width,
+				initial-scale=1.0">
+  <title>View Project</title>
+  <link rel="stylesheet"
+        href="{%static 'css/view_projects.css' %}">
+  <link rel="stylesheet"
+        href="{%static 'css/view_project_res.css' %}">
+</head>
+<body>
+
+	<!-- for header part -->
+	{% include '../header_page.html' %}
+
+<div class="main-container">
+  <div class="navcontainer">
+    {% include './employee_navbar.html' %}
+  </div>
+
+  <div class="main">
+    
+    <div class="project-container">
+      <div class="project-header">
+        <div class="status-container">
+          <h1 class="project-header-text">Project name</h1>
+          <select id="select1" onchange="getOption()">
+            <option value="Show all" selected>Show all</option>
+            <option value="I">In Progress</option>
+            <option value="C">Completed</option>
+            <option value="R">Submitted for review</option>
+          </select>
+        </div>
+        <div class="progress-edit-btn">
+          <a href="{% url  'view-chat' project_instance.projectID %}"><button class="project-header-btn btns">Chat</button></a>
+          <a href="{% url 'project-details' project_id=project_instance.projectID %}"><button class="project-header-btn btns">View Project Details</button></a>
+         <!-- <a href="./progress.html"><button class="project-header-btn btns">View Progress</button></a>-->
+          <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Status.." title="Type in a name"> -->
+        </div>
+      </div>
+      <div class="project-body">
+        <table class="main-table" id="maintable">
+          <thead>
+            <th>Tasks</th>
+            <th>Status</th>
+            <th>View task</th>
+          </thead>
+          <tbody>
+            {% for task in task_instance %}
+            <tr class="table-row">
+                <td class="table-data">{{ task.taskTitle }}</td>
+                <td class="table-data">
+                    <h3 class="label-tag">
+                        {% if task.status == 'I' %}
+                            In Progress
+                        {% elif task.status == 'C' %}
+                            Completed
+                        {% elif task.status == 'R' %}
+                            Submitted for Review
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </h3>
+                </td>
+                <td class="table-data">
+                  <a href="{% url 'view-taskdetail' project_id=project_instance.projectID task_id=task.taskID %}">
+                        <button class="button-tag btns">View</button>
+                    </a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr class="table-row">
+                <td class="table-data" colspan="4">No tasks to show</td>
+            </tr>
+        {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    
+  </div>
+  <script src="{%static 'js/view_projects.js' %}"></script>
+</body>
+</html>

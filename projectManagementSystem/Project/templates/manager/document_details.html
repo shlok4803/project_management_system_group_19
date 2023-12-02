@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width,
+				initial-scale=1.0">
+  <title>View Project</title>
+  <link rel="stylesheet"
+        href="../../static/css/manager_view_project_res.css">
+  <link rel="stylesheet"
+        href="../../static/css/document_details.css">
+  <!-- <link rel="stylesheet"
+        href="./css/manager_view_details.css"> -->
+</head>
+
+<body>
+
+	<!-- for header part -->
+	{% include '../header_page.html' %}
+
+<div class="main-container">
+  <div class="navcontainer">
+    {% include './manager_navbar.html' %}
+      </div>
+  </div>
+  <div class="main">
+
+    <!-- <div class="searchbar2">
+        <input type="text"
+            name=""
+            id=""
+            placeholder="Search">
+        <div class="searchbtn">
+        <img src="https://tse3.mm.bing.net/th?id=OIP.qj2wH0lhKIfZH159GxkpNgHaHa&pid=Api&P=0&h=180"
+                class="icn srchicn"
+                alt="search-button">
+        </div>
+    </div> -->
+    <!-- <div class="desc-box">
+      <div class="description-box">
+        <div class="taskdata">
+          <span class="tasktitle">Task Name: </span><span class="tasktitle1">Task 1</span>
+         </div>
+         <div class="taskdata">
+           <span class="tasktitle">Deadline: </span><span>08/11/2023</span>
+         </div>
+         <div class="taskdata">
+           <span class="tasktitle">Description: </span><span class="desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, accusantium!</span>
+         </div>
+       </div>
+     </div> -->
+   
+    <div class="project-container">
+            <!-- <div class="taskdata">
+                <span class="tasktitle">Task Name: </span><span class="tasktitle1">Task 1</span>
+            </div>
+            <div class="taskdata">
+                <span class="tasktitle">Assgined By: </span><span>Name</span>
+            </div>
+            <div class="taskdata">
+                <span class="tasktitle">Deadline: </span><span>08/11/2023</span>
+            </div>
+            <div class="taskdata">
+                <span class="tasktitle">Description: </span><span class="desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, accusantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, mollitia? Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium vero assumenda harum dolores nihil pariatur earum, voluptates quod alias molestias! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis, in laborum! Nobis nesciunt neque hic quas aut magnam animi molestiae.</span>
+            </div> --> 
+            <div class="buttons">
+              <button>Accept</button>
+              <button>Decline</button>
+            </div>
+            <div class="table-wrapper"> 
+             <table>
+              <thead>
+                <th>Documents</th>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Document 1</td>
+              </tr>  
+              <tr>
+                <td>Document 2</td>
+              </tr>  
+              <tr>
+                <td>Document 3</td>
+              </tr>  
+              <tr>
+                <td>Document 4</td>
+              </tr>  
+              <tr>
+                <td>Document 5</td>
+              </tr>  
+              </tbody>
+            </table> 
+        </div>              
+    </div>
+  <script src="manager_view_project.js"></script>
+</body>
+</html>

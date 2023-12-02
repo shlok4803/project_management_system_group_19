@@ -10,13 +10,13 @@ from verify_email.email_handler import send_verification_email
 # Create your views here.
 def landing_view(request):
     if request.user.is_authenticated:
-        return redirect("/home")
+        return redirect("/dashboard")
     return render(request, 'landing.html')
 
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect("/home")
+        return redirect("/dashboard")
 
     context = {}
     if request.method == 'POST':
@@ -43,7 +43,7 @@ def login_view(request):
         login(request,authUser)
         msg = "Welcome " + CustomUser.objects.get(email=email).first_name + " !!"
         messages.success(request,msg)
-        return redirect("/home")
+        return redirect("/dashboard")
 
     return render(request, "login.html", context)
 
@@ -63,10 +63,13 @@ def register_view_owner(request):
     if request.method == 'POST':
         form = SignupForm_owner(request.POST)
         if form.is_valid():
+            user = form.save()
+            user.user_type = 'owner'
+            user.save()
             send_verification_email(request, form)
             messages.success(request, 'Please verify your email for ProPlaning and login after that')
             return redirect('/login')
-    return render(request, 'register_as_admin.html', {"form": form})
+    return render(request, 'owner/register_as_admin.html', {"form": form})
 
 
 def register_view_manager(request):
@@ -76,10 +79,13 @@ def register_view_manager(request):
     if request.method == 'POST':
         form = SignupForm_manager(request.POST)
         if form.is_valid():
+            user = form.save()
+            user.user_type = 'manager'
+            user.save()
             send_verification_email(request, form)
             messages.success(request, 'Please verify your email for ProPlaning and login after that')
             return redirect('/login')
-    return render(request, 'register_as_manager.html', {"form": form})
+    return render(request, 'manager/register_as_manager.html', {"form": form})
 
 
 def register_view_employee(request):
@@ -89,10 +95,19 @@ def register_view_employee(request):
     if request.method == 'POST':
         form = SignupForm_employee(request.POST)
         if form.is_valid():
+            user = form.save()
+            user.user_type = 'employee'
+            user.save()
             send_verification_email(request, form)
             messages.success(request, 'Please verify your email for ProPlaning and login after that')
+            CustomUser.is_employee=True
             return redirect('/login')
-    return render(request, 'register_as_employee.html', {"form": form})
+    return render(request, 'employee/register_as_employee.html', {"form": form})
+
+def Logout(request):
+    request.session.flush()
+    logout(request)
+    return redirect('')
 
 
 

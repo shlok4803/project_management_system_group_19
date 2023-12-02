@@ -1,0 +1,73 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width,
+				initial-scale=1.0">
+  <title>View Project</title>
+  <link rel="stylesheet"
+        href="{%static 'css/manager_view_project_res.css' %}">
+  <link rel="stylesheet"
+        href="{%static 'css/task_details.css' %}">
+  <!-- <link rel="stylesheet"
+        href="./css/manager_view_details.css"> -->
+</head>
+
+<body>
+
+	<!-- for header part -->
+	{% include '../header_page.html' %}
+
+<div class="main-container">
+  <div class="navcontainer">
+    {% include './employee_navbar.html' %}
+  </div>
+
+  <div class="main">
+
+    <div class="project-container">
+            <div class="taskdata">
+                <span class="tasktitle">Task Name: </span><span class="tasktitle1">{{ task_instance.taskTitle}}</span>
+            </div>
+            <div class="taskdata">
+              <span class="tasktitle">Status: </span>
+              <span class="tasktitle1">
+                {% if task_instance.status == 'I' %}
+                In Progress
+                {% if task_instance.decline %} 
+                    (Declined)
+                    {% endif %}
+                  {% elif task_instance.status == 'C' %}
+                      Completed
+                      {% if task_instance.late %}
+                       (Late submission)
+                      {% endif %}
+                  {% elif task_instance.status == 'R' %}
+                      Submitted for Review 
+                  {% endif %}
+              </span>
+            </div>
+            <div class="taskdata">
+                <span class="tasktitle">Assgined By: </span><span>{{task_instance.managerName}} - {{ task_instance.managerEmail }}</span>
+            </div>
+            <div class="taskdata">
+                <span class="tasktitle">Deadline: </span><span>{{task_instance.deadline}}</span>
+            </div>
+            <div class="taskdata">
+                <span class="tasktitle">Description: </span><span class="desc">{{task_instance.description}}</span>
+            </div>
+            {% if task_instance.status == 'I' %}
+            <div class="submit-container">
+                  <button class="submit" onclick="submittask(this)" data-project-id="{{ project_instance.projectID }}" data-task-id="{{ task_instance.taskID }}">Submit</button>
+            </div>
+            {% endif %}
+    </div>
+  <script src="{%static 'js/task_details.js' %}"></script>
+  <script src="{%static 'js/dashboard.js' %}"></script>
+</body>
+</html>
