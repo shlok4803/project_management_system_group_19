@@ -39,7 +39,7 @@
 
                         <div class="field">
                             <label for="employee"> Select Employee :</label>
-                            <select name="employee" id="employee">
+                            <select name="employee" id="employee" required>
                                 <option value="">Select Employee</option>
                                 {% for employee in employees %}
                                     <option value="{{ employee.first_name }} - {{ employee.email }}">{{ employee.first_name }}-{{ employee.email }}</option>
@@ -51,12 +51,12 @@
 
                         <div class="field">
                             <label for="deadline"> Select Deadline :</label>
-                            <input type="datetime-local" name="deadline" id="deadline">
+                            <input type="datetime-local" name="deadline" id="deadline" required>
                         </div>
 
                         <div class="field">
                             <label for="description"> Description :</label>
-                            <input type="text" name="description" id="description">
+                            <input type="text" name="description" id="description" required>
                         </div>
 
                         <div class="field">

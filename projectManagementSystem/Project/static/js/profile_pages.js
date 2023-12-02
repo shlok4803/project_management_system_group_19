@@ -20,8 +20,6 @@ const buttons=document.querySelector(".buttons");
 function editprofile(){
     fullname.readOnly = false;
     contact.readOnly = false;
-    role.readOnly = false;
-    company.readOnly = false;
     buttons.style.display ="flex"; 
     btn.style.display="none";
 }

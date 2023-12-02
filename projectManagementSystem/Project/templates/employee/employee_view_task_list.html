@@ -11,7 +11,7 @@
 				initial-scale=1.0">
   <title>View Project</title>
   <link rel="stylesheet"
-        href="{%static 'css/view_projects.css' %}">
+        href="{%static 'css/view_project.css' %}">
   <link rel="stylesheet"
         href="{%static 'css/view_project_res.css' %}">
 </head>
@@ -30,7 +30,7 @@
     <div class="project-container">
       <div class="project-header">
         <div class="status-container">
-          <h1 class="project-header-text">Project name</h1>
+          <h1 class="project-header-text">{{project_instance.projectTitle }}</h1>
           <select id="select1" onchange="getOption()">
             <option value="Show all" selected>Show all</option>
             <option value="I">In Progress</option>

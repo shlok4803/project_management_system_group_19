@@ -458,7 +458,7 @@
     .progress-edit-btn{
         display: flex;
         justify-content: space-between;
-        width: 50vh;
+        width: 40vh;
      }
      .status-container{
         display: flex;
