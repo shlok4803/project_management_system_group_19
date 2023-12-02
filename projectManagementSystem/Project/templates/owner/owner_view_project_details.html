@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,
+				initial-scale=1.0">
+    <title>dashboard</title>
+    <!-- <link rel="stylesheet" href="{%static 'css/dashboard_main.css' %}">
+    <link rel="stylesheet" href="{%static 'css/dashboard_res.css' %}">
+    <link rel="stylesheet" href="{%static 'css/create_project.css' %}"> -->
+    <link rel="stylesheet" href="{%static 'css/admin_view_project_res.css' %}">
+    <link rel="stylesheet" href="{%static 'css/admin_project_details.css' %}">
+    <style>
+      .message {
+          display: none;
+          color: red;
+          margin-top: 10px;
+      }
+  </style>
+</head>
+
+<body>
+
+	<!-- for header part -->
+	{% include '../header_page.html' %}
+
+<div class="main-container">
+  <div class="navcontainer">
+    {% include './owner_navbar.html' %}
+  </div>
+
+    <div class="main">
+        <div class="confirmation">
+            <p>Press Ok to Complete</p>
+            <div class="confirmation-btn">
+                <button class="confirmation-btn1">OK</button>
+                <button class="confirmation-btn2">Cancel</button>
+            </div>
+        </div>
+        <div class="project-container">
+          <div class="mini-container">
+              <div class="taskdata">
+                <span class="tasktitle">Project Name: </span><span class="tasktitle1">{{ project_instance.projectTitle}}</span>
+              </div>
+              <div class="taskdata">
+                <span class="tasktitle">Status: </span><span id="statusdetail" > 
+                  {% if project_instance.status == 'O' %}
+                  Pending
+                  {% elif project_instance.status == 'C' %}
+                  Completed
+                  {% else %}
+                  Unknown
+                  {% endif %}</span>
+                  &nbsp;&nbsp;
+                  {% if project_instance.status == 'O' %}
+                  <button class="statuschanger" data-project-id="{{ project_instance.projectID }}">Complete</button>
+                  {% endif %}
+              </div>
+              <div class="taskdata">
+                <span class="tasktitle">Manager Name: </span><span>{{project_instance.managerName}} - {{ project_instance.managerEmail }}</span>
+              </div>
+              <div class="taskdata">
+                <span class="tasktitle">Deadline: </span><span>{{project_instance.deadline}}</span>
+              </div>
+              <div class="taskdata">
+                <span class="tasktitle">Description: </span><span class="desc">{{project_instance.description}}</span>
+              </div>
+              <div class="taskdata">
+                <span class="tasktitle">Completion date: </span><span class="desc">
+                  {% if project_instance.completed  %}
+                    {{project_instance.completed}}
+                  {% else %}
+                  Not Completed
+                  {% endif %}
+                </span>
+              </div>
+          </div>
+          
+          <div class="editdeletebtn">
+            <a href="{%url 'edit-project' project_id=project_instance.projectID %}"> <button class="details-btn btns">Edit project</button></a>
+            <button class="details-btn btns" onclick="deleteRow(this)" data-project-id="{{ project_instance.projectID }}">Delete project</button>
+          </div>
+        </div>
+          
+        <script src="{%static 'js/admin_view_projectdetails.js' %}"></script>
+        <script src="{%static 'js/admin_viewproject.js' %}"></script>
+        
+</body>
+</html>

@@ -4,6 +4,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from .views import landing_view, login_view, register_view, register_view_owner, register_view_manager, register_view_employee, home_view
 from .forms import PasswordResetConfirmForm
+from dashboard.views import *
 
 urlpatterns = [
     path('', landing_view, name="landing"),
@@ -13,7 +14,30 @@ urlpatterns = [
     path('register/as_manager', register_view_manager, name="reg_manager"),
     path('register/as_employee', register_view_employee, name="reg_employee"),
     path('verification/', include('verify_email.urls')),	
-    path('home/', home_view, name="home"),
+    path('dashboard/',dashboard,name="dashboard"),
+    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name="logout"),
+    #path('dashboard/dashboard-owner',dashboard,name="Owner_dashboard"),
+    path('dashboard/project/',view_project,name="viewProjectsList"),
+    path('dashboard/myprofile/',view_profile,name="viewProfile"),
+    path('dashboard/project/createProject/',CreateProject, name="create-project"),
+    path('dashboard/createProject/<str:company_name>/', CreateProject, name='create_project'),
+    path('dashboard/project/edit-project/<slug:project_id>/',edit_project, name='edit-project'),
+    path('dashboard/project/view-details/<slug:project_id>/',view_project_details, name='project-details'),
+    path('dashboard/project/view-details/<slug:project_id>/update-status/',complete_project, name='change-project-status'),
+    path('dashboard/project/task-view/<slug:project_id>/',view_task_list,name='view-tasks'),
+    path('dashboard/project/task-view/create-task/<slug:project_id>/',CreateTask,name='create-task'),
+    path('dashboard/project/task-view/<slug:project_id>/task-details/<slug:task_id>',view_task_details,name='view-taskdetail'),
+    path('dashboard/project/task-view/<slug:project_id>/task-details/<slug:task_id>/submit',submit_task,name='submit-task'),
+    path('dashboard/project/task-view/<slug:project_id>/task-details/<slug:task_id>/accept',accept_task,name='accept-task'),
+    path('dashboard/project/task-view/<slug:project_id>/task-details/<slug:task_id>/decline',decline_task,name='decline-task'),
+    path('dashboard/project/task-view/<slug:project_id>/edit-task/<slug:task_id>',edit_task,name='edit-tasks'),
+    path('dashboard/project/task-view/<slug:project_id>/',view_task_list,name='view-tasks'),
+    path('dashboard/project/task-view/<slug:project_id>/<slug:task_id>/delete',delete_task,name='delete-task'),
+    path('dashboard/project/view-details/<slug:project_id>/delete',delete_project,name='delete-project'),
+    path('dashboard/project/<slug:project_id>/view-progress/',view_progress, name='view-progress'),
+    path('dashboard/manage-employees',manage_employee, name='manage-employee'),
+    path('dashboard/manage-employees/delete/',manage_employee, name='delete-employee'),
+    path('dashboard/project/chat/<slug:project_id>/',viewChat, name='view-chat'),
 
     # reset password with email auth
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name='forgot_password.html'), name='reset_password'),

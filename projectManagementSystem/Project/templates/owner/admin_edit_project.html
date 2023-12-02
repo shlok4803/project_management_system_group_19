@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,
+				initial-scale=1.0">
+    <title>Edit Task</title>
+    <link rel="stylesheet" href="../css/dashboard_main.css">
+    <link rel="stylesheet" href="../css/dashboard_res.css">
+    <link rel="stylesheet" href="../css/admin_createproject.css">
+</head>
+
+<body>
+
+	<!-- for header part -->
+	{% include '../header_page.html' %}
+
+<div class="main-container">
+    <div class="navcontainer">
+        {% include './owner_navbar.html' %}
+    </div>
+    
+    <div class="main">
+        <div class="project-container">
+            <div class="project-header">
+                <h1 class="recent-Articles">Edit project</h1>
+            </div>
+            <div class="project-body">
+                <form action="" method="post">
+                    <div class="field">
+                        <label for="title"> Project Name : </label>
+                        <input type="text" name="title" id="title" placeholder="Enter Project Title" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="employee"> Select manager :</label>
+                        <select name="employee" id="employee" required>
+                            <option value="">Select manager</option>
+                            <option value="employee1">manager1</option>
+                            <option value="employee2">manager2</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="deadline"> Select Deadline :</label>
+                        <input type="datetime-local" name="deadline" id="deadline" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="description"> Description :</label>
+                        <input type="text" name="description" id="description">
+                    </div>
+
+                    <div class="field">
+                        <label for="projectstatus">Project Status :</label>
+                        <select name="projectstatus" id="projectstatus" required>
+                            <!-- <option value="none" selected disabled hidden>--choose option</option> -->
+                            <option value="ongoing">Ongoing</option>
+                            <option value="ongoing">Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <button type="submit" id="submit">Update project</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{%static 'js/dashboard.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible"
+		content="IE=edge">
+	<meta name="viewport"
+		content="width=device-width, 
+				initial-scale=1.0">
+	<title>dashboard</title>
+	<link rel="stylesheet"
+		href="{% static 'css/dashboard_main.css' %}">
+	<link rel="stylesheet"
+		href="{%static 'css/dashboard_res.css' %}">
+</head>
+
+<body>
+
+	<!-- for header part -->
+	{% include '../header_page.html' %}
+
+	<div class="main-container">
+
+		<div class="navcontainer">
+			{% include './owner_navbar.html' %}
+		</div>
+
+		<div class="main">
+
+			<div class="box-container">
+
+				<div class="box box1">
+					<div class="text">
+						<h2 class="topic-heading" style="text-align: center;">{{ ongoing_count }}</h2>
+						<h2 class="topic">Pending</h2>
+					</div>
+
+					<img src=
+                    "https://www.vovia.com/assets/icon-target.png">
+				</div>
+
+				<div class="box box2">
+					<div class="text">
+						<h2 class="topic-heading" style="text-align: center;">{{ completed_count }}</h2>
+						<h2 class="topic">Completed</h2>
+					</div>
+
+					<img src=
+                    "https://www.edumilestones.com/ccis/static/tick_icon.png">
+				</div>
+
+
+			</div>
+
+			<div class="report-container">
+				<div class="report-header">
+					<h1 class="recent-Articles">Recent</h1>
+					<!-- <button class="view">View All</button> -->
+				</div>
+
+				<div class="report-body">
+					<div class="report-topic-heading">
+						<h3 class="t-op">Projects</h3>
+						<h3 class="t-op">Due date</h3>
+						<h3 class="t-op">Status</h3>
+					</div>
+				
+					<div class="items">
+						{% for project in recent_projects %}
+							<div class="item1">
+								<h3 class="t-op-nextlvl">{{ project.projectTitle }}</h3>
+								<h3 class="t-op-nextlvl">{{ project.deadline|date:'d/m/Y' }}</h3>
+								<div class="t-op-nextlvl">
+									{% if project.status == 'O' %}
+										<h3 class="label-tag">Pending</h3>
+									{% elif project.status == 'C' %}
+										<h3 class="label-tag">Completed</h3>
+									{% endif %}
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="{%static 'js/dashboard.js' %}"></script>
+</body>
+</html>
