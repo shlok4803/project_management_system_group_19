@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'verify_email.apps.VerifyEmailConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

@@ -2,6 +2,12 @@ from django import forms
 from .models import owner,employee,manager,CustomUser
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models.fields import BLANK_CHOICE_DASH
+
+
+class MyModelChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.company_name
 
 
 class SignupForm_owner(UserCreationForm):
@@ -9,8 +15,8 @@ class SignupForm_owner(UserCreationForm):
     email = forms.EmailField(label='Email address', widget=forms.EmailInput)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
-    company_name = forms.CharField(label='company', widget=forms.TextInput)  
-    contact = forms.CharField(label='contact', widget=forms.TextInput)
+    company_name = forms.CharField(label='company', widget=forms.TextInput, max_length=30)  
+    contact = forms.CharField(label='contact', widget=forms.TextInput, max_length=15)
 
     class Meta:
         model = owner
@@ -34,8 +40,8 @@ class SignupForm_manager(UserCreationForm):
     email = forms.EmailField(label='Email address', widget=forms.EmailInput)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
-    company_name = forms.CharField(label='company', widget=forms.TextInput)
-    contact = forms.CharField(label='contact', widget=forms.TextInput)
+    company_name = MyModelChoiceField(queryset=owner.objects.filter(is_active=True),empty_label="")
+    contact = forms.CharField(label='contact', widget=forms.TextInput, max_length=15)
 
     class Meta:
         model = manager
@@ -57,8 +63,8 @@ class SignupForm_employee(UserCreationForm):
     email = forms.EmailField(label='Email address', widget=forms.EmailInput)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
-    company_name = forms.CharField(label='company', widget=forms.TextInput)
-    contact = forms.CharField(label='contact', widget=forms.TextInput)
+    company_name = MyModelChoiceField(queryset=owner.objects.filter(is_active=True),empty_label="")
+    contact = forms.CharField(label='contact', widget=forms.TextInput, max_length=15)
 
     class Meta:
         model = employee
