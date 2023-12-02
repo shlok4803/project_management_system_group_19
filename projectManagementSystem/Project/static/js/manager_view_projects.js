@@ -143,29 +143,28 @@ function myFunction(filter) {
   var table, tr, td, i, txtValue;
   // input = document.getElementById("myInput");
   // filter = input.value.toUpperCase();
-  table = document.querySelector(".main-table");
-  tr = table.getElementsByTagName("tr");
+  table=document.querySelector("#maintable");
+  tr=table.getElementsByTagName("tr");
   if(filter==="I"){
-    filter="In Progress";
+      filter="In Progress";
   }
   if(filter==="C"){
-    filter="Completed";
+      filter="Completed";
   }
   if(filter==="R"){
-    filter="Submitted for review";
+      filter="Submitted for review";
   }
   filter=filter.toUpperCase();
   console.log(filter);
   if(filter==="SHOW ALL"){
     let filter1="IN PROGRESS";
     let filter2="COMPLETED";
-    // console.log(filter1);
     let filter3="SUBMITTED FOR REVIEW";
     for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("td")[1];
       if (td) {
         txtValue = td.textContent || td.innerText;
-        if ((txtValue.toUpperCase().indexOf(filter1) > -1) || (txtValue.toUpperCase().indexOf(filter2)>-1))  {
+        if ((txtValue.toUpperCase().indexOf(filter1) > -1) || (txtValue.toUpperCase().indexOf(filter2) > -1) || (txtValue.toUpperCase().indexOf(filter3) > -1)) {
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
@@ -174,11 +173,12 @@ function myFunction(filter) {
     }
   }
   else{
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          console.log(filter);
         tr[i].style.display = "";
       } else {
         tr[i].style.display = "none";
@@ -190,6 +190,6 @@ function myFunction(filter) {
 function getOption() {
   selectElement = document.querySelector('#select1');
   output = selectElement.value;
-  // console.log(output);
+  console.log(output);
   myFunction(output);
 }

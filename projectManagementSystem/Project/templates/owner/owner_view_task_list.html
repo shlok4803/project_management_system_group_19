@@ -57,6 +57,7 @@
                         <th>Status</th>
                         <th>Assigned employees</th>
                         <th>Deadline</th>
+                        <th>Completed</th>
                     </thead>
                     <tbody>
                         {% for task in task_instance %}
@@ -77,6 +78,17 @@
                               </td>
                                 <td class="table-data">{{ task.employeeName }} - {{task.employeeEmail}}</td>
                                 <td class="table-data">{{ task.deadline }}</td>
+                                <td class="table-data">
+                                        {% if task.status == 'C' %}
+                                            {{task.completed}}
+                                          {%if task.late%}
+                                            (Late)
+                                            {% endif %}  
+                                        {% else %}
+                                            Not Completed
+                                        {% endif %}
+                                </td>
+                                
                             </tr>
                         {% endfor %}
                     

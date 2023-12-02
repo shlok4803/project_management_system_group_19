@@ -258,8 +258,13 @@ def viewChat(request,project_id):
         allMessage.append(message.objects.get(chatID=curChatID))
         curChatID=message.objects.get(chatID=curChatID).prevMessage
     allMessage.reverse()
-
-    return render(request, 'chat_section.html', {'project':curProject,'messages': allMessage})
+    
+    user=request.user
+    if user.user_type == 'manager':
+        return render(request, 'manager/manager_chat_section.html', {'project':curProject,'messages': allMessage})
+    elif user.user_type == 'employee':
+        return render(request, 'employee/employee_chat_section.html', {'project':curProject,'messages': allMessage})
+    
     
 #Owner   
 @login_required        

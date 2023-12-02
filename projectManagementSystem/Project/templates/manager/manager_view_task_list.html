@@ -13,7 +13,7 @@
   <link rel="stylesheet"
         href="{%static 'css/manager_view_projects.css' %}">
   <link rel="stylesheet"
-        href="{%static 'css/manager_view_project_res.css' %}">
+        href="{%static 'css/manager_view_project_ress.css' %}">
 </head>
 
 <body>
@@ -31,7 +31,7 @@
     <div class="project-container">
       <div class="project-header">
         <div class="status-container">
-          <h1 class="project-header-text">My Project</h1>
+          <h1 class="project-header-text">{{project_instance.projectTitle }}</h1>
           <select id="select1" onchange="getOption()">
             <option value="Show all" selected>Show all</option>
             <option value="I">In Progress</option>
@@ -92,6 +92,6 @@
       </div>
     </div>
   </div>
-  <script src="{%static 'js/manager_view_project.js' %}"></script>
+  <script src="{%static 'js/manager_view_projects.js' %}"></script>
 </body>
 </html>
