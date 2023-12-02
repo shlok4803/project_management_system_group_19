@@ -51,14 +51,14 @@ def login_view(request):
 
 def register_view(request):
     if request.user.is_authenticated:
-        return redirect("/home")
+        return redirect("/dashboard")
     return render(request, "register.html")
 
 
 
 def register_view_owner(request):
     if request.user.is_authenticated:
-        return redirect("/home")
+        return redirect("/dashboard")
     form = SignupForm_owner()
     if request.method == 'POST':
         form = SignupForm_owner(request.POST)
@@ -74,7 +74,7 @@ def register_view_owner(request):
 
 def register_view_manager(request):
     if request.user.is_authenticated:
-        return redirect("/home")
+        return redirect("/dashboard")
     form = SignupForm_manager()
     if request.method == 'POST':
         form = SignupForm_manager(request.POST)
@@ -90,7 +90,7 @@ def register_view_manager(request):
 
 def register_view_employee(request):
     if request.user.is_authenticated:
-        return redirect("/home")
+        return redirect("/dashboard")
     form = SignupForm_employee()
     if request.method == 'POST':
         form = SignupForm_employee(request.POST)
