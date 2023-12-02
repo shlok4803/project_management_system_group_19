@@ -63,10 +63,12 @@
                 {% endif %}
             </span>
           </div>
+          {%if task_instance.status == 'R'%}
           <div class="taskdata statusbutton">
               <button>Accept</button>
               <button>Decline</button>
           </div>
+          {% endif %}
           <div class="taskdata">
               <span class="tasktitle">Employee Name: </span><span>{{ task_instance.employeeName }}</span>
           </div>

@@ -536,7 +536,7 @@ def edit_task(request, project_id, task_id):
 @login_required        
 def delete_task(request,task_id,project_id):
     user=request.user
-    if not user.user_type != 'manager':
+    if not user.user_type == 'manager':
         messages.error(request, "Only manager can delete tasks.")
         return redirect('/logout')
     #project_instance=project.objects.get(projectID=project_id)
@@ -555,11 +555,8 @@ def delete_task(request,task_id,project_id):
 def view_profile(request):
     user = request.user
 
-    company_name = None  # Default value if company name is not found
-    context = {
-        'user': user,
-        'company_name': company_name,
-    }
+    #company_name = None  # Default value if company name is not found
+    
 
 
     # Retrieve company name based on the user's type
@@ -567,15 +564,27 @@ def view_profile(request):
     if user.user_type == 'owner':
             owner_user = owner.objects.get(email=user.email)
             company_name = owner_user.company_name
+            context = {
+                 'user': user,
+                'company_name': company_name,
+            }
             return render(request, 'owner/owner_profile_page.html', context)
     elif user.user_type == 'manager':
             manager_user = manager.objects.get(email=user.email)
             company_name = manager_user.company_name.company_name
+            context = {
+                    'user': user,
+                    'company_name': company_name,
+             }
             return render(request, 'manager/manager_profile_page.html', context)
             
     elif user.user_type == 'employee':
             employee_user = employee.objects.get(email=user.email)
             company_name = employee_user.company_name.company_name
+            context = {
+             'user': user,
+            'company_name': company_name,
+            }
             return render(request, 'employee/employee_profile_page.html', context)
             
 
