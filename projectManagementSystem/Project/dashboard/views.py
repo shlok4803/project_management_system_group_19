@@ -50,10 +50,10 @@ def dashboard(request):
     
     if user.user_type == 'owner':
         # Redirect the owner to the owner dashboard
-        projects = project.objects.all()
+        projects = project.objects.filter(ownerEmail=user.email)
         recent_projects = projects.order_by('-created')[:3]
-        ongoing_count = project.objects.filter(status='O').count()
-        completed_count = project.objects.filter(status='C').count()
+        ongoing_count = project.objects.filter(status='O',ownerEmail=user.email).count()
+        completed_count = project.objects.filter(status='C',ownerEmail=user.email).count()
         context={'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count,'recent_projects':recent_projects}
         return render(request, 'owner/dashboard_owner.html', context)
     
@@ -125,26 +125,26 @@ def CreateProject(request):
 #Owner,PM,Employee
 @login_required
 def view_project(request):
-    user = request.user
-    projects = None
     
+    user = request.user
     if user.user_type == 'owner': 
         # Owners can view all projects.
-        
+        user = request.user
         projects = project.objects.filter(ownerEmail=user.email) 
         context={'projects': projects}
         return render(request,'owner/owner_view_project.html',context)
         
     elif user.user_type == 'manager': 
         # Managers can view projects they are assigned to.
-        
+        user = request.user
         projects = project.objects.filter(managerEmail=user.email)
-        ongoing_count = projects.filter(status='O').count()
-        completed_count = projects.filter(status='C').count()
+        ongoing_count = projects.filter(status='O',managerEmail=user.email).count()
+        completed_count = projects.filter(status='C',managerEmail=user.email).count()
         context={'projects': projects, 'ongoing_count': ongoing_count, 'completed_count': completed_count}
         return render(request,'manager/manager_my_project.html',context)
         
     elif user.user_type == 'employee':
+        user = request.user
         projects = project.objects.filter(projectID__in=Task.objects.filter(employeeEmail=user.email).values_list('projectID', flat=True))
         context={'projects': projects}
 
@@ -332,9 +332,9 @@ def manage_employee(request):
             task_instance=Task.objects.filter(employeeEmail=email)
             task_instance.delete()
             employee_user.delete()  
-            
+    
+    employee_instance=employee.objects.filter(company_name=owner_instance)        
     manager_instance=manager.objects.filter(company_name=owner_instance)
-    employee_instance=employee.objects.filter(company_name=owner_instance)
     
     context={'manager_instance':manager_instance,'employee_instance':employee_instance}
     
