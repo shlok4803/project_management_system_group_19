@@ -528,7 +528,7 @@ def edit_task(request, project_id, task_id):
         task_instance.taskTitle = request.POST.get('task-title')
         task_instance.description = request.POST.get('description')
         task_instance.deadline = request.POST.get('deadline')
-        assignee = request.POST['employee'].split('-')
+        assignee = request.POST['employee'].split(' - ')
         task_instance.employeeName=assignee[0]
         task_instance.employeeEmail=assignee[1]
         status=request.POST.get('taskstatus')
