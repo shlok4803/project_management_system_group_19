@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, 
 				initial-scale=1.0">
 	<title>Profile</title>
-	<link rel="stylesheet" href="{% static 'css/profile_page.css' %}">
+	<link rel="stylesheet" href="{% static 'css/profile_pages.css' %}">
 	<link rel="stylesheet" href="{% static 'css/profile_page_responsive.css' %}">
 </head>
 
@@ -53,21 +53,19 @@
 						<input type="text" name="company" id="company" value={{ company_name }} readonly>
 					</div>
 
-					<input type="button" value="Edit Profile" id="button1" onclick="editprofile()">
-
 					<div class="buttons">
-						<input id="save_button" type="button" value="Save Changes" onclick="savechanges()">
+						<div class="change-pass">
+							<a id="change_pass_button" href="{% url 'edit_profile_page'%}">Edit Profile</a>
+						</div>
 
 						<div class="change-pass">
-							<a id="change_pass_button" href="change_password.html">Change Password</a>
+							<a id="change_pass_button" href="{% url 'password_change'%}">Change Password</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<script src="{%static 'js/profile_page.js' %}"></script>
 </body>
 
 </html>
