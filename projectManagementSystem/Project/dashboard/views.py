@@ -109,7 +109,7 @@ def view_project(request):
     if user.user_type == 'owner': 
         # Owners can view all projects.
         
-        projects = project.objects.all() 
+        projects = project.objects.filter(ownerEmail=user.email) 
         context={'projects': projects}
         return render(request,'owner/owner_view_project.html',context)
         
@@ -291,6 +291,8 @@ def manage_employee(request):
         messages.error(request, "Only owners can manage employee.")
         return redirect('/logout')
     
+    owner_instance = owner.objects.get(email=request.user.email)
+
     if request.method == 'DELETE':
         email = request.GET.get('email')
         user = CustomUser.objects.get(email=email)
@@ -309,8 +311,8 @@ def manage_employee(request):
             task_instance.delete()
             employee_user.delete()  
             
-    manager_instance=manager.objects.all()
-    employee_instance=employee.objects.all()
+    manager_instance=manager.objects.filter(company_name=owner_instance)
+    employee_instance=employee.objects.filter(company_name=owner_instance)
     
     context={'manager_instance':manager_instance,'employee_instance':employee_instance}
     
@@ -547,12 +549,6 @@ def delete_task(request,task_id,project_id):
 @login_required
 def view_profile(request):
     user = request.user
-
-    #company_name = None  # Default value if company name is not found
-    
-
-
-    # Retrieve company name based on the user's type
     
     if user.user_type == 'owner':
             owner_user = owner.objects.get(email=user.email)
